@@ -125,8 +125,8 @@ public class RegisterFragment extends Fragment {
     }
 
     private void navigateToLogin() {
-        RegisterFragmentDirections.ActionRegisterFragmentToSigninFragment directions =
-                RegisterFragmentDirections.actionRegisterFragmentToSigninFragment();
+        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
+                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
 
         directions.setEmail(binding.editEmail.getText().toString());
         directions.setPassword(binding.editPassword1.getText().toString());
