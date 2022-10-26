@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_sign_in" >
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
@@ -18,12 +18,12 @@
             app:destination="@id/registerFragment" />
         <argument
             android:name="email"
-            app:argType="string"
-            android:defaultValue="default" />
+            android:defaultValue="default"
+            app:argType="string" />
         <argument
             android:name="password"
-            app:argType="string"
-            android:defaultValue="default" />
+            android:defaultValue="default"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -31,7 +31,7 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
+            android:id="@+id/action_registerFragment_to_signinFragment"
             app:destination="@id/signInFragment" />
     </fragment>
     <activity
