@@ -62,7 +62,7 @@ public class SignInFragment extends Fragment {
 
         binding.buttonToRegister.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
+                        SignInFragmentDirections.actionLoginFragmentToRegisterFragment()
                 ));
 
         binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
@@ -110,7 +110,7 @@ public class SignInFragment extends Fragment {
     private void navigateToSuccess(final String email, final String jwt) {
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
-                        .actionSignInFragmentToMainActivity(email, jwt));
+                        .actionLoginFragmentToMainActivity(email, jwt));
     }
 
     /**
