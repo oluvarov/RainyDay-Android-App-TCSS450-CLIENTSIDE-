@@ -4,6 +4,7 @@
 
 # added by Hussein:
 vcs.xml
+checkstyle-idea.xml
 
 # suggested by Oleg for Hussein, from this github repo:
 # https://github.com/github/gitignore/blob/main/Android.gitignore
