@@ -2,6 +2,9 @@
 /shelf/
 /workspace.xml
 
+# added by Hussein:
+vcs.xml
+
 # suggested by Oleg for Hussein, from this github repo:
 # https://github.com/github/gitignore/blob/main/Android.gitignore
 
