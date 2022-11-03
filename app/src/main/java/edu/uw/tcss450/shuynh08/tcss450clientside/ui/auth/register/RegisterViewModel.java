@@ -61,6 +61,14 @@ public class RegisterViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * User inputs their name, email, and password. Info is sent over to API
+     * in order to register them.
+     * @param first
+     * @param last
+     * @param email
+     * @param password
+     */
     public void connect(final String first,
                         final String last,
                         final String email,

@@ -102,6 +102,11 @@ public class SignInFragment extends Fragment {
         //result of connect().
     }
 
+    private void verifyVerificationWithServer() {
+        mSignInModel.connectVerified(
+                binding.editEmail.getText().toString()
+        );
+    }
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
