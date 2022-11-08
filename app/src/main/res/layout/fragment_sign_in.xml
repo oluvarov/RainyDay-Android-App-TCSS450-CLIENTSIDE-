@@ -23,6 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_fifty"
         android:layout_width="wrap_content"
@@ -64,8 +65,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/action_register_short"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/color3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/outlinedTextField"-->
+<!--        android:layout_width="394dp"-->
+<!--        android:layout_height="57dp"-->
+<!--        android:hint="@string/hint_password"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/edit_email"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:startIconContentDescription="Hello"-->
+<!--        app:startIconDrawable="@drawable/ic_home_black_24dp">-->
+
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
