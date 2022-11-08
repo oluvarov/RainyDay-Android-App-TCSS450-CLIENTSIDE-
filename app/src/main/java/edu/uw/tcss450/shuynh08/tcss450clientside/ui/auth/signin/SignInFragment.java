@@ -90,17 +90,18 @@ public class SignInFragment extends Fragment {
     private void validatePassword() {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.editPassword.getText().toString()),
-                this::verifyAuthWithServer,
+                this::verifyVerificationWithServer,
                 result -> binding.editPassword.setError("Please enter a valid Password."));
     }
 
-    private void verifyAuthWithServer() {
+    /*private void verifyAuthWithServer() {
         mSignInModel.connect(
                 binding.editEmail.getText().toString(),
                 binding.editPassword.getText().toString());
+        verifyVerificationWithServer();
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
-    }
+    }*/
 
     private void verifyVerificationWithServer() {
         mSignInModel.connectVerified(

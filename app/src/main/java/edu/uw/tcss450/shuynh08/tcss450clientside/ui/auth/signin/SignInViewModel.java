@@ -123,12 +123,15 @@ public class SignInViewModel extends AndroidViewModel {
                 mResponse::setValue,
                 this::handleError);
 
+
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
+        /*Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);*/
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
     }
 }
