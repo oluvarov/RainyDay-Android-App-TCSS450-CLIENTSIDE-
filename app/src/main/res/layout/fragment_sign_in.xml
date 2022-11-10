@@ -57,6 +57,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password" />
 
+    <!--Style=filled, State=enabled, Text configurations=input-text, Leading icon=false, Trailing icon=True
+
+Use a text field when someone needs to enter text into a UI, such as filling in contact or payment information.
+
+🛠 Additional options
+Support text - you can toggle supporting text between hide and show.
+-->
+
+
+    <!-- drawable/style_fille.xml -->
+
+
+    <RelativeLayout
+        android:id="@+id/style_fille"
+        android:layout_width="210dp"
+        android:layout_height="56dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="124dp" />
+
     <Button
         android:id="@+id/button_to_register"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -69,7 +90,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password" />
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
+    <Button
+        android:id="@+id/button_forgot_get_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/action_forget_password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
 <!--        android:id="@+id/outlinedTextField"-->
 <!--        android:layout_width="394dp"-->
 <!--        android:layout_height="57dp"-->

@@ -65,6 +65,10 @@ public class SignInFragment extends Fragment {
                         SignInFragmentDirections.actionLoginFragmentToRegisterFragment()
                 ));
 
+        binding.buttonForgotGetPassword.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
+                ));
         binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
         mSignInModel.addResponseObserver(
@@ -102,11 +106,11 @@ public class SignInFragment extends Fragment {
         //result of connect().
     }
 
-    /*private void verifyVerificationWithServer() {
+    private void verifyVerificationWithServer() {
         mSignInModel.connectVerified(
                 binding.editEmail.getText().toString()
         );
-    }*/
+    }
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
