@@ -98,15 +98,17 @@ public class SignInFragment extends Fragment {
         mSignInModel.connect(
                 binding.editEmail.getText().toString(),
                 binding.editPassword.getText().toString());
+
+        mSignInModel.connectVerified(
+                binding.editEmail.getText().toString()
+        );
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
     }
 
-    /*private void verifyVerificationWithServer() {
-        mSignInModel.connectVerified(
-                binding.editEmail.getText().toString()
-        );
-    }*/
+    //private void verifyVerificationWithServer() {}
+
+
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
@@ -132,7 +134,7 @@ public class SignInFragment extends Fragment {
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
+                    Log.e("JSON Parse Error1", e.getMessage());
                 }
             } else {
                 try {

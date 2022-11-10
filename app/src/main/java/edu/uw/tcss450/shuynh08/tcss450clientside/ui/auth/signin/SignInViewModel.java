@@ -86,6 +86,8 @@ public class SignInViewModel extends AndroidViewModel {
                 null, //no body for this get request
                 mResponse::setValue,
                 this::handleError) {
+
+
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -98,6 +100,8 @@ public class SignInViewModel extends AndroidViewModel {
                 return headers;
             }
         };
+
+
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -111,6 +115,7 @@ public class SignInViewModel extends AndroidViewModel {
         String url = "https://tcss450-weather-chat.herokuapp.com/verification/status";
 
         JSONObject body = new JSONObject();
+
         try {
             body.put("email", email);
         } catch (JSONException e) {
@@ -132,6 +137,7 @@ public class SignInViewModel extends AndroidViewModel {
 
         /*Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);*/
+
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }

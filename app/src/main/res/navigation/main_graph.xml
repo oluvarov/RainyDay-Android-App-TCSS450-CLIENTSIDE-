@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.HomeFragment"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
@@ -25,4 +25,9 @@
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherFragment"
         android:label="fragment_weather"
         tools:layout="@layout/fragment_weather" />
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>
