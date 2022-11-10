@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.signin.SignInFragment">
 
+    <TextView
+        android:id="@+id/text_forgot_password2"
+        android:layout_width="197dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="112dp"
+        android:gravity="center"
+        android:text="Sign In"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="0dp"
@@ -68,15 +81,6 @@ Support text - you can toggle supporting text between hide and show.
 
     <!-- drawable/style_fille.xml -->
 
-
-    <RelativeLayout
-        android:id="@+id/style_fille"
-        android:layout_width="210dp"
-        android:layout_height="56dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="124dp" />
 
     <Button
         android:id="@+id/button_to_register"

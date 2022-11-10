@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.register.RegisterFragment">
 
+    <TextView
+        android:id="@+id/text_forgot_password3"
+        android:layout_width="197dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Register"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_fifty"
         android:layout_width="wrap_content"
