@@ -65,6 +65,10 @@ public class SignInFragment extends Fragment {
                         SignInFragmentDirections.actionLoginFragmentToRegisterFragment()
                 ));
 
+        binding.buttonForgotGetPassword.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
+                ));
         binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
         mSignInModel.addResponseObserver(
@@ -98,17 +102,15 @@ public class SignInFragment extends Fragment {
         mSignInModel.connect(
                 binding.editEmail.getText().toString(),
                 binding.editPassword.getText().toString());
-
-        mSignInModel.connectVerified(
-                binding.editEmail.getText().toString()
-        );
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
     }
 
-    //private void verifyVerificationWithServer() {}
-
-
+    private void verifyVerificationWithServer() {
+        mSignInModel.connectVerified(
+                binding.editEmail.getText().toString()
+        );
+    }
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
@@ -134,7 +136,7 @@ public class SignInFragment extends Fragment {
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
-                    Log.e("JSON Parse Error1", e.getMessage());
+                    Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
                 try {
