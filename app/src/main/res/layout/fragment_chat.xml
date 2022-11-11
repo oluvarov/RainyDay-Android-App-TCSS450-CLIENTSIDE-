@@ -19,6 +19,6 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/hint_password"
         android:text="@string/chat_new_chatroom"
-        app:icon="@drawable/ic_chat_addcomment_black_24dp"/>
+        app:icon="@drawable/ic_chat_addcomment_black_24dp" />
 
 </FrameLayout>
