@@ -69,11 +69,21 @@ public class SignInFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(
                         SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
                 ));
-        binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
+       // binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
-        mSignInModel.addResponseObserver(
+        binding.buttonSignIn.setOnClickListener(button -> {
+            attemptSignIn(binding.buttonSignIn);
+            binding.layoutWait.setVisibility(View.VISIBLE);
+        });
+
+        /*mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
-                this::observeResponse);
+                this::observeResponse);*/
+
+        mSignInModel.addResponseObserver(getViewLifecycleOwner(), result-> {
+                observeResponse(result);
+                binding.layoutWait.setVisibility(View.GONE);
+                });
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
         binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());

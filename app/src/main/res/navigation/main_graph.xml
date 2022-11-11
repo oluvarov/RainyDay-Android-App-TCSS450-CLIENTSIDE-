@@ -29,5 +29,22 @@
         android:id="@+id/navigation_account"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_navigation_account_to_changeNameFragment"
+            app:destination="@id/changeNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changepassword.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameFragment"
+        android:label="fragment_change_name"
+        tools:layout="@layout/fragment_change_name" />
 </navigation>
