@@ -1,6 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename;
 
 import android.app.Application;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -73,20 +74,20 @@ public class ChangeNameViewModel extends AndroidViewModel {
     public void connect(final String first,
                         final String last,
                         final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/auth";
+        String url = "https://tcss450-weather-chat.herokuapp.com/user/update/name";
 
-        JSONObject body = new JSONObject();
+        /*JSONObject body = new JSONObject();
         try {
             body.put("firstname", first);
             body.put("lastname", last);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
         Request request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
-                body,
+                null,
                 mResponse::setValue,
                 this::handleError) {
 
@@ -94,7 +95,7 @@ public class ChangeNameViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("Authorization", "bearer" + jwt);
+                headers.put("Authorization", "Bearer "  + jwt);
                 headers.put("firstname", first);
                 headers.put("lastname", last);
                 return headers;

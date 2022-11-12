@@ -4,6 +4,7 @@ import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +41,7 @@ public class ChangeNameFragment extends Fragment {
 
     private PasswordValidator mNameValidator = checkPwdLength(1);
 
-    private UserInfoViewModel model = new ViewModelProvider(getActivity())
-            .get(UserInfoViewModel.class);
+    private UserInfoViewModel model;
 
     public ChangeNameFragment() {
         // Required empty public constructor
@@ -62,7 +65,7 @@ public class ChangeNameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
+        model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
 
         binding.buttonUpdatename.setOnClickListener(this::attemptChangeName);
@@ -92,10 +95,12 @@ public class ChangeNameFragment extends Fragment {
     }
 
     private void verifyChangeNameWithServer() {
+        System.out.println(model.getmJwt());
         mChangeNameModel.connect(
                 binding.editFirst.getText().toString(),
                 binding.editLast.getText().toString(),
                 model.getmJwt());
+
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
 
@@ -111,6 +116,7 @@ public class ChangeNameFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
+                    System.out.println("UNEXPECTED");
                     binding.editFirst.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
@@ -118,7 +124,10 @@ public class ChangeNameFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                //navigateToLogin();
+
+                Snackbar snackbar = Snackbar.make(binding.buttonUpdatename,"Name successfully changed.",Snackbar.LENGTH_SHORT);
+                snackbar.show();
+
             }
         } else {
             Log.d("JSON Response", "No Response");
