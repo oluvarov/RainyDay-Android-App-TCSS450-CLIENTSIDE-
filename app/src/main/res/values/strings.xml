@@ -16,4 +16,6 @@
     <string name="forgot_description">Provide your account\'s email address to reset your password</string>
     <string name="forgot_button_next">Next</string>
     <string name="chat_new_chatroom">New Chatroom</string>
+    <string name="button_account_signOut">Sign Out</string>
+
 </resources>
