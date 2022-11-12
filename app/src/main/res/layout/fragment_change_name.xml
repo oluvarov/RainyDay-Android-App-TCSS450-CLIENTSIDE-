@@ -24,14 +24,16 @@
         android:id="@+id/button_updatename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="192dp"
         android:text="Update Name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_last_name" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_first"
+        android:id="@+id/layout_first_name"
         android:layout_width="386dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -44,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_change_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_first"
+            android:id="@+id/edit_first_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPersonName" />
@@ -52,7 +54,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_last"
+        android:id="@+id/layout_last_name"
         android:layout_width="386dp"
         android:layout_height="62dp"
         android:hint="@string/hint_last"
@@ -60,11 +62,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_first"
+        app:layout_constraintTop_toBottomOf="@+id/layout_first_name"
         app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_last"
+            android:id="@+id/edit_last_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPersonName" />

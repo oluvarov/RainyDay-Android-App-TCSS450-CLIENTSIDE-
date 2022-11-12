@@ -82,23 +82,23 @@ public class ChangeNameFragment extends Fragment {
 
     private void validateFirst() {
         mNameValidator.processResult(
-                mNameValidator.apply(binding.editFirst.getText().toString().trim()),
+                mNameValidator.apply(binding.editFirstName.getText().toString().trim()),
                 this::validateLast,
-                result -> binding.editFirst.setError("Please enter a first name."));
+                result -> binding.editFirstName.setError("Please enter a first name."));
     }
 
     private void validateLast() {
         mNameValidator.processResult(
-                mNameValidator.apply(binding.editLast.getText().toString().trim()),
+                mNameValidator.apply(binding.editLastName.getText().toString().trim()),
                 this::verifyChangeNameWithServer,
-                result -> binding.editLast.setError("Please enter a last name."));
+                result -> binding.editLastName.setError("Please enter a last name."));
     }
 
     private void verifyChangeNameWithServer() {
         System.out.println(model.getmJwt());
         mChangeNameModel.connect(
-                binding.editFirst.getText().toString(),
-                binding.editLast.getText().toString(),
+                binding.editFirstName.getText().toString(),
+                binding.editLastName.getText().toString(),
                 model.getmJwt());
 
         //This is an Asynchronous call. No statements after should rely on the
@@ -117,7 +117,7 @@ public class ChangeNameFragment extends Fragment {
             if (response.has("code")) {
                 try {
                     System.out.println("UNEXPECTED");
-                    binding.editFirst.setError(
+                    binding.editFirstName.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
