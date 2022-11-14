@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.account;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.uw.tcss450.shuynh08.tcss450clientside.AuthActivity;
+import edu.uw.tcss450.shuynh08.tcss450clientside.MainActivity;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAccountBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentRegisterBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.register.RegisterViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragment;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragmentDirections;
 
 /**
@@ -59,5 +64,16 @@ public class AccountFragment extends Fragment {
                         AccountFragmentDirections.actionNavigationAccountToChangePasswordFragment()
                 ));
 
+        binding.buttonAccountSignout.setOnClickListener(button ->
+                startAuthActivity());
+
+    }
+
+    public void startAuthActivity() {
+        SignInFragment nextFrag= new SignInFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, nextFrag, "SignInFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }
