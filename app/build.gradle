@@ -55,4 +55,7 @@ dependencies {
     //Rounded Image view
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    // For Pushy
+    implementation 'me.pushy:sdk:1.0.81'
+
 }
