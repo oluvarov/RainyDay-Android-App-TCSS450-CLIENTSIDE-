@@ -79,7 +79,7 @@ public class SignInViewModel extends AndroidViewModel {
      */
     public void connect(final String email, final String password) {
         String url = "https://tcss450-weather-chat.herokuapp.com/auth";
-
+        System.out.println("I'm connecting");
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,

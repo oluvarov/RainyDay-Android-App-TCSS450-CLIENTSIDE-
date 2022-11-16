@@ -24,7 +24,7 @@
     <string name="button_account_signOut">Sign out</string>
 
     <!-- Placeholder for chat functionality -->
-    <string name="base_url_service">https://shuynh08-tcss450-labs-service.herokuapp.com/</string>
+    <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
     <string name="base_url_auth">https://shuynh08-tcss450-labs-auth.herokuapp.com/</string>
 
 </resources>
