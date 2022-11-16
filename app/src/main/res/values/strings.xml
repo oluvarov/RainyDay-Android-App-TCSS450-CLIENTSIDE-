@@ -22,4 +22,8 @@
     <string name="title_password">Change Password</string>
     <string name="password_update">Update Password</string>
     <string name="button_account_signOut">Sign out</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_name">Change Name</string>
+    <string name="account_details">Account Details</string>
+    <string name="register">Register</string>
 </resources>
