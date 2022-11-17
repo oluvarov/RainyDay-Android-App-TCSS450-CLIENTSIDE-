@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,6 +79,7 @@ public class ForgotPasswordFragment extends Fragment {
      * @param response the Response from the server
      */
     private void observeResponse(final JSONObject response) {
+        Log.i("info", "connect: " + response);
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
@@ -87,7 +90,8 @@ public class ForgotPasswordFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-
+                Snackbar snackbar = Snackbar.make(binding.buttonForgotGetPassword,"Successful! New password sent to your email.",Snackbar.LENGTH_SHORT);
+                snackbar.show();
             }
         } else {
             Log.d("JSON Response", "No Response");

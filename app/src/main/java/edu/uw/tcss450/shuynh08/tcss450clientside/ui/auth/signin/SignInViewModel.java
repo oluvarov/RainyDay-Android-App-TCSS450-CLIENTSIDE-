@@ -140,5 +140,6 @@ public class SignInViewModel extends AndroidViewModel {
 
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
+        Log.i("info", "connect: " + request.toString());
     }
 }

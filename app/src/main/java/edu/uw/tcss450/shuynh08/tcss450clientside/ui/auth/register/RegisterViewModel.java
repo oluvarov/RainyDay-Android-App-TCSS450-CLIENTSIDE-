@@ -99,5 +99,6 @@ public class RegisterViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
+        Log.i("info", "connect: " + request);
     }
 }
