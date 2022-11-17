@@ -66,7 +66,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
      * @param email
      */
     public void connect(final String email) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/auth";
+        String url = "https://tcss450-weather-chat.herokuapp.com/forgotpassword";
 
         JSONObject body = new JSONObject();
         try {
