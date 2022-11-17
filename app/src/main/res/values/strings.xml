@@ -22,9 +22,8 @@
     <string name="title_password">Change Password</string>
     <string name="password_update">Update Password</string>
     <string name="button_account_signOut">Sign out</string>
-
-    <!-- Placeholder for chat functionality -->
-    <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
-    <string name="base_url_auth">https://shuynh08-tcss450-labs-auth.herokuapp.com/</string>
-
+    <string name="change_password">Change Password</string>
+    <string name="change_name">Change Name</string>
+    <string name="account_details">Account Details</string>
+    <string name="registration">Account Registration</string>
 </resources>
