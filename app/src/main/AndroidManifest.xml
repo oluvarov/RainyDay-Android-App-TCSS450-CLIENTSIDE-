@@ -3,6 +3,7 @@
     package="edu.uw.tcss450.shuynh08.tcss450clientside">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <!-- Pushy Permissions -->
 

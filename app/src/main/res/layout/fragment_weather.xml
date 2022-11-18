@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherFragment">
+    tools:context=".ui.weather.WeatherFragment" >
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_weather_location"
+        android:layout_width="386dp"
+        android:layout_height="64dp"
+        android:hint="@string/hint_first"
+        app:boxStrokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_weather">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_current"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="Current"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_weather_location" />
+
+    <Button
+        android:id="@+id/button_24hour"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="84dp"
+        android:text="24-Hour"
+        app:layout_constraintStart_toEndOf="@+id/button_current"
+        app:layout_constraintTop_toBottomOf="@+id/text_weather" />
+
+    <Button
+        android:id="@+id/button_7day"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:text="7 Day"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_24hour"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.281" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/text_weather"
+        android:layout_width="197dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/title_weather"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/getIPAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="24dp"
+        android:text="IP address of your Device"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_24hour" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
