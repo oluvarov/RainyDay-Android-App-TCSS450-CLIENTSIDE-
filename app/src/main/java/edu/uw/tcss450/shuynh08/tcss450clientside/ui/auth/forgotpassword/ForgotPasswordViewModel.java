@@ -74,7 +74,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        Log.i("info", "connect: " + email);
         Request request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -89,5 +89,6 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
+        Log.i("info", "connect: " + request);
     }
 }

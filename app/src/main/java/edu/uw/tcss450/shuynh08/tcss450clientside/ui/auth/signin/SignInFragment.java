@@ -203,6 +203,7 @@ public class SignInFragment extends Fragment {
      * @param response the Response from the server
      */
     private void observePushyPutResponse(final JSONObject response) {
+        Log.i("info", "connect: " + response);
         if (response.length() > 0) {
             if (response.has("code")) {
                 //this error cannot be fixed by the user changing credentials...
