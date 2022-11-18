@@ -88,6 +88,8 @@ public class ChatViewModel extends AndroidViewModel {
      * @param jwt the users signed JWT
      */
     public void getFirstMessages(final int chatId, final String jwt) {
+        System.out.println("FirstMessages");
+        System.out.println(jwt);
         String url = getApplication().getResources().getString(R.string.base_url_service) +
                 "messages/" + chatId;
 

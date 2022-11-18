@@ -74,25 +74,15 @@ public class WeatherFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editEmail.setError(
+                    binding.editLocation.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                try {
-                    mUserViewModel = new ViewModelProvider(getActivity(),
-                            new UserInfoViewModel.UserInfoViewModelFactory(
-                                    binding.editEmail.getText().toString(),
-                                    response.getString("token")
-                            )).get(UserInfoViewModel.class);
 
-                    sendPushyToken();
 
-                } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
-                }
             }
         } else {
             Log.d("JSON Response", "No Response");

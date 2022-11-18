@@ -13,26 +13,43 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChangeNameBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameViewModel;
 
 public class ContactsFragment extends Fragment {
 
-    private ContactsViewModel mViewModel;
+    private ContactsViewModel mContactsModel;
 
-    public static ContactsFragment newInstance() {
-        return new ContactsFragment();
+    private FragmentContactsBinding binding;
+
+    public ContactsFragment() {
+        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_contacts, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContactsModel = new ViewModelProvider(getActivity())
+                .get(ContactsViewModel.class);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
-        // TODO: Use the ViewModel
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentContactsBinding.inflate(inflater);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
+
+
     }
 
 }
