@@ -41,21 +41,20 @@
         android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="20dp"
         android:text="24-Hour"
         app:layout_constraintStart_toEndOf="@+id/button_current"
-        app:layout_constraintTop_toBottomOf="@+id/text_weather" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_weather_location" />
 
     <Button
         android:id="@+id/button_5day"
         android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
+        android:layout_marginTop="20dp"
         android:text="7 Day"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_24hour"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_weather_location" />
 
     <TextView
         android:id="@+id/text_weather"
@@ -75,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="IP address of your Device"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -88,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="City Name"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -101,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Weather Type"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -114,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Weather Description"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -127,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Temperature"
         android:textSize="25sp"
         android:textStyle="bold"
