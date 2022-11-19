@@ -11,7 +11,7 @@
         android:id="@+id/layout_weather_location"
         android:layout_width="386dp"
         android:layout_height="64dp"
-        android:hint="@string/hint_first"
+        android:hint="Text Here"
         app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_weather" />
 
     <Button
-        android:id="@+id/button_7day"
+        android:id="@+id/button_5day"
         android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/getIPAddress"
+        android:id="@+id/text_IP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -82,5 +82,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_24hour" />
+
+    <TextView
+        android:id="@+id/text_cityname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:text="City Name"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_IP" />
+
+    <TextView
+        android:id="@+id/text_weathertype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:text="Weather Type"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_cityname" />
+
+    <TextView
+        android:id="@+id/text_weatherdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:text="Weather Description"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_weathertype" />
+
+    <TextView
+        android:id="@+id/text_weathertemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:text="Temperature"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_weatherdescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

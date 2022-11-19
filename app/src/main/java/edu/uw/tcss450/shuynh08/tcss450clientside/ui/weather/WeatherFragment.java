@@ -17,8 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
@@ -29,6 +33,8 @@ public class WeatherFragment extends Fragment {
     private FragmentWeatherBinding binding;
 
     private WeatherViewModel mWeatherModel;
+
+    String ip;
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -53,15 +59,63 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context = requireContext().getApplicationContext();
+        /*Context context = requireContext().getApplicationContext();
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        binding.getIPAddress.setText("Your Device IP Address: " + ip);
-        System.out.println(ip);
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
+
+        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
+
+        binding.textIP.setText("Your Fake IP Address: " + ip);
+
+        binding.buttonCurrent.setOnClickListener(this::attemptCurrentWeather);
+
+        binding.button24hour.setOnClickListener(this::attempt24HourWeather);
+
+        binding.button5day.setOnClickListener(this::attempt5DayWeather);
+
 
         mWeatherModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeResponse);
+    }
+
+    private void attemptCurrentWeather(final View button) {
+        mWeatherModel.connectCurrent(ip);
+    }
+
+    private void attempt24HourWeather(final View button) {
+
+    }
+
+    private void attempt5DayWeather(final View button) {
+
+    }
+
+    private void setUpWeather(JSONObject response) {
+        System.out.println(response);
+        try {
+            JSONArray weather = response.getJSONArray("weather");
+            System.out.println("weather :" + weather);
+            JSONObject weatherObject = weather.getJSONObject(0);
+
+            //JSONObject weatherTypeObject = weather.getJSONObject(1);
+            String weatherType = weatherObject.getString("main");
+
+            //JSONObject weatherDescriptionObject = weather.getJSONObject(2);
+            String weatherDescription = weatherObject.getString("description");
+
+            JSONObject tempObject = response.getJSONObject("main");
+            double temp = tempObject.getDouble("temp");
+
+            String city = response.getString("name");
+
+            binding.textWeathertype.setText(weatherType);
+            binding.textWeatherdescription.setText(weatherDescription);
+            binding.textWeathertemp.setText(Double.toString(temp));
+            binding.textCityname.setText(city);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -81,8 +135,7 @@ public class WeatherFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-
-
+                setUpWeather(response);
             }
         } else {
             Log.d("JSON Response", "No Response");
