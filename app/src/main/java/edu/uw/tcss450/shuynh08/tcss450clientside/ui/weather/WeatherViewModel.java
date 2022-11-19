@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,23 +29,24 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
 public class WeatherViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mResponse;
+    private MutableLiveData<JSONObject> mWeather;
 
     public WeatherViewModel(@NonNull Application application) {
         super(application);
-        mResponse = new MutableLiveData<>();
-        mResponse.setValue(new JSONObject());
+        mWeather = new MutableLiveData<>();
+        mWeather.setValue(new JSONObject());
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
-        mResponse.observe(owner, observer);
+        mWeather.observe(owner, observer);
     }
+
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
-                mResponse.setValue(new JSONObject("{" +
+                mWeather.setValue(new JSONObject("{" +
                         "error:\"" + error.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
@@ -58,7 +60,7 @@ public class WeatherViewModel extends AndroidViewModel {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mResponse.setValue(response);
+                mWeather.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
@@ -72,7 +74,7 @@ public class WeatherViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                mResponse::setValue,
+                mWeather::setValue,
                 this::handleError) {
 
 

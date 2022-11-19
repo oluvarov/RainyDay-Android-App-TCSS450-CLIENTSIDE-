@@ -26,6 +26,7 @@
     <string name="change_name">Change Name</string>
     <string name="account_details">Account Details</string>
     <string name="registration">Account Registration</string>
+    <string name="action_link">Full Post</string>
 
     <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
 
