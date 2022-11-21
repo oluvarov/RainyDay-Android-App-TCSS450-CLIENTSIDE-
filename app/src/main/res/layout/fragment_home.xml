@@ -8,6 +8,20 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
+        android:id="@+id/text_home"
+        android:layout_width="197dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/title_home"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/layout_first_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/text_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

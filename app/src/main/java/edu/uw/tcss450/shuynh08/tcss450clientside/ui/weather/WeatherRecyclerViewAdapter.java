@@ -56,7 +56,7 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
             binding.textCity.setText(weather.getCity());
             binding.textType.setText(weather.getWeatherType());
             binding.textDesc.setText(weather.getWeatherDescription());
-            binding.textTemp.setText(Double.toString(weather.getTemperature()));
+            binding.textTemp.setText(Double.toString(weather.getTemperature()) + "\u00B0" + "C");
         }
 
 

@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_inner"
         android:layout_width="match_parent"
@@ -18,10 +19,11 @@
             android:id="@+id/text_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/color2"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
+            android:text="City Name"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -37,6 +39,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
+            android:text="Weather Type"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +54,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
+            android:text="Weather Description"
             android:textAppearance="?attr/textAppearanceListItem"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Hello"
+            android:text="25 "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_desc" />
 
