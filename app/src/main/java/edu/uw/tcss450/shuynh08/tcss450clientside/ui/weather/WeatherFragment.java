@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.format.Formatter;
 import android.util.Log;
@@ -23,6 +25,8 @@ import org.json.JSONObject;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
@@ -33,8 +37,11 @@ public class WeatherFragment extends Fragment {
     private FragmentWeatherBinding binding;
 
     private WeatherViewModel mWeatherModel;
+    private  WeatherViewModel mWeatherModel24Hour;
+    private  WeatherViewModel mWeatherModel5Day;
+    private RecyclerView recyclerView;
 
-    String ip;
+    private String ip;
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -44,6 +51,10 @@ public class WeatherFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWeatherModel = new ViewModelProvider(getActivity())
+                .get(WeatherViewModel.class);
+        mWeatherModel24Hour = new ViewModelProvider(getActivity())
+                .get(WeatherViewModel.class);
+        mWeatherModel5Day = new ViewModelProvider(getActivity())
                 .get(WeatherViewModel.class);
 
     }
@@ -73,10 +84,21 @@ public class WeatherFragment extends Fragment {
 
         binding.button5day.setOnClickListener(this::attempt5DayWeather);
 
+        recyclerView = binding.listRoot;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         mWeatherModel.addResponseObserver(
                 getViewLifecycleOwner(),
-                this::observeResponse);
+                this::observeWeatherCurrent);
+
+        mWeatherModel24Hour.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeWeather24Hour);
+
+        mWeatherModel5Day.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeWeather5Day);
     }
 
     private void attemptCurrentWeather(final View button) {
@@ -84,14 +106,14 @@ public class WeatherFragment extends Fragment {
     }
 
     private void attempt24HourWeather(final View button) {
-
+        mWeatherModel24Hour.connect24Hour(ip);
     }
 
     private void attempt5DayWeather(final View button) {
-
+        mWeatherModel5Day.connect5Days(ip);
     }
 
-    private void setUpWeather(JSONObject response) {
+    private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {
             JSONArray weather = response.getJSONArray("weather");
@@ -108,11 +130,46 @@ public class WeatherFragment extends Fragment {
             double temp = tempObject.getDouble("temp");
 
             String city = response.getString("name");
-
+            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city);
+            List<Weather> weatherList = new ArrayList<>();
+            weatherList.add(weatherThing);
             binding.textWeathertype.setText(weatherType);
             binding.textWeatherdescription.setText(weatherDescription);
             binding.textWeathertemp.setText(Double.toString(temp));
             binding.textCityname.setText(city);
+            recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setUp24Hour(JSONObject response) {
+        System.out.println(response);
+    }
+
+    private void setUp5Day(JSONObject response) {
+        System.out.println(response);
+        try {
+            List<Weather> weatherList = new ArrayList<>();
+
+            JSONObject cityObj = response.getJSONObject("city");
+            String city = cityObj.getString("name");
+
+            JSONArray arrayOfWeather = response.getJSONArray("list");
+            for (int i = 0; i < arrayOfWeather.length(); i++) {
+                JSONObject listObj = arrayOfWeather.getJSONObject(i);
+                JSONObject mainObj = listObj.getJSONObject("main");
+                Double temp = mainObj.getDouble("temp");
+
+                JSONArray weatherArray = listObj.getJSONArray("weather");
+                JSONObject weatherObj = weatherArray.getJSONObject(0);
+                String weatherType = weatherObj.getString("main");
+                String weatherDescription = weatherObj.getString("description");
+
+                weatherList.add(new Weather(weatherType, weatherDescription, temp, city));
+            }
+            recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -124,7 +181,7 @@ public class WeatherFragment extends Fragment {
      *
      * @param response the Response from the server
      */
-    private void observeResponse(final JSONObject response) {
+    private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
@@ -135,7 +192,43 @@ public class WeatherFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                setUpWeather(response);
+                setUpCurrent(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
+
+    private void observeWeather24Hour(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.editLocation.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUp24Hour(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
+
+    private void observeWeather5Day(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.editLocation.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUp5Day(response);
             }
         } else {
             Log.d("JSON Response", "No Response");
