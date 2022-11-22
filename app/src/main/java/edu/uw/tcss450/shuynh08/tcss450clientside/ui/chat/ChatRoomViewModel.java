@@ -1,7 +1,6 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat;
 
 import android.app.Application;
-import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,38 +14,39 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-public class WeatherViewModel extends AndroidViewModel {
+public class ChatRoomViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mWeather;
+    private MutableLiveData<JSONObject> mChatRoom;
 
-    public WeatherViewModel(@NonNull Application application) {
+    public ChatRoomViewModel(@NonNull Application application) {
         super(application);
-        mWeather = new MutableLiveData<>();
-        mWeather.setValue(new JSONObject());
+        mChatRoom = new MutableLiveData<>();
+        mChatRoom.setValue(new JSONObject());
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
-        mWeather.observe(owner, observer);
+        mChatRoom.observe(owner, observer);
     }
 
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
-                mWeather.setValue(new JSONObject("{" +
+                mChatRoom.setValue(new JSONObject("{" +
                         "error:\"" + error.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
@@ -60,21 +60,49 @@ public class WeatherViewModel extends AndroidViewModel {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mWeather.setValue(response);
+                mChatRoom.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
     }
 
-    public void connectCurrent(final String ip) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/weather/current";
+    public void connectMemberInfo(final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/user/";
+
+        Request request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                mChatRoom::setValue,
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", "Bearer "  + jwt);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    public void connectChatRoom(final int memberID, final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/user/list/chat";
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                mWeather::setValue,
+                mChatRoom::setValue,
                 this::handleError) {
 
 
@@ -82,7 +110,8 @@ public class WeatherViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("ip", ip);
+                headers.put("memberID", Integer.toString(memberID));
+                headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
         };
@@ -96,63 +125,6 @@ public class WeatherViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    public void connect24Hour(final String ip) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/weather/today";
-
-        Request request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null, //no body for this get request
-                mWeather::setValue,
-                this::handleError) {
-
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("ip", ip);
-                return headers;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
-
-    public void connect5Days(final String ip) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
-
-        Request request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null, //no body for this get request
-                mWeather::setValue,
-                this::handleError) {
-
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("ip", ip);
-                return headers;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
 
 
 

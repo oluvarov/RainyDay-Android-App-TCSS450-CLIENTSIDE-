@@ -20,7 +20,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 public class ChatFragment extends Fragment {
 
     //The chat ID for "global" chat
-    private static final int HARD_CODED_CHAT_ID = 1;
+    private static int HARD_CODED_CHAT_ID;
 
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
@@ -33,6 +33,8 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ChatFragmentArgs args = ChatFragmentArgs.fromBundle(getArguments());
+        HARD_CODED_CHAT_ID = args.getChatID();
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatViewModel.class);

@@ -2,8 +2,6 @@ package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,24 +20,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
-import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
 
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
-
-    private WeatherViewModel mWeatherModel;
-    private  WeatherViewModel mWeatherModel24Hour;
-    private  WeatherViewModel mWeatherModel5Day;
+    private WeatherCurrentViewModel mWeatherCurrentModel;
+    private Weather24HourViewModel mWeather24HourModel;
+    private Weather5DayViewModel mWeather5DayModel;
     private RecyclerView recyclerView;
-
     private String ip;
 
     public WeatherFragment() {
@@ -50,12 +43,12 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mWeatherModel = new ViewModelProvider(getActivity())
-                .get(WeatherViewModel.class);
-        mWeatherModel24Hour = new ViewModelProvider(getActivity())
-                .get(WeatherViewModel.class);
-        mWeatherModel5Day = new ViewModelProvider(getActivity())
-                .get(WeatherViewModel.class);
+        mWeatherCurrentModel = new ViewModelProvider(getActivity())
+                .get(WeatherCurrentViewModel.class);
+        mWeather24HourModel = new ViewModelProvider(getActivity())
+                .get(Weather24HourViewModel.class);
+        mWeather5DayModel = new ViewModelProvider(getActivity())
+                .get(Weather5DayViewModel.class);
 
     }
 
@@ -76,7 +69,6 @@ public class WeatherFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-        binding.textIP.setText("Your Fake IP Address: " + ip);
 
         binding.buttonCurrent.setOnClickListener(this::attemptCurrentWeather);
 
@@ -84,33 +76,33 @@ public class WeatherFragment extends Fragment {
 
         binding.button5day.setOnClickListener(this::attempt5DayWeather);
 
-        recyclerView = binding.listRoot;
+        recyclerView = binding.listWeather;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        mWeatherModel.addResponseObserver(
+        mWeatherCurrentModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeatherCurrent);
 
-        mWeatherModel24Hour.addResponseObserver(
+        mWeather24HourModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather24Hour);
 
-        mWeatherModel5Day.addResponseObserver(
+        mWeather5DayModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather5Day);
     }
 
     private void attemptCurrentWeather(final View button) {
-        mWeatherModel.connectCurrent(ip);
+        mWeatherCurrentModel.connectCurrent(ip);
     }
 
     private void attempt24HourWeather(final View button) {
-        mWeatherModel24Hour.connect24Hour(ip);
+        mWeather24HourModel.connect24Hour(ip);
     }
 
     private void attempt5DayWeather(final View button) {
-        mWeatherModel5Day.connect5Days(ip);
+        mWeather5DayModel.connect5Days(ip);
     }
 
     private void setUpCurrent(JSONObject response) {
@@ -130,13 +122,9 @@ public class WeatherFragment extends Fragment {
             double temp = tempObject.getDouble("temp");
 
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "", R.drawable.ic_rainychat_launcher_foreground);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
-            binding.textWeathertype.setText(weatherType);
-            binding.textWeatherdescription.setText(weatherDescription);
-            binding.textWeathertemp.setText(Double.toString(temp));
-            binding.textCityname.setText(city);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -144,10 +132,6 @@ public class WeatherFragment extends Fragment {
     }
 
     private void setUp24Hour(JSONObject response) {
-        System.out.println(response);
-    }
-
-    private void setUp5Day(JSONObject response) {
         System.out.println(response);
         try {
             List<Weather> weatherList = new ArrayList<>();
@@ -160,13 +144,14 @@ public class WeatherFragment extends Fragment {
                 JSONObject listObj = arrayOfWeather.getJSONObject(i);
                 JSONObject mainObj = listObj.getJSONObject("main");
                 Double temp = mainObj.getDouble("temp");
+                String time = listObj.getString("dt_txt");
 
                 JSONArray weatherArray = listObj.getJSONArray("weather");
                 JSONObject weatherObj = weatherArray.getJSONObject(0);
                 String weatherType = weatherObj.getString("main");
                 String weatherDescription = weatherObj.getString("description");
 
-                weatherList.add(new Weather(weatherType, weatherDescription, temp, city));
+                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, time, R.drawable.ic_rainychat_launcher_foreground));
             }
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
 
@@ -175,12 +160,36 @@ public class WeatherFragment extends Fragment {
         }
     }
 
-    /**
-     * An observer on the HTTP Response from the web server. This observer should be
-     * attached to SignInViewModel.
-     *
-     * @param response the Response from the server
-     */
+    private void setUp5Day(JSONObject response) {
+        System.out.println(response);
+        try {
+            List<Weather> weatherList = new ArrayList<>();
+
+            JSONObject cityObj = response.getJSONObject("city");
+            String city = cityObj.getString("name");
+
+            JSONArray arrayOfWeather = response.getJSONArray("list");
+            for (int i = 0; i < arrayOfWeather.length(); i = i + 8) {
+                JSONObject listObj = arrayOfWeather.getJSONObject(i);
+                JSONObject mainObj = listObj.getJSONObject("main");
+                Double temp = mainObj.getDouble("temp");
+                String time = listObj.getString("dt_txt");
+
+                JSONArray weatherArray = listObj.getJSONArray("weather");
+                JSONObject weatherObj = weatherArray.getJSONObject(0);
+                String weatherType = weatherObj.getString("main");
+                String weatherDescription = weatherObj.getString("description");
+
+                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, time, R.drawable.ic_rainychat_launcher_foreground));
+            }
+            recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {

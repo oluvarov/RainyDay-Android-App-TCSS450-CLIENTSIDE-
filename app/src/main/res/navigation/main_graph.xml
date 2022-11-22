@@ -19,7 +19,11 @@
         android:id="@+id/navigation_chat"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <argument
+            android:name="chatID"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherFragment"
@@ -47,4 +51,13 @@
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameFragment"
         android:label="fragment_change_name"
         tools:layout="@layout/fragment_change_name" />
+    <fragment
+        android:id="@+id/navigation_chatroom"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatRoomFragment"
+        android:label="fragment_chatroom"
+        tools:layout="@layout/fragment_chatroom" >
+        <action
+            android:id="@+id/action_chatRoomFragment_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
 </navigation>

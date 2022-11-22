@@ -8,12 +8,16 @@ public class Weather implements Serializable {
     private final String mWeatherDescription;
     private final double mTemperature;
     private final String mCity;
+    private final String mTime;
+    private final int mIcon;
 
-    public Weather(String weatherType, String weatherDescription, double temperature, String city) {
+    public Weather(String weatherType, String weatherDescription, double temperature, String city, String time, int icon) {
         this.mWeatherType = weatherType;
         this.mWeatherDescription = weatherDescription;
         this.mTemperature = temperature;
         this.mCity = city;
+        this.mTime = time;
+        this.mIcon = icon;
     }
 
     public Weather (final Builder builder) {
@@ -21,6 +25,8 @@ public class Weather implements Serializable {
         this.mWeatherDescription = builder.mWeatherDescription;
         this.mTemperature = builder.mTemperature;
         this.mCity = builder.mCity;
+        this.mTime = builder.mTime;
+        this.mIcon = builder.mIcon;
     }
 
     public static class Builder {
@@ -28,6 +34,8 @@ public class Weather implements Serializable {
         private final String mWeatherDescription;
         private double mTemperature = 0.0;
         private String mCity = "";
+        private String mTime = "";
+        private int mIcon;
 
         public Builder(String weatherType, String weatherDescription) {
             this.mWeatherType = weatherType;
@@ -66,5 +74,13 @@ public class Weather implements Serializable {
 
     public String getCity() {
         return mCity;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public int getIcon() {
+        return mIcon;
     }
 }
