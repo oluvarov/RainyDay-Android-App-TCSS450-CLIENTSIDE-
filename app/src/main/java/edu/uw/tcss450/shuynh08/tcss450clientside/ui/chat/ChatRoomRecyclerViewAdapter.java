@@ -55,10 +55,11 @@ public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRe
         void setChatRoom(final ChatRoom chatRoom) {
 
             binding.textRoomname.setText(chatRoom.getName());
-            binding.imageRoomicon.setImageResource(chatRoom.getIcon());
+            binding.imageRoomicon.setImageResource(R.drawable.ic_chat_personicon);
             binding.textChatID.setText(Integer.toString(chatRoom.getChatID()));
 
-            binding.buttonOpenchat.setOnClickListener(view -> {
+
+            binding.cardRoot.setOnClickListener(view -> {
                 Navigation.findNavController(mView).navigate(
                     ChatRoomFragmentDirections
                             .actionChatRoomFragmentToNavigationChat(chatRoom.getChatID())

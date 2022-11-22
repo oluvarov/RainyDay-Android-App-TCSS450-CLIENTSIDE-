@@ -23,4 +23,8 @@
     <color name="primaryLightColor">#7953d2</color>
     <color name="secondaryTextColorFade">#222222</color>
     <color name="secondaryLightColor">#ead6a9</color>
+
+    <color name="olegcolor">#eedbff</color>
+    <color name="sendcolor">#987eec</color>
+    <color name="receivercolor">#dee3eb</color>
 </resources>

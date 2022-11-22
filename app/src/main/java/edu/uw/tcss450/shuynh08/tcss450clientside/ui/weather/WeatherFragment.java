@@ -91,6 +91,7 @@ public class WeatherFragment extends Fragment {
         mWeather5DayModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather5Day);
+        mWeatherCurrentModel.connectCurrent(ip);
     }
 
     private void attemptCurrentWeather(final View button) {

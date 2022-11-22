@@ -79,9 +79,9 @@ public class ChatRoomFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeChatRoom);
 
-        binding.buttonChatrefresh.setOnClickListener(this::attemptGetChatRooms);
 
-        binding.buttonGetcred.setOnClickListener(this::attemptGetMemberInfo);
+
+        mMemberInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
 
     }
 
@@ -102,6 +102,7 @@ public class ChatRoomFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        mChatRoomModel.connectChatRoom(mMemberID, mUserInfoModel.getmJwt());
     }
 
     private void setUpChatRoom(JSONObject response) {

@@ -77,25 +77,25 @@ public class SignInFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(
                         SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
                 ));
-        //binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
+        binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
-        binding.buttonSignIn.setOnClickListener(button -> {
+        /*binding.buttonSignIn.setOnClickListener(button -> {
             attemptSignIn(binding.buttonSignIn);
             binding.layoutWait.setVisibility(View.VISIBLE);
-        });
+        });*/
 
         mPushyTokenViewModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observePushyPutResponse);
 
-        /*mSignInModel.addResponseObserver(
+        mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
-                this::observeResponse);*/
+                this::observeResponse);
 
-        mSignInModel.addResponseObserver(getViewLifecycleOwner(), result-> {
+        /*mSignInModel.addResponseObserver(getViewLifecycleOwner(), result-> {
                 observeResponse(result);
                 binding.layoutWait.setVisibility(View.GONE);
-                });
+                });*/
 
         //don't allow sign in until pushy token retrieved
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
