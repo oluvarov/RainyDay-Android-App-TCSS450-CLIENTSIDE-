@@ -15,14 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChangeNameBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatRoom;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatRoomRecyclerViewAdapter;
 
 public class ContactsFragment extends Fragment {
 
@@ -118,11 +124,18 @@ public class ContactsFragment extends Fragment {
 
     private void setUpContacts(JSONObject response) {
         try {
-            mMemberID = response.getInt("memberid");
+            List<Contacts> contactsList = new ArrayList<>();
+            JSONArray keys = response.names();
+            for (int i = 0; i < keys.length(); i++) {
+                String key = keys.getString(i);
+                JSONObject obj = response.getJSONObject(key);
+                String email = obj.getString("username");
+                String name = obj.getString("firstname") + " " + obj.getString("lastname");
+                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
+            }
+            recyclerView.setAdapter(new ContactsRecyclerViewAdapter(contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mContactsModel.connectContacts(mMemberID);
     }
-
 }
