@@ -1,7 +1,9 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.account;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -65,15 +67,17 @@ public class AccountFragment extends Fragment {
                 ));
 
         binding.buttonAccountSignout.setOnClickListener(button ->
-                startAuthActivity());
+                signOut());
 
     }
 
-    public void startAuthActivity() {
-        SignInFragment nextFrag= new SignInFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, nextFrag, "SignInFragment")
-                .addToBackStack(null)
-                .commit();
+    private void signOut() {
+        SharedPreferences prefs =
+                this.getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        //End the app completely
+        this.getActivity().finish();
     }
 }
