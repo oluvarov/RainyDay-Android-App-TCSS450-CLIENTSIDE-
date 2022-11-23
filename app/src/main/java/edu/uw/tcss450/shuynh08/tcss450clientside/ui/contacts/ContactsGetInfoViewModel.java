@@ -23,13 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
-
-public class ContactsViewModel extends AndroidViewModel {
+public class ContactsGetInfoViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mContacts;
 
-    public ContactsViewModel(@NonNull Application application) {
+    public ContactsGetInfoViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
         mContacts.setValue(new JSONObject());
@@ -39,6 +37,7 @@ public class ContactsViewModel extends AndroidViewModel {
                                     @NonNull Observer<? super JSONObject> observer) {
         mContacts.observe(owner, observer);
     }
+
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -64,22 +63,21 @@ public class ContactsViewModel extends AndroidViewModel {
         }
     }
 
-    public void connectContacts(final int memberID) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
+    public void connectMemberInfo(final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/user/";
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null, //no body for this get request
+                null,
                 mContacts::setValue,
                 this::handleError) {
-
 
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("memberid_a", Integer.toString(memberID));
+                headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
         };
@@ -89,7 +87,12 @@ public class ContactsViewModel extends AndroidViewModel {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
     }
+
+
+
+
+
 }

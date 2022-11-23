@@ -28,7 +28,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ContactsViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contacts, parent, false));
+                .inflate(R.layout.fragment_contacts_card, parent, false));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mContacts.size();
     }
 
     class ContactsViewHolder extends RecyclerView.ViewHolder {

@@ -10,9 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChangeNameBinding;
@@ -24,9 +28,13 @@ public class ContactsFragment extends Fragment {
 
     private ContactsViewModel mContactsModel;
 
+    private ContactsGetInfoViewModel mContactsGetInfoModel;
+
     private FragmentContactsBinding binding;
 
     private RecyclerView recyclerView;
+
+    private int mMemberID;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -37,6 +45,8 @@ public class ContactsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mContactsModel = new ViewModelProvider(getActivity())
                 .get(ContactsViewModel.class);
+        mContactsGetInfoModel = new ViewModelProvider(getActivity())
+                .get(ContactsGetInfoViewModel.class);
     }
 
     @Override
@@ -49,12 +59,70 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = binding.recyclerView;
+        recyclerView = binding.recyclerContacts;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mContactsGetInfoModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeMemberInfo);
+        mContactsModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeContacts);
 
+    }
 
+    private void observeContacts(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.textContacts.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUpContacts(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
+
+    private void observeMemberInfo(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.textContacts.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUpInfo(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
+
+    private void setUpInfo(JSONObject response) {
+        try {
+            mMemberID = response.getInt("memberid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mContactsModel.connectContacts(mMemberID);
+    }
+
+    private void setUpContacts(JSONObject response) {
+        try {
+            mMemberID = response.getInt("memberid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mContactsModel.connectContacts(mMemberID);
     }
 
 }
