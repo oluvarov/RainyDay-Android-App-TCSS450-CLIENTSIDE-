@@ -64,7 +64,7 @@ public class ContactsViewModel extends AndroidViewModel {
         }
     }
 
-    public void connectContacts(final int memberID) {
+    public void connectContacts(final int memberID, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
 
         Request request = new JsonObjectRequest(
@@ -80,6 +80,7 @@ public class ContactsViewModel extends AndroidViewModel {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
                 headers.put("memberid_a", Integer.toString(memberID));
+                headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
         };

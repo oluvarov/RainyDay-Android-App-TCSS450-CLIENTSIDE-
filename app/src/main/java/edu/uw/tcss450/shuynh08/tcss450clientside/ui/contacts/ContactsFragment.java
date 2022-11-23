@@ -42,6 +42,8 @@ public class ContactsFragment extends Fragment {
 
     private int mMemberID;
 
+    private UserInfoViewModel mUserInfoModel;
+
     public ContactsFragment() {
         // Required empty public constructor
     }
@@ -68,6 +70,9 @@ public class ContactsFragment extends Fragment {
         recyclerView = binding.recyclerContacts;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+
         mContactsGetInfoModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeMemberInfo);
@@ -75,6 +80,7 @@ public class ContactsFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeContacts);
 
+        mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
     }
 
     private void observeContacts(final JSONObject response) {
@@ -119,7 +125,7 @@ public class ContactsFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mContactsModel.connectContacts(mMemberID);
+        mContactsModel.connectContacts(mMemberID, mUserInfoModel.getmJwt());
     }
 
     private void setUpContacts(JSONObject response) {
