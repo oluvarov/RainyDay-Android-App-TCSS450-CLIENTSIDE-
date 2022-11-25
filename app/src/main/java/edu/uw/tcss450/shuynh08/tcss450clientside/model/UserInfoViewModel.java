@@ -9,6 +9,8 @@ public class UserInfoViewModel extends ViewModel {
     private final String mEmail;
     private final String mJwt;
 
+
+
     private UserInfoViewModel(String email, String jwt) {
         mEmail = email;
         mJwt = jwt;

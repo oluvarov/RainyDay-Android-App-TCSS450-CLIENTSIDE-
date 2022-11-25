@@ -69,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="4dp"
-            android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
             android:text="Weather Time"

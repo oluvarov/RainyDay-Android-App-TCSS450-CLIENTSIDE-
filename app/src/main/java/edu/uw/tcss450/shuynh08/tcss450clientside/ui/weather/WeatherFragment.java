@@ -20,8 +20,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Calendar;
+import java.util.Locale;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
@@ -146,13 +153,17 @@ public class WeatherFragment extends Fragment {
                 JSONObject mainObj = listObj.getJSONObject("main");
                 Double temp = mainObj.getDouble("temp");
                 String time = listObj.getString("dt_txt");
+                int indexofSpace = time.indexOf(' ');
+                String word = time.substring(indexofSpace);
+
 
                 JSONArray weatherArray = listObj.getJSONArray("weather");
                 JSONObject weatherObj = weatherArray.getJSONObject(0);
                 String weatherType = weatherObj.getString("main");
+
                 String weatherDescription = weatherObj.getString("description");
 
-                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, time, R.drawable.ic_rainychat_launcher_foreground));
+                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, word, R.drawable.ic_rainychat_launcher_foreground));
             }
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
 
@@ -163,9 +174,11 @@ public class WeatherFragment extends Fragment {
 
     private void setUp5Day(JSONObject response) {
         System.out.println(response);
+        Format f = new SimpleDateFormat("EEEE");
         try {
-            List<Weather> weatherList = new ArrayList<>();
 
+
+            List<Weather> weatherList = new ArrayList<>();
             JSONObject cityObj = response.getJSONObject("city");
             String city = cityObj.getString("name");
 
@@ -175,17 +188,24 @@ public class WeatherFragment extends Fragment {
                 JSONObject mainObj = listObj.getJSONObject("main");
                 Double temp = mainObj.getDouble("temp");
                 String time = listObj.getString("dt_txt");
+                int indexOfSpace = time.indexOf(' ');
+                String justDate = time.substring(0, indexOfSpace);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
+                Date date = formatter.parse(justDate);
 
                 JSONArray weatherArray = listObj.getJSONArray("weather");
                 JSONObject weatherObj = weatherArray.getJSONObject(0);
                 String weatherType = weatherObj.getString("main");
                 String weatherDescription = weatherObj.getString("description");
+                String str = f.format(date);
 
-                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, time, R.drawable.ic_rainychat_launcher_foreground));
+                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, str, R.drawable.ic_rainychat_launcher_foreground));
             }
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

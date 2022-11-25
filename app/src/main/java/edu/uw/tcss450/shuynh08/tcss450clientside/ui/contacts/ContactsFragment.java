@@ -129,6 +129,7 @@ public class ContactsFragment extends Fragment {
     }
 
     private void setUpContacts(JSONObject response) {
+
         try {
             List<Contacts> contactsList = new ArrayList<>();
             JSONArray keys = response.names();
