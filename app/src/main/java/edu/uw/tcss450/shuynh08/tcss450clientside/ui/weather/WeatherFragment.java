@@ -9,12 +9,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +45,7 @@ public class WeatherFragment extends Fragment {
     private Weather5DayViewModel mWeather5DayModel;
     private RecyclerView recyclerView;
     private String ip;
+    MyViewPagerAdapter mViewPagerAdapter;
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -70,6 +74,34 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mViewPagerAdapter = new MyViewPagerAdapter(this);
+        binding.viewPagerWeather.setAdapter(mViewPagerAdapter);
+
+        binding.tabWeatherLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                binding.viewPagerWeather.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        binding.viewPagerWeather.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                binding.tabWeatherLayout.getTabAt(position).select();
+            }
+        });
         /*Context context = requireContext().getApplicationContext();
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
@@ -77,7 +109,7 @@ public class WeatherFragment extends Fragment {
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
 
-        binding.buttonCurrent.setOnClickListener(this::attemptCurrentWeather);
+        /*binding.buttonCurrent.setOnClickListener(this::attemptCurrentWeather);
 
         binding.button24hour.setOnClickListener(this::attempt24HourWeather);
 
@@ -98,8 +130,9 @@ public class WeatherFragment extends Fragment {
         mWeather5DayModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather5Day);
-        mWeatherCurrentModel.connectCurrent(ip);
+        mWeatherCurrentModel.connectCurrent(ip);*/
     }
+
 
     private void attemptCurrentWeather(final View button) {
         mWeatherCurrentModel.connectCurrent(ip);
@@ -113,7 +146,7 @@ public class WeatherFragment extends Fragment {
         mWeather5DayModel.connect5Days(ip);
     }
 
-    private void setUpCurrent(JSONObject response) {
+   /* private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {
             JSONArray weather = response.getJSONArray("weather");
@@ -126,11 +159,14 @@ public class WeatherFragment extends Fragment {
             //JSONObject weatherDescriptionObject = weather.getJSONObject(2);
             String weatherDescription = weatherObject.getString("description");
 
+            String icon = weatherObject.getString("icon");
+            String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
+
             JSONObject tempObject = response.getJSONObject("main");
             double temp = tempObject.getDouble("temp");
 
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "", R.drawable.ic_rainychat_launcher_foreground);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "", url);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
@@ -209,9 +245,9 @@ public class WeatherFragment extends Fragment {
             e.printStackTrace();
         }
     }
+*/
 
-
-    private void observeWeatherCurrent(final JSONObject response) {
+   /* private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
@@ -264,5 +300,5 @@ public class WeatherFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-
+*/
 }

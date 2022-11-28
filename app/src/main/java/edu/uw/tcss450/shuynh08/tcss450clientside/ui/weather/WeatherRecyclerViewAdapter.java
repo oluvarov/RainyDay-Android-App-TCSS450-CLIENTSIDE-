@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
@@ -58,7 +60,13 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
             binding.textDesc.setText(weather.getWeatherDescription());
             binding.textTemp.setText(Double.toString(weather.getTemperature()) + "\u00B0" + "C");
             binding.textTime.setText(weather.getTime());
-            binding.imageWeathericon.setImageResource(weather.getIcon());
+            Picasso.get()
+                    .load(weather.getIconUrl())
+                    .placeholder(R.drawable.ic_rainychat_launcher_foreground)
+                    .error(R.drawable.ic_error_blue_24dp)
+                    .fit()
+                    .into(binding.imageWeathericon);
+            //binding.imageWeathericon.setImageResource(weather.getIcon());
         }
 
 

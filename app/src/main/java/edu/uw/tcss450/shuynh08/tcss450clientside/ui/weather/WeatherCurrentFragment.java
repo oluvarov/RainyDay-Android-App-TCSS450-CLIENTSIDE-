@@ -1,4 +1,4 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.home;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import android.os.Bundle;
 
@@ -14,39 +14,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-import edu.uw.tcss450.shuynh08.tcss450clientside.MainActivity;
+
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
-import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChangeNameBinding;
-import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
-import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.Weather;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.Weather24HourViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.Weather5DayViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherCurrentViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherRecyclerViewAdapter;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCurrentBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
-    private FragmentHomeBinding binding;
+
+public class WeatherCurrentFragment extends Fragment {
+
+    private FragmentWeatherCurrentBinding binding;
     private WeatherCurrentViewModel mWeatherCurrentModel;
     private RecyclerView recyclerView;
+    private String ip;
 
-    public HomeFragment() {
+    public WeatherCurrentFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,12 +52,13 @@ public class HomeFragment extends Fragment {
         mWeatherCurrentModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater);
+        binding = FragmentWeatherCurrentBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -67,40 +66,32 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
+        /*Context context = requireContext().getApplicationContext();
+        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
 
-        String ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
+        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-        recyclerView = binding.listHomeweather;
+
+        binding.buttonWeatherCurrent.setOnClickListener(this::attemptCurrentWeather);
+
+
+        recyclerView = binding.listWeatherCurrent;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mWeatherCurrentModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeatherCurrent);
 
-        FragmentHomeBinding.bind(getView()).textHello.setText("Hello " + model.getEmail());
-        System.out.println(model.getmJwt());
-
         mWeatherCurrentModel.connectCurrent(ip);
     }
-    private void observeWeatherCurrent(final JSONObject response) {
-        if (response.length() > 0) {
-            if (response.has("code")) {
-                try {
-                    Snackbar snackbar = Snackbar.make(binding.textHome,"Error Authenticating: " +
-                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
-                }
-            } else {
-                setUpCurrent(response);
-            }
-        } else {
-            Log.d("JSON Response", "No Response");
-        }
+
+    private void attemptCurrentWeather(final View button) {
+        mWeatherCurrentModel.connectCurrent(ip);
     }
+
+
+
     private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {
@@ -113,9 +104,11 @@ public class HomeFragment extends Fragment {
 
             //JSONObject weatherDescriptionObject = weather.getJSONObject(2);
             String weatherDescription = weatherObject.getString("description");
+
             String icon = weatherObject.getString("icon");
             String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
 
+            System.out.println("ICON URL: " + url);
 
 
             JSONObject tempObject = response.getJSONObject("main");
@@ -130,6 +123,29 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void observeWeatherCurrent(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.editLocationCurrent.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUpCurrent(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
+
+
+
+
+
 
 
 
