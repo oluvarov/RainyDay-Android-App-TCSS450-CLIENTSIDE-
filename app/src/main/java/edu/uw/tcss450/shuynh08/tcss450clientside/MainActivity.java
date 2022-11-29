@@ -18,6 +18,7 @@ import android.os.Bundle;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.ActivityMainBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.NewMessageCountViewModel;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 

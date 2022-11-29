@@ -1,6 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -54,12 +56,13 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
         }
 
         void setWeather(final Weather weather) {
-
+            //https://picsum.photos/80
             binding.textCity.setText(weather.getCity());
             binding.textType.setText(weather.getWeatherType());
             binding.textDesc.setText(weather.getWeatherDescription());
             binding.textTemp.setText(Double.toString(weather.getTemperature()) + "\u00B0" + "C");
             binding.textTime.setText(weather.getTime());
+            Log.e("ICON URL", weather.getIconUrl());
             Picasso.get()
                     .load(weather.getIconUrl())
                     .placeholder(R.drawable.ic_rainychat_launcher_foreground)

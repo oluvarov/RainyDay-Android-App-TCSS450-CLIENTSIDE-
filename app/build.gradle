@@ -63,4 +63,7 @@ dependencies {
     // For Picasso image grabbing
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    // For image grabbing
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
 }

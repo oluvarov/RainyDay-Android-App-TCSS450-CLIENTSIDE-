@@ -106,7 +106,7 @@ public class WeatherCurrentFragment extends Fragment {
             String weatherDescription = weatherObject.getString("description");
 
             String icon = weatherObject.getString("icon");
-            String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
+            String url = "http://openweathermap.org/img/wn/"+ icon + ".png";
 
             System.out.println("ICON URL: " + url);
 
@@ -115,7 +115,7 @@ public class WeatherCurrentFragment extends Fragment {
             double temp = tempObject.getDouble("temp");
 
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "", url);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "Today", url);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));

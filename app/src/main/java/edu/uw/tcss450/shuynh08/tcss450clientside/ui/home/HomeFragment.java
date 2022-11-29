@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
             double temp = tempObject.getDouble("temp");
 
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "", url);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "Today", url);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
