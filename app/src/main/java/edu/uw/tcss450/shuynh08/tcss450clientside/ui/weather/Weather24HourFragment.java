@@ -68,10 +68,7 @@ public class Weather24HourFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-
-        binding.buttonWeather24hour.setOnClickListener(this::attempt24HourWeather);
-
-
+        binding.buttonWeather24hour.setOnClickListener(this::attemptWeatherZipcode);
 
         recyclerView = binding.listWeather24hour;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -80,15 +77,24 @@ public class Weather24HourFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeWeather24Hour);
 
-        mWeather24HourModel.connect24Hour(ip);
+        mWeather24HourModel.connect24HourIP(ip);
     }
 
 
     private void attempt24HourWeather(final View button) {
-        mWeather24HourModel.connect24Hour(ip);
+        mWeather24HourModel.connect24HourIP(ip);
     }
 
-
+    private void attemptWeatherZipcode(final View button) {
+        String zipcode = binding.editLocation24hour.getText().toString().trim();
+        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
+        if (zipcode.matches(regex)) {
+            mWeather24HourModel.connect24HourZipcode(zipcode);
+        } else {
+            binding.editLocation24hour.setError("Zipcode must either have the format of *****"
+                    + " or *****-**** and contain only digits.");
+        }
+    }
 
 
     private void setUp24Hour(JSONObject response) {

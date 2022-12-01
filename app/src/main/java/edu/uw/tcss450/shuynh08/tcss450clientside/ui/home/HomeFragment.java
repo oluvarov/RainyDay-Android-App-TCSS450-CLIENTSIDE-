@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         FragmentHomeBinding.bind(getView()).textHello.setText("Hello " + model.getEmail());
         System.out.println(model.getmJwt());
 
-        mWeatherCurrentModel.connectCurrent(ip);
+        mWeatherCurrentModel.connectCurrentIP(ip);
     }
     private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {

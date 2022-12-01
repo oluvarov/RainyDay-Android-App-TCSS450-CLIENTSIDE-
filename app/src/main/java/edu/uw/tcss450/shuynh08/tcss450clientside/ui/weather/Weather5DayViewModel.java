@@ -64,7 +64,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
         }
     }
 
-    public void connect5Days(final String ip) {
+    public void connect5DaysIP(final String ip) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
         Request request = new JsonObjectRequest(
@@ -80,6 +80,35 @@ public class Weather5DayViewModel extends AndroidViewModel {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
                 headers.put("ip", ip);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    public void connect5DaysZipcode(final String zipcode) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
+
+        Request request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null, //no body for this get request
+                mWeather::setValue,
+                this::handleError) {
+
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("zip", zipcode);
                 return headers;
             }
         };

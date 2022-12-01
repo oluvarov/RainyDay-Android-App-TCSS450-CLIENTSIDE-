@@ -72,9 +72,7 @@ public class WeatherCurrentFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-
-        binding.buttonWeatherCurrent.setOnClickListener(this::attemptCurrentWeather);
-
+        binding.buttonWeatherCurrent.setOnClickListener(this::attemptWeatherZipcode);
 
         recyclerView = binding.listWeatherCurrent;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -83,11 +81,22 @@ public class WeatherCurrentFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeWeatherCurrent);
 
-        mWeatherCurrentModel.connectCurrent(ip);
+        mWeatherCurrentModel.connectCurrentIP(ip);
     }
 
     private void attemptCurrentWeather(final View button) {
-        mWeatherCurrentModel.connectCurrent(ip);
+        mWeatherCurrentModel.connectCurrentIP(ip);
+    }
+
+    private void attemptWeatherZipcode(final View button) {
+        String zipcode = binding.editLocationCurrent.getText().toString().trim();
+        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
+        if (zipcode.matches(regex)) {
+            mWeatherCurrentModel.connectCurrentZipcode(zipcode);
+        } else {
+            binding.editLocationCurrent.setError("Zipcode must either have the format of *****"
+            + " or *****-**** and contain only digits.");
+        }
     }
 
 

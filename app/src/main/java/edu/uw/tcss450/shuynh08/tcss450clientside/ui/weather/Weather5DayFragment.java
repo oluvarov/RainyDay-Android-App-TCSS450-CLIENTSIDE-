@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +21,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -44,7 +50,6 @@ public class Weather5DayFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mWeather5DayModel = new ViewModelProvider(getActivity())
                 .get(Weather5DayViewModel.class);
 
@@ -69,7 +74,7 @@ public class Weather5DayFragment extends Fragment {
 
 
 
-        binding.buttonWeather5day.setOnClickListener(this::attempt5DayWeather);
+        binding.buttonWeather5day.setOnClickListener(this::attemptWeatherZipcode);
 
         recyclerView = binding.listWeather5day;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,14 +82,53 @@ public class Weather5DayFragment extends Fragment {
         mWeather5DayModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather5Day);
-        mWeather5DayModel.connect5Days(ip);
+        String ipAddress = getIPAddress(true);
+        Log.e("IPADDRESS", ipAddress);
+        mWeather5DayModel.connect5DaysIP(ip);
+    }
+
+    public static String getIPAddress(boolean useIPv4) {
+        try {
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface intf : interfaces) {
+                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+                for (InetAddress addr : addrs) {
+                    if (!addr.isLoopbackAddress()) {
+                        String sAddr = addr.getHostAddress();
+                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+                        boolean isIPv4 = sAddr.indexOf(':')<0;
+
+                        if (useIPv4) {
+                            if (isIPv4)
+                                return sAddr;
+                        } else {
+                            if (!isIPv4) {
+                                int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) { } // for now eat exceptions
+        return "";
     }
 
 
     private void attempt5DayWeather(final View button) {
-        mWeather5DayModel.connect5Days(ip);
+        mWeather5DayModel.connect5DaysIP(ip);
     }
 
+    private void attemptWeatherZipcode(final View button) {
+        String zipcode = binding.editLocation5day.getText().toString().trim();
+        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
+        if (zipcode.matches(regex)) {
+            mWeather5DayModel.connect5DaysZipcode(zipcode);
+        } else {
+            binding.editLocation5day.setError("Zipcode must either have the format of *****"
+                    + " or *****-**** and contain only digits.");
+        }
+    }
 
     private void setUp5Day(JSONObject response) {
         System.out.println(response);
