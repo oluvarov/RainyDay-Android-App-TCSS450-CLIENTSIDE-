@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class MyViewPagerAdapter extends FragmentStateAdapter {
 
+
     public MyViewPagerAdapter(@NonNull WeatherFragment fragmentActivity) {
         super(fragmentActivity);
     }
@@ -20,6 +21,8 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
                 return new Weather24HourFragment();
             case 2:
                 return new Weather5DayFragment();
+            case 3:
+                return new LocationFragment();
             default:
                 return new WeatherCurrentFragment();
         }
@@ -27,6 +30,8 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
+
+
 }
