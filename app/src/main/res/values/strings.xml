@@ -34,5 +34,7 @@
 
     <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
 
+    <string name="label_location">Current location:</string>
+
 
 </resources>
