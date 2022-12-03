@@ -1,6 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
@@ -16,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +37,12 @@ import java.util.Locale;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather5dayBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
 public class Weather5DayFragment extends Fragment {
 
+    private LocationViewModel mLocationModel;
     private FragmentWeather5dayBinding binding;
     private Weather5DayViewModel mWeather5DayModel;
     private RecyclerView recyclerView;
@@ -52,6 +57,8 @@ public class Weather5DayFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mWeather5DayModel = new ViewModelProvider(getActivity())
                 .get(Weather5DayViewModel.class);
+        mLocationModel = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
 
     }
 
@@ -82,10 +89,19 @@ public class Weather5DayFragment extends Fragment {
         mWeather5DayModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather5Day);
+
+        mLocationModel.addLatLngObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLatLng);
+
         String ipAddress = getIPAddress(true);
         Log.e("IPADDRESS", ipAddress);
         mWeather5DayModel.connect5DaysIP(ip);
+
+
     }
+
+
 
     public static String getIPAddress(boolean useIPv4) {
         try {
@@ -188,4 +204,10 @@ public class Weather5DayFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
+
+    private void observeGetLatLng(final LatLng latLng) {
+        mWeather5DayModel.connect5DaysLatLng(latLng.latitude, latLng.longitude);
+    }
+
+
 }

@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentLocationBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
@@ -30,6 +31,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
 
     private LocationViewModel mModel;
     private GoogleMap mMap;
+    private Marker mMarker;
+    private FragmentLocationBinding binding;
     public LocationFragment() {
         // Required empty public constructor
     }
@@ -39,14 +42,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location, container, false);
+        binding = FragmentLocationBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentLocationBinding binding = FragmentLocationBinding.bind(getView());
 
         mModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
@@ -85,13 +88,24 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
+        mMap.clear();
+        if (mMarker!=null) {
+            mMarker.remove();
+            mMarker=null;
+        }
         Log.d("LAT/LONG", latLng.toString());
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        mMarker = mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title("New Marker"));
+
+        binding.textLatLong.setText(latLng.toString());
+
+
+        mModel.setLatLng(latLng);
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
+
 
 
     }

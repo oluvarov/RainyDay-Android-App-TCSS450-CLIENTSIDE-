@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +30,12 @@ import java.util.Locale;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather24hourBinding;
-
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
 public class Weather24HourFragment extends Fragment {
 
+    private LocationViewModel mLocationModel;
     private FragmentWeather24hourBinding binding;
     private Weather24HourViewModel mWeather24HourModel;
     private RecyclerView recyclerView;
@@ -47,7 +50,8 @@ public class Weather24HourFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mWeather24HourModel = new ViewModelProvider(getActivity())
                 .get(Weather24HourViewModel.class);
-
+        mLocationModel = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
 
     }
 
@@ -76,6 +80,10 @@ public class Weather24HourFragment extends Fragment {
         mWeather24HourModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeather24Hour);
+
+        mLocationModel.addLatLngObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLatLng);
 
         mWeather24HourModel.connect24HourIP(ip);
     }
@@ -149,6 +157,10 @@ public class Weather24HourFragment extends Fragment {
         } else {
             Log.d("JSON Response", "No Response");
         }
+    }
+
+    private void observeGetLatLng(final LatLng latLng) {
+        mWeather24HourModel.connect24HourLatLng(latLng.latitude, latLng.longitude);
     }
 
 }

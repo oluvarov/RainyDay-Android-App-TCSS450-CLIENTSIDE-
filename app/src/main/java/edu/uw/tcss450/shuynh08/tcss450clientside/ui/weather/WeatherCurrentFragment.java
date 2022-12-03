@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -33,10 +34,12 @@ import java.util.Locale;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCurrentBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
 public class WeatherCurrentFragment extends Fragment {
 
+    private LocationViewModel mLocationModel;
     private FragmentWeatherCurrentBinding binding;
     private WeatherCurrentViewModel mWeatherCurrentModel;
     private RecyclerView recyclerView;
@@ -52,7 +55,8 @@ public class WeatherCurrentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mWeatherCurrentModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
-
+        mLocationModel = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
 
     }
 
@@ -81,6 +85,10 @@ public class WeatherCurrentFragment extends Fragment {
         mWeatherCurrentModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeWeatherCurrent);
+
+        mLocationModel.addLatLngObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLatLng);
 
         mWeatherCurrentModel.connectCurrentIP(ip);
     }
@@ -152,6 +160,9 @@ public class WeatherCurrentFragment extends Fragment {
         }
     }
 
+    private void observeGetLatLng(final LatLng latLng) {
+        mWeatherCurrentModel.connectCurrentLatLng(latLng.latitude, latLng.longitude);
+    }
 
 
 

@@ -69,6 +69,8 @@ public class WeatherFragment extends Fragment {
         mViewPagerAdapter = new MyViewPagerAdapter(this);
         binding.viewPagerWeather.setAdapter(mViewPagerAdapter);
 
+
+
         binding.tabWeatherLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
