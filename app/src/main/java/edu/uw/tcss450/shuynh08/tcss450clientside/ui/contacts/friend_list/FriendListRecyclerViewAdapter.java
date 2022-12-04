@@ -1,6 +1,5 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
 
-import android.icu.text.Transliterator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
-import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsCardBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
 
-public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactsViewHolder> {
+public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendListRecyclerViewAdapter.ContactsViewHolder> {
 
     private final List<Contacts> mContacts;
 
-    public ContactsRecyclerViewAdapter(List<Contacts> mContacts) {
+    public FriendListRecyclerViewAdapter(List<Contacts> mContacts) {
         this.mContacts = mContacts;
     }
 
@@ -43,7 +42,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 
     class ContactsViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
-        private FragmentContactsCardBinding binding;
+        private @NonNull FragmentContactsCardBinding binding;
 
         ContactsViewHolder(@NonNull View view) {
             super(view);

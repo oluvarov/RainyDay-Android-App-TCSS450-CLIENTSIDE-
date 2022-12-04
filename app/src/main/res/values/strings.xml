@@ -10,7 +10,7 @@
     <string name="action_sign_in_short">Sign In</string>
     <string name="action_forget_password">Forgot Password?</string>
     <string name="title_home">Home</string>
-    <string name="title_contacts">Contacts</string>
+    <string name="title_contacts">Friends</string>
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
     <string name="forgot_description">Provide your account\'s email address to reset your password</string>

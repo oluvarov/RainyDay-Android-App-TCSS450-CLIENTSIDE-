@@ -1,21 +1,17 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts;
-
-import androidx.lifecycle.ViewModelProvider;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,39 +21,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
-import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListRecyclerViewAdapter;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.ContactsGetInfoViewModel;
 
-public class ContactsFragment extends Fragment {
+public class FriendListFragment extends Fragment {
 
+    private RecyclerView recyclerView;
+    private @NonNull FragmentFriendListBinding binding;
+    private UserInfoViewModel mUserInfoModel;
     private FriendListViewModel mContactsModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
-    private FragmentContactsBinding binding;
-    private RecyclerView recyclerView;
     private int mMemberID;
-    private UserInfoViewModel mUserInfoModel;
-    private ContactsViewPagerAdapter mContactsViewPagerAdapter;
 
-
-    public ContactsFragment() {
+    public FriendListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContactsModel = new ViewModelProvider(getActivity())
-                .get(FriendListViewModel.class);
-        mContactsGetInfoModel = new ViewModelProvider(getActivity())
-                .get(ContactsGetInfoViewModel.class);
+        mContactsModel = new ViewModelProvider(getActivity()).get(FriendListViewModel.class);
+        mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentContactsBinding.inflate(inflater);
+        // Inflate the layout for this fragment
+        binding = FragmentFriendListBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -65,58 +58,25 @@ public class ContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mContactsViewPagerAdapter = new ContactsViewPagerAdapter(this);
-        binding.viewPagerContacts.setAdapter(mContactsViewPagerAdapter);
+        recyclerView = binding.listFriend;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        binding.tabContactsLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.viewPagerContacts.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-
-        binding.viewPagerContacts.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                binding.tabContactsLayout.getTabAt(position).select();
-            }
-        });
-
-//        recyclerView = binding.recyclerContacts;
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//        mUserInfoModel = new ViewModelProvider(getActivity())
-//                .get(UserInfoViewModel.class);
-//
-//        mContactsGetInfoModel.addResponseObserver(
-//                getViewLifecycleOwner(),
-//                this::observeMemberInfo);
-//        mContactsModel.addResponseObserver(
-//                getViewLifecycleOwner(),
-//                this::observeContacts);
-//
-//        mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+        mContactsGetInfoModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeMemberInfo);
+        mContactsModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeContacts);
+        mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
     }
-
-
 
     private void observeContacts(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.textContacts.setError(
+                    binding.textContactFriendList.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
@@ -134,7 +94,7 @@ public class ContactsFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.textContacts.setError(
+                    binding.textContactFriendList.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
