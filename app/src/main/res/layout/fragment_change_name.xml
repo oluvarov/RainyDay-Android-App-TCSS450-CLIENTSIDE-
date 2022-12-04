@@ -36,12 +36,10 @@
         android:id="@+id/layout_first_name"
         android:layout_width="386dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:hint="@string/hint_first"
         app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_change_name">
 
@@ -57,10 +55,10 @@
         android:id="@+id/layout_last_name"
         android:layout_width="386dp"
         android:layout_height="62dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/hint_last"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_first_name"
         app:layout_constraintVertical_bias="0.02">
