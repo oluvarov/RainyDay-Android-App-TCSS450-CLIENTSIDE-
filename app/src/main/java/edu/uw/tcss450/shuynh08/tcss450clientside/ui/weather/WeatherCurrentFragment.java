@@ -124,13 +124,13 @@ public class WeatherCurrentFragment extends Fragment {
             String weatherDescription = weatherObject.getString("description");
 
             String icon = weatherObject.getString("icon");
-            String url = "http://openweathermap.org/img/wn/"+ icon + ".png";
+            String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
 
             System.out.println("ICON URL: " + url);
 
 
             JSONObject tempObject = response.getJSONObject("main");
-            double temp = tempObject.getDouble("temp");
+            double temp = Math.floor(tempObject.getDouble("temp"));
 
             String city = response.getString("name");
             Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "Today", url);

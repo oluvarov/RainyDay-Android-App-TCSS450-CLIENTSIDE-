@@ -159,7 +159,8 @@ public class Weather5DayFragment extends Fragment {
             for (int i = 0; i < arrayOfWeather.length(); i = i + 8) {
                 JSONObject listObj = arrayOfWeather.getJSONObject(i);
                 JSONObject mainObj = listObj.getJSONObject("main");
-                Double temp = mainObj.getDouble("temp");
+                Double temp = Math.floor(mainObj.getDouble("temp"));
+
                 String time = listObj.getString("dt_txt");
                 int indexOfSpace = time.indexOf(' ');
                 String justDate = time.substring(0, indexOfSpace);
