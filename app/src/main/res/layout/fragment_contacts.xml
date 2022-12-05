@@ -56,8 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/view_pager_contacts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_contacts_search"
-        app:tabTextAppearance="@style/MyCustomTabText">
+        app:layout_constraintTop_toBottomOf="@+id/layout_contacts_search">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -87,6 +86,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button_contacts"
+        style="@style/Widget.Material3.FloatingActionButton.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

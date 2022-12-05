@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
 
 
             JSONObject tempObject = response.getJSONObject("main");
-            double temp = tempObject.getDouble("temp");
+            double temp = Math.floor(tempObject.getDouble("temp"));;
 
             String city = response.getString("name");
             Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "Today", url);

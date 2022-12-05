@@ -117,7 +117,7 @@ public class Weather24HourFragment extends Fragment {
             for (int i = 0; i < arrayOfWeather.length(); i++) {
                 JSONObject listObj = arrayOfWeather.getJSONObject(i);
                 JSONObject mainObj = listObj.getJSONObject("main");
-                Double temp = mainObj.getDouble("temp");
+                Double temp = Math.floor(mainObj.getDouble("temp"));;
                 String time = listObj.getString("dt_txt");
                 int indexofSpace = time.indexOf(' ');
                 String word = time.substring(indexofSpace);
