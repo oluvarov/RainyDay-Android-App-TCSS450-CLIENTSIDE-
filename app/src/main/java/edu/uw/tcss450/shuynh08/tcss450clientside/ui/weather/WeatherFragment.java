@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -97,9 +99,19 @@ public class WeatherFragment extends Fragment {
                 super.onPageSelected(position);
                 binding.tabWeatherLayout.getTabAt(position).select();
             }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+
+                if (state == SCROLL_STATE_DRAGGING && binding.viewPagerWeather.getCurrentItem() == 3) {
+                    binding.viewPagerWeather.setUserInputEnabled(false);
+                } else {
+                    binding.viewPagerWeather.setUserInputEnabled(true);
+                }
+            }
         });
 
-        binding.viewPagerWeather.setUserInputEnabled(false);
+        //binding.viewPagerWeather.setUserInputEnabled(false);
 
         /*Context context = requireContext().getApplicationContext();
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
