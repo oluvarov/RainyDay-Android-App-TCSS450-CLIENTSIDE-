@@ -35,10 +35,13 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCurrentBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
 
 public class WeatherCurrentFragment extends Fragment {
 
+    private FragmentWeatherBinding mWeatherBinding;
+    private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
     private FragmentWeatherCurrentBinding binding;
     private WeatherCurrentViewModel mWeatherCurrentModel;
@@ -57,6 +60,8 @@ public class WeatherCurrentFragment extends Fragment {
                 .get(WeatherCurrentViewModel.class);
         mLocationModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
 
     }
 
@@ -64,6 +69,7 @@ public class WeatherCurrentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentWeatherCurrentBinding.inflate(inflater);
+        mWeatherBinding = FragmentWeatherBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -77,8 +83,6 @@ public class WeatherCurrentFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-        binding.buttonWeatherCurrent.setOnClickListener(this::attemptWeatherZipcode);
-
         recyclerView = binding.listWeatherCurrent;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -90,25 +94,12 @@ public class WeatherCurrentFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetLatLng);
 
-        mWeatherCurrentModel.connectCurrentIP(ip);
+        mLocationModel.addZipcodeObserver(
+                getViewLifecycleOwner(),
+                this::observeGetZipcode);
+
+        mWeatherCurrentModel.connectCurrentIP(ip, mUserInfoModel.getmJwt());
     }
-
-    private void attemptCurrentWeather(final View button) {
-        mWeatherCurrentModel.connectCurrentIP(ip);
-    }
-
-    private void attemptWeatherZipcode(final View button) {
-        String zipcode = binding.editLocationCurrent.getText().toString().trim();
-        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
-        if (zipcode.matches(regex)) {
-            mWeatherCurrentModel.connectCurrentZipcode(zipcode);
-        } else {
-            binding.editLocationCurrent.setError("Zipcode must either have the format of *****"
-            + " or *****-**** and contain only digits.");
-        }
-    }
-
-
 
     private void setUpCurrent(JSONObject response) {
         System.out.println(response);
@@ -146,7 +137,7 @@ public class WeatherCurrentFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editLocationCurrent.setError(
+                    mWeatherBinding.editLocation.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
@@ -161,9 +152,12 @@ public class WeatherCurrentFragment extends Fragment {
     }
 
     private void observeGetLatLng(final LatLng latLng) {
-        mWeatherCurrentModel.connectCurrentLatLng(latLng.latitude, latLng.longitude);
+        mWeatherCurrentModel.connectCurrentLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
 
+    private void observeGetZipcode(final String zipcode) {
+        mWeatherCurrentModel.connectCurrentZipcode(zipcode, mUserInfoModel.getmJwt());
+    }
 
 
 

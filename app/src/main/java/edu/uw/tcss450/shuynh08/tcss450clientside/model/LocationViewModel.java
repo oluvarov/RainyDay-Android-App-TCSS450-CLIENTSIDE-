@@ -15,10 +15,12 @@ public class LocationViewModel extends ViewModel {
 
     private MutableLiveData<Location> mLocation;
     private MutableLiveData<LatLng> mLatLng;
+    private MutableLiveData<String> mZipcode;
 
     public LocationViewModel() {
         mLocation = new MediatorLiveData<>();
         mLatLng = new MediatorLiveData<>();
+        mZipcode = new MediatorLiveData<>();
     }
 
     public void addLocationObserver(@NonNull LifecycleOwner owner,
@@ -29,6 +31,11 @@ public class LocationViewModel extends ViewModel {
     public void addLatLngObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super LatLng> observer) {
         mLatLng.observe(owner, observer);
+    }
+
+    public void addZipcodeObserver(@NonNull LifecycleOwner owner,
+                                  @NonNull Observer<? super String> observer) {
+        mZipcode.observe(owner, observer);
     }
 
     public void setLocation(final Location location) {
@@ -49,6 +56,16 @@ public class LocationViewModel extends ViewModel {
 
     public LatLng getCurrentLatLng() {
         return new LatLng(mLatLng.getValue().latitude, mLatLng.getValue().longitude);
+    }
+
+    public void setZipcode(final String zipcode) {
+        if (!zipcode.equals(mZipcode.getValue())) {
+            mZipcode.setValue(zipcode);
+        }
+    }
+
+    public String getCurrentZipcode() {
+        return mZipcode.getValue();
     }
 
 }
