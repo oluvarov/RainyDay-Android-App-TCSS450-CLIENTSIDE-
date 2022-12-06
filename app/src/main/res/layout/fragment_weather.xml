@@ -96,11 +96,13 @@
         android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         android:backgroundTint="#FFFFFF"
+        android:contentDescription="@string/weather_search_button"
         android:cropToPadding="false"
         android:scaleType="fitXY"
         android:src="@drawable/ic_search_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/view_pager_weather"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layout_weather_location"
         app:layout_constraintTop_toBottomOf="@+id/tab_weather_layout"
         app:strokeColor="@color/black"
         app:strokeWidth="8dp" />
@@ -116,21 +118,21 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Current" />
+            android:text="@string/weather_tab_current" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="24 Hour" />
+            android:text="@string/weather_tab_24_hour" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="5 Day" />
+            android:text="@string/weather_tab_5_day" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Map" />
+            android:text="@string/weather_tab_map" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -149,7 +151,7 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:hint="Zip Code"
+        android:hint="@string/hint_zip_code"
         app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toStartOf="@+id/button_weather"
         app:layout_constraintStart_toStartOf="parent"

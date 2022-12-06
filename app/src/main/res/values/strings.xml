@@ -39,6 +39,13 @@
     <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
 
     <string name="label_location">Current location:</string>
+    <string name="hint_zip_code">ZIP Code</string>
+    <string name="weather_tab_current">Current</string>
+    <string name="weather_tab_24_hour">24 Hour</string>
+    <string name="weather_tab_5_day">5 Day</string>
+    <string name="weather_tab_map">Map</string>
+    <string name="weather_search_button">Search with ZIP Code</string>
+    <string name="hint_search_friends">Search</string>
 
 
 </resources>
