@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,10 +39,12 @@ import java.util.Locale;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather5dayBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
 
 public class Weather5DayFragment extends Fragment {
 
+    private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
     private FragmentWeather5dayBinding binding;
     private Weather5DayViewModel mWeather5DayModel;
@@ -59,6 +62,8 @@ public class Weather5DayFragment extends Fragment {
                 .get(Weather5DayViewModel.class);
         mLocationModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
 
     }
 
@@ -79,10 +84,6 @@ public class Weather5DayFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-
-
-        binding.buttonWeather5day.setOnClickListener(this::attemptWeatherZipcode);
-
         recyclerView = binding.listWeather5day;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -94,9 +95,13 @@ public class Weather5DayFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetLatLng);
 
+        mLocationModel.addZipcodeObserver(
+                getViewLifecycleOwner(),
+                this::observeGetZipcode);
+
         String ipAddress = getIPAddress(true);
         Log.e("IPADDRESS", ipAddress);
-        mWeather5DayModel.connect5DaysIP(ip);
+        mWeather5DayModel.connect5DaysIP(ip, mUserInfoModel.getmJwt());
 
 
     }
@@ -130,21 +135,6 @@ public class Weather5DayFragment extends Fragment {
         return "";
     }
 
-
-    private void attempt5DayWeather(final View button) {
-        mWeather5DayModel.connect5DaysIP(ip);
-    }
-
-    private void attemptWeatherZipcode(final View button) {
-        String zipcode = binding.editLocation5day.getText().toString().trim();
-        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
-        if (zipcode.matches(regex)) {
-            mWeather5DayModel.connect5DaysZipcode(zipcode);
-        } else {
-            binding.editLocation5day.setError("Zipcode must either have the format of *****"
-                    + " or *****-**** and contain only digits.");
-        }
-    }
 
     private void setUp5Day(JSONObject response) {
         System.out.println(response);
@@ -192,9 +182,12 @@ public class Weather5DayFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editLocation5day.setError(
+                    Snackbar snackbar = Snackbar.make(binding.frameLayoutWeather5day,"Error Authenticating: " +
+                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    /*binding.editLocation5day.setError(
                             "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                                    response.getJSONObject("data").getString("message"));*/
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
@@ -207,7 +200,11 @@ public class Weather5DayFragment extends Fragment {
     }
 
     private void observeGetLatLng(final LatLng latLng) {
-        mWeather5DayModel.connect5DaysLatLng(latLng.latitude, latLng.longitude);
+        mWeather5DayModel.connect5DaysLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
+    }
+
+    private void observeGetZipcode(final String zipcode) {
+        mWeather5DayModel.connect5DaysZipcode(zipcode, mUserInfoModel.getmJwt());
     }
 
 

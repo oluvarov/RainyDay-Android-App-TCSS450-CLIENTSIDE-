@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -35,10 +37,12 @@ import java.util.Locale;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
 public class WeatherFragment extends Fragment {
 
+    private LocationViewModel mLocationModel;
     private FragmentWeatherBinding binding;
     private String ip;
     MyViewPagerAdapter mViewPagerAdapter;
@@ -50,7 +54,8 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mLocationModel = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
 
     }
 
@@ -68,7 +73,7 @@ public class WeatherFragment extends Fragment {
 
         mViewPagerAdapter = new MyViewPagerAdapter(this);
         binding.viewPagerWeather.setAdapter(mViewPagerAdapter);
-
+        binding.buttonWeather.setOnClickListener(this::attemptGetZipcode);
 
 
         binding.tabWeatherLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -94,7 +99,19 @@ public class WeatherFragment extends Fragment {
                 super.onPageSelected(position);
                 binding.tabWeatherLayout.getTabAt(position).select();
             }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+
+                if (state == SCROLL_STATE_DRAGGING && binding.viewPagerWeather.getCurrentItem() == 3) {
+                    binding.viewPagerWeather.setUserInputEnabled(false);
+                } else {
+                    binding.viewPagerWeather.setUserInputEnabled(true);
+                }
+            }
         });
+
+        //binding.viewPagerWeather.setUserInputEnabled(false);
 
         /*Context context = requireContext().getApplicationContext();
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -104,6 +121,16 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    private void attemptGetZipcode(final View button) {
+        String zipcode = binding.editLocation.getText().toString().trim();
+        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
+        if (zipcode.matches(regex)) {
+            mLocationModel.setZipcode(zipcode);
+        } else {
+            binding.editLocation.setError("Zipcode must either have the format of *****"
+                    + " or *****-**** and contain only digits.");
+        }
+    }
 
 
 

@@ -56,7 +56,6 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
         }
 
         void setWeather(final Weather weather) {
-            //https://picsum.photos/80
             binding.textCity.setText(weather.getCity());
             binding.textType.setText(weather.getWeatherType());
             binding.textDesc.setText(weather.getWeatherDescription());
@@ -69,7 +68,6 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
                     .error(R.drawable.ic_error_blue_24dp)
                     .fit()
                     .into(binding.imageWeathericon);
-            //binding.imageWeathericon.setImageResource(weather.getIcon());
         }
 
 

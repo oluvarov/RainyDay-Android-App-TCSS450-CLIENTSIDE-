@@ -64,7 +64,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
         }
     }
 
-    public void connect5DaysIP(final String ip) {
+    public void connect5DaysIP(final String ip, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
         Request request = new JsonObjectRequest(
@@ -79,6 +79,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
+                headers.put("Authorization", "Bearer "  + jwt);
                 headers.put("ip", ip);
                 return headers;
             }
@@ -93,7 +94,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    public void connect5DaysZipcode(final String zipcode) {
+    public void connect5DaysZipcode(final String zipcode, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
         Request request = new JsonObjectRequest(
@@ -108,6 +109,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
+                headers.put("Authorization", "Bearer "  + jwt);
                 headers.put("zip", zipcode);
                 return headers;
             }
@@ -122,7 +124,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    public void connect5DaysLatLng(final double lat, final double lon) {
+    public void connect5DaysLatLng(final double lat, final double lon, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
         Request request = new JsonObjectRequest(
@@ -137,6 +139,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
+                headers.put("Authorization", "Bearer "  + jwt);
                 headers.put("lat", String.valueOf(lat));
                 headers.put("lon", String.valueOf(lon));
                 return headers;

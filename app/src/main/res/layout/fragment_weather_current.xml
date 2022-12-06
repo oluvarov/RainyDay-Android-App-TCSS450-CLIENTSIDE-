@@ -23,26 +23,6 @@
         app:layout_constraintTop_toTopOf="parent" />
         -->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_weather_location_current"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:hint="Zip Code"
-        app:boxStrokeWidth="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/button_weather_current"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_search_black_24dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_location_current"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPersonName" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_weather_current"
         android:layout_width="0dp"
@@ -50,32 +30,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_weather_location_current"
-        app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/fragment_weather_card" />
-
-    <ImageButton
-        android:id="@+id/button_weather_current"
-        style="@android:style/Widget.Material.ImageButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:backgroundTint="#FFFFFF"
-        android:cropToPadding="false"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_search_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/list_weather_current"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="8dp" />
+        tools:listitem="@layout/fragment_weather_card" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

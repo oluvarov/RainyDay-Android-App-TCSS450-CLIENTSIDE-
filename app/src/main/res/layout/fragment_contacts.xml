@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/layout_contacts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.contacts.ContactsFragment">
 
     <TextView
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:id="@+id/text_contacts"
+        android:id="@+id/text_friends"
         android:layout_width="88dp"
         android:layout_height="40dp"
-        android:text="@string/title_contacts"
+        android:text="@string/title_friends"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/layout_contacts_search"
@@ -28,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tab_contacts_layout"
         app:layout_constraintEnd_toStartOf="@+id/button_contact_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_contacts">
+        app:layout_constraintTop_toBottomOf="@+id/text_friends">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -84,20 +83,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tab_contacts_layout" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button_contacts"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_friend_fab"
         style="@style/Widget.Material3.FloatingActionButton.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="75dp"
-        android:clickable="true"
-        android:src="@drawable/ic_contact_search_24dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="Add Friend"
+        app:icon="@drawable/ic_add_friend_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

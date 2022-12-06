@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,10 +32,12 @@ import java.util.Locale;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather24hourBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
 
 public class Weather24HourFragment extends Fragment {
 
+    private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
     private FragmentWeather24hourBinding binding;
     private Weather24HourViewModel mWeather24HourModel;
@@ -52,6 +55,8 @@ public class Weather24HourFragment extends Fragment {
                 .get(Weather24HourViewModel.class);
         mLocationModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
 
     }
 
@@ -72,8 +77,6 @@ public class Weather24HourFragment extends Fragment {
 
         ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
-        binding.buttonWeather24hour.setOnClickListener(this::attemptWeatherZipcode);
-
         recyclerView = binding.listWeather24hour;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -85,25 +88,12 @@ public class Weather24HourFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetLatLng);
 
-        mWeather24HourModel.connect24HourIP(ip);
+        mLocationModel.addZipcodeObserver(
+                getViewLifecycleOwner(),
+                this::observeGetZipcode);
+
+        mWeather24HourModel.connect24HourIP(ip, mUserInfoModel.getmJwt());
     }
-
-
-    private void attempt24HourWeather(final View button) {
-        mWeather24HourModel.connect24HourIP(ip);
-    }
-
-    private void attemptWeatherZipcode(final View button) {
-        String zipcode = binding.editLocation24hour.getText().toString().trim();
-        String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
-        if (zipcode.matches(regex)) {
-            mWeather24HourModel.connect24HourZipcode(zipcode);
-        } else {
-            binding.editLocation24hour.setError("Zipcode must either have the format of *****"
-                    + " or *****-**** and contain only digits.");
-        }
-    }
-
 
     private void setUp24Hour(JSONObject response) {
         System.out.println(response);
@@ -145,9 +135,12 @@ public class Weather24HourFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editLocation24hour.setError(
+                    Snackbar snackbar = Snackbar.make(binding.frameLayoutWeather24hour,"Error Authenticating: " +
+                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    /*binding.editLocation24hour.setError(
                             "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                                    response.getJSONObject("data").getString("message"));*/
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
@@ -160,7 +153,11 @@ public class Weather24HourFragment extends Fragment {
     }
 
     private void observeGetLatLng(final LatLng latLng) {
-        mWeather24HourModel.connect24HourLatLng(latLng.latitude, latLng.longitude);
+        mWeather24HourModel.connect24HourLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
+    }
+
+    private void observeGetZipcode(final String zipcode) {
+        mWeather24HourModel.connect24HourZipcode(zipcode, mUserInfoModel.getmJwt());
     }
 
 }
