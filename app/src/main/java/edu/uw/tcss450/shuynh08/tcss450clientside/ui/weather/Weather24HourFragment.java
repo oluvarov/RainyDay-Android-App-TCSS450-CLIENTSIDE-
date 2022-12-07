@@ -34,7 +34,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather24ho
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
-
+/**
+ * Fragment that's used to get the weather of the next 24 hours in a given location.
+ */
 public class Weather24HourFragment extends Fragment {
 
     private UserInfoViewModel mUserInfoModel;
@@ -94,7 +96,10 @@ public class Weather24HourFragment extends Fragment {
 
         mWeather24HourModel.connect24HourIP(ip, mUserInfoModel.getmJwt());
     }
-
+    /**
+     * Used to parse through JSONObject and display 24 hour weather.
+     * @param response The JSONObject given by the API for 24 hour weather.
+     */
     private void setUp24Hour(JSONObject response) {
         System.out.println(response);
         try {
@@ -130,7 +135,10 @@ public class Weather24HourFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Used to observe for a response from the API for a JSONObject of 24 hour weather
+     * @param response The JSONObject given by the API for 24 hour weather.
+     */
     private void observeWeather24Hour(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -151,11 +159,17 @@ public class Weather24HourFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-
+    /**
+     * Used to observe a response from LocationViewModel on a change of latitude and longitude.
+     * @param latLng The latlng from LocationViewModel.
+     */
     private void observeGetLatLng(final LatLng latLng) {
         mWeather24HourModel.connect24HourLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
-
+    /**
+     * Used to observe a response from LocationViewModel on a change of zipcode.
+     * @param zipcode The zipcode from LocationViewModel.
+     */
     private void observeGetZipcode(final String zipcode) {
         mWeather24HourModel.connect24HourZipcode(zipcode, mUserInfoModel.getmJwt());
     }

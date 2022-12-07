@@ -18,7 +18,9 @@ import java.util.List;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCardBinding;
 
-
+/**
+ * A RecyclerViewAdapter used to help create weather cards and display them in a RecyclerView.
+ */
 public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecyclerViewAdapter.WeatherViewHolder> {
 
     private final List<Weather> mWeather;

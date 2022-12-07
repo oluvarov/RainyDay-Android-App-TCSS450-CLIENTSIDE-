@@ -37,9 +37,10 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCurr
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
-
+/**
+ * Fragment that's used to get the current weather of a given location.
+ */
 public class WeatherCurrentFragment extends Fragment {
-
     private FragmentWeatherBinding mWeatherBinding;
     private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
@@ -101,6 +102,10 @@ public class WeatherCurrentFragment extends Fragment {
         mWeatherCurrentModel.connectCurrentIP(ip, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Used to parse through JSONObject and display current weather.
+     * @param response The JSONObject given by the API for the current weather.
+     */
     private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {
@@ -133,6 +138,10 @@ public class WeatherCurrentFragment extends Fragment {
         }
     }
 
+    /**
+     * Used to observe for a response from the API for a JSONObject of current weather
+     * @param response The JSONObject given by the API for the current weather.
+     */
     private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -151,10 +160,18 @@ public class WeatherCurrentFragment extends Fragment {
         }
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of latitude and longitude.
+     * @param latLng The latlng from LocationViewModel.
+     */
     private void observeGetLatLng(final LatLng latLng) {
         mWeatherCurrentModel.connectCurrentLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of zipcode.
+     * @param zipcode The zipcode from LocationViewModel.
+     */
     private void observeGetZipcode(final String zipcode) {
         mWeatherCurrentModel.connectCurrentZipcode(zipcode, mUserInfoModel.getmJwt());
     }

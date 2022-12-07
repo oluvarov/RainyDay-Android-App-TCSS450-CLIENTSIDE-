@@ -23,7 +23,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
-
+/**
+ * A viewmodel for 5 day weather that helps make API calls.
+ */
 public class Weather5DayViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mWeather;
@@ -63,7 +65,11 @@ public class Weather5DayViewModel extends AndroidViewModel {
             }
         }
     }
-
+    /**
+     * Method that creates a HTTP request to an API for 5 day weather using an IP.
+     * @param ip The IP of the device making the request.
+     * @param jwt The JSON web token of the user.
+     */
     public void connect5DaysIP(final String ip, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
@@ -93,7 +99,11 @@ public class Weather5DayViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
+    /**
+     * Method that creates a HTTP request to an API for 5 day weather using a zipcode.
+     * @param zipcode The zipcode given by the user.
+     * @param jwt The JSON web token of the user.
+     */
     public void connect5DaysZipcode(final String zipcode, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 
@@ -123,7 +133,12 @@ public class Weather5DayViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
+    /**
+     * Method that creates a HTTP request to an API for 5 day weather using latitude and longitude.
+     * @param lat The latitude given by the user.
+     * @param lon The longitude given by the user.
+     * @param jwt The JSON web token of the user.
+     */
     public void connect5DaysLatLng(final double lat, final double lon, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
 

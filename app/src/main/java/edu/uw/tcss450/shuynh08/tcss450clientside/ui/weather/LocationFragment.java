@@ -27,6 +27,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBind
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
+/**
+ * A fragment that's used to display a Google map and allows for markers to be placed..
+ */
 public class LocationFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private LocationViewModel mModel;
