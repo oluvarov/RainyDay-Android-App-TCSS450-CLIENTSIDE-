@@ -39,7 +39,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
-
+/**
+ * A fragment that's used to display weather in tabs.
+ */
 public class WeatherFragment extends Fragment {
 
     private LocationViewModel mLocationModel;

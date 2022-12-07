@@ -46,10 +46,6 @@
     <string name="weather_tab_map">Map</string>
     <string name="weather_search_button">Search with ZIP Code</string>
     <string name="hint_search_friends">Search</string>
-    <string name="search">search</string>
-    <string name="content_description_search">search</string>
-    <string name="favorite">favorite</string>
-    <string name="content_description_favorite">favorite the chat</string>
 
 
 </resources>

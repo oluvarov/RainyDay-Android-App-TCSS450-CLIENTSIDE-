@@ -41,7 +41,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather5day
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
-
+/**
+ * Fragment that's used to get the weather of the next 5 days in a given location.
+ */
 public class Weather5DayFragment extends Fragment {
 
     private UserInfoViewModel mUserInfoModel;
@@ -135,7 +137,10 @@ public class Weather5DayFragment extends Fragment {
         return "";
     }
 
-
+    /**
+     * Used to parse through JSONObject and display 5 day weather.
+     * @param response The JSONObject given by the API for 5 day weather.
+     */
     private void setUp5Day(JSONObject response) {
         System.out.println(response);
         Format f = new SimpleDateFormat("EEEE");
@@ -177,7 +182,10 @@ public class Weather5DayFragment extends Fragment {
     }
 
 
-
+    /**
+     * Used to observe for a response from the API for a JSONObject of 5 day weather
+     * @param response The JSONObject given by the API for 5 day weather.
+     */
     private void observeWeather5Day(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -199,10 +207,18 @@ public class Weather5DayFragment extends Fragment {
         }
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of latitude and longitude.
+     * @param latLng The latlng from LocationViewModel.
+     */
     private void observeGetLatLng(final LatLng latLng) {
         mWeather5DayModel.connect5DaysLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of zipcode.
+     * @param zipcode The zipcode from LocationViewModel.
+     */
     private void observeGetZipcode(final String zipcode) {
         mWeather5DayModel.connect5DaysZipcode(zipcode, mUserInfoModel.getmJwt());
     }

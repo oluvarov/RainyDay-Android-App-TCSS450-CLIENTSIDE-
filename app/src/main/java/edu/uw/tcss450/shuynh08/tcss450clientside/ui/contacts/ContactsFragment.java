@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -100,11 +101,8 @@ public class ContactsFragment extends Fragment {
 
 
     private void displayAddFriendFragment(View fab) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.layout_contacts,new AddFriendFragment());
-        transaction.commit();
-        mAddFriendFab.hide();
-
+        Navigation.findNavController(getView()).navigate(
+                ContactsFragmentDirections.actionNavigationContactsToAddFriendFragment());
     }
 
 

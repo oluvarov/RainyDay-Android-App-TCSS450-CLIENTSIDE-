@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.contacts.incoming_request_list.IncomingRequestListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/text_incoming_request_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_incoming"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="incoming request" />
-
+        tools:listitem="@layout/fragment_incoming_request_card" />
 </FrameLayout>

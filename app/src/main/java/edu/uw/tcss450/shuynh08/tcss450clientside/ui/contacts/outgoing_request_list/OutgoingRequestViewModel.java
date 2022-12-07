@@ -1,4 +1,4 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.outgoing_request_list;
 
 import android.app.Application;
 import android.util.Log;
@@ -24,19 +24,19 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-public class FriendListViewModel extends AndroidViewModel {
+public class OutgoingRequestViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mFriends;
+    private MutableLiveData<JSONObject> mContacts;
 
-    public FriendListViewModel(@NonNull Application application) {
+    public OutgoingRequestViewModel(@NonNull Application application) {
         super(application);
-        mFriends = new MutableLiveData<>();
-        mFriends.setValue(new JSONObject());
+        mContacts = new MutableLiveData<>();
+        mContacts.setValue(new JSONObject());
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
-        mFriends.observe(owner, observer);
+        mContacts.observe(owner, observer);
     }
 
     public void connectContacts(final int memberID, final String jwt) {
@@ -46,36 +46,7 @@ public class FriendListViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                mFriends::setValue,
-                this::handleError) {
-
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("memberid_a", Integer.toString(memberID));
-                headers.put("Authorization", "Bearer "  + jwt);
-                return headers;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
-    public void deleteContacts(final int memberID, final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
-
-        Request request = new JsonObjectRequest(
-                Request.Method.DELETE,
-                url,
-                null, //no body for this get request
-                mFriends::setValue,
+                mContacts::setValue,
                 this::handleError) {
 
 
@@ -101,7 +72,7 @@ public class FriendListViewModel extends AndroidViewModel {
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
-                mFriends.setValue(new JSONObject("{" +
+                mContacts.setValue(new JSONObject("{" +
                         "error:\"" + error.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
@@ -115,7 +86,7 @@ public class FriendListViewModel extends AndroidViewModel {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mFriends.setValue(response);
+                mContacts.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }

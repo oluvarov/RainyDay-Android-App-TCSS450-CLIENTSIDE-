@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+/**
+ * A FragmentStateAdapter used to create tabs for weather and display them.
+ */
 public class MyViewPagerAdapter extends FragmentStateAdapter {
 
 

@@ -2,6 +2,9 @@ package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import java.io.Serializable;
 
+/**
+ * A model class used to represent weather.
+ */
 public class Weather implements Serializable {
 
     private final String mWeatherType;

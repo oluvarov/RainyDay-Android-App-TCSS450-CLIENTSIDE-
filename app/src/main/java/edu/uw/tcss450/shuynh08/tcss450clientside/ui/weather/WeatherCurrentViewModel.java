@@ -24,6 +24,9 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ * A viewmodel for current weather that helps make API calls.
+ */
 public class WeatherCurrentViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mWeather;
@@ -64,6 +67,11 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Method that creates a HTTP request to an API for current weather using an IP.
+     * @param ip The IP of the device making the request.
+     * @param jwt The JSON web token of the user.
+     */
     public void connectCurrentIP(final String ip, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/current";
 
@@ -94,6 +102,11 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Method that creates a HTTP request to an API for current weather using a zipcode.
+     * @param zipcode The zipcode given by the user.
+     * @param jwt The JSON web token of the user.
+     */
     public void connectCurrentZipcode(final String zipcode, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/current";
 
@@ -124,6 +137,12 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Method that creates a HTTP request to an API for current weather using latitude and longitude.
+     * @param lat The latitude given by the user.
+     * @param lon The longitude given by the user.
+     * @param jwt The JSON web token of the user.
+     */
     public void connectCurrentLatLng(final double lat, final double lon, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/weather/current";
 
