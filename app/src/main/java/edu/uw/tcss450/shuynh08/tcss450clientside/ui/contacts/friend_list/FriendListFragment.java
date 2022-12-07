@@ -30,7 +30,7 @@ public class FriendListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FragmentFriendListBinding binding;
-    private UserInfoViewModel mUserInfoViewModel;
+    private UserInfoViewModel mUserInfoModel;
     private FriendListViewModel mContactsModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
     private int mMemberID;
@@ -61,7 +61,7 @@ public class FriendListFragment extends Fragment {
         recyclerView = binding.listFriend;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mUserInfoViewModel = new ViewModelProvider(getActivity())
+        mUserInfoModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         mContactsGetInfoModel.addResponseObserver(
                 getViewLifecycleOwner(),
@@ -69,7 +69,7 @@ public class FriendListFragment extends Fragment {
         mContactsModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
-        mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
+        mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
     }
 
     private void observeContacts(final JSONObject response) {
@@ -114,7 +114,7 @@ public class FriendListFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mContactsModel.connectContacts(mMemberID, mUserInfoViewModel.getmJwt());
+        mContactsModel.connectContacts(mMemberID, mUserInfoModel.getmJwt());
     }
 
     private void setUpContacts(JSONObject response) {
