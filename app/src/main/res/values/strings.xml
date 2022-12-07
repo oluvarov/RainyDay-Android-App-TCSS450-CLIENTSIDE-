@@ -51,6 +51,8 @@
     <string name="contacts_tab_incoming_requests">Incoming Requests</string>
     <string name="contacts_tab_outgoing_requests">Outgoing Requests</string>
     <string name="hint_add_friend_email">Email</string>
+    <string name="title_change_name">Change Name</string>
+    <string name="action_update_name">Update Name</string>
 
 
 </resources>
