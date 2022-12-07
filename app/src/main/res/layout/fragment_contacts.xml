@@ -24,7 +24,7 @@
         android:id="@+id/layout_contacts_search"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tab_contacts_layout"
         app:layout_constraintEnd_toStartOf="@+id/button_contact_search"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,9 @@
         android:id="@+id/button_contact_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="45dp"
+        android:layout_marginEnd="8dp"
         android:text="Search"
         app:layout_constraintBottom_toTopOf="@+id/tab_contacts_layout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,17 +64,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friends" />
+            android:text="@string/contacts_tab_friends" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Incoming Request" />
+            android:text="@string/contacts_tab_incoming_requests" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Outgoing Request" />
+            android:text="@string/contacts_tab_outgoing_requests" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -94,7 +95,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:text="Add Friend"
+        android:text="@string/add_friend"
         app:icon="@drawable/ic_add_friend_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

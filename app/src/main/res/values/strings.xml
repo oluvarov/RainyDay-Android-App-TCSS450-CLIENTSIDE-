@@ -46,6 +46,11 @@
     <string name="weather_tab_map">Map</string>
     <string name="weather_search_button">Search with ZIP Code</string>
     <string name="hint_search_friends">Search</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="contacts_tab_friends">Friends</string>
+    <string name="contacts_tab_incoming_requests">Incoming Requests</string>
+    <string name="contacts_tab_outgoing_requests">Outgoing Requests</string>
+    <string name="hint_add_friend_email">Email</string>
 
 
 </resources>
