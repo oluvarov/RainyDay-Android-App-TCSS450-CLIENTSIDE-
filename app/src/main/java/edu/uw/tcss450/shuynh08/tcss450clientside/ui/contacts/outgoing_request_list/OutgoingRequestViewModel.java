@@ -26,17 +26,17 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
 public class OutgoingRequestViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mFriends;
+    private MutableLiveData<JSONObject> mContacts;
 
     public OutgoingRequestViewModel(@NonNull Application application) {
         super(application);
-        mFriends = new MutableLiveData<>();
-        mFriends.setValue(new JSONObject());
+        mContacts = new MutableLiveData<>();
+        mContacts.setValue(new JSONObject());
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
-        mFriends.observe(owner, observer);
+        mContacts.observe(owner, observer);
     }
 
     public void connectContacts(final int memberID, final String jwt) {
@@ -46,7 +46,7 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                mFriends::setValue,
+                mContacts::setValue,
                 this::handleError) {
 
 
@@ -54,7 +54,7 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("memberid_b", Integer.toString(memberID));
+                headers.put("memberid_a", Integer.toString(memberID));
                 headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
@@ -72,7 +72,7 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
-                mFriends.setValue(new JSONObject("{" +
+                mContacts.setValue(new JSONObject("{" +
                         "error:\"" + error.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
@@ -86,7 +86,7 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mFriends.setValue(response);
+                mContacts.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }

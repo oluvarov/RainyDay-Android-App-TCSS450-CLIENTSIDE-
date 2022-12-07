@@ -131,7 +131,6 @@ public class FriendListFragment extends Fragment {
                 String email = obj.getString("username");
                 String name = obj.getString("firstname") + " " + obj.getString("lastname");
                 contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
-
             }
             recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
         } catch (JSONException e) {

@@ -38,14 +38,14 @@ public class IncomingRequestListFragment extends Fragment {
     private RecyclerView recyclerView;
     private FragmentIncomingRequestListBinding binding;
     private UserInfoViewModel mUserInfoViewModel;
-    private FriendListViewModel mContactsModel;
+    private IncomingRequestViewModel mIncomingRequestModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
     private int mMemberID;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContactsModel = new ViewModelProvider(getActivity()).get(FriendListViewModel.class);
+        mIncomingRequestModel = new ViewModelProvider(getActivity()).get(IncomingRequestViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
     }
 
@@ -69,7 +69,7 @@ public class IncomingRequestListFragment extends Fragment {
         mContactsGetInfoModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeMemberInfo);
-        mContactsModel.addResponseObserver(
+        mIncomingRequestModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
         mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
@@ -117,7 +117,7 @@ public class IncomingRequestListFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mContactsModel.connectContacts(mMemberID, mUserInfoViewModel.getmJwt());
+        mIncomingRequestModel.connectContacts(mMemberID, mUserInfoViewModel.getmJwt());
     }
 
     private void setUpContacts(JSONObject response) {
@@ -137,7 +137,7 @@ public class IncomingRequestListFragment extends Fragment {
                 contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
 
           }
-            recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
+            recyclerView.setAdapter(new IncomingRequestListViewAdapter(contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }

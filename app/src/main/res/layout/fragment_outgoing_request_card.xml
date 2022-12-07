@@ -55,21 +55,21 @@
             app:layout_constraintVertical_bias="1.0"
             tools:srcCompat="@tools:sample/avatars[0]" />
 
-        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--            android:id="@+id/contact_info_fab"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="17dp"-->
-        <!--            android:layout_marginBottom="18dp"-->
-        <!--            android:clickable="true"-->
-        <!--            app:fabCustomSize="30dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.881"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/image_contact_icon"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintVertical_bias="0.0"-->
-        <!--            app:srcCompat="@drawable/ic_baseline_info_24dp" />-->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/contact_info_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="18dp"
+                    android:clickable="true"
+                    app:fabCustomSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.881"
+                    app:layout_constraintStart_toEndOf="@+id/image_contact_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_contact_delete_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

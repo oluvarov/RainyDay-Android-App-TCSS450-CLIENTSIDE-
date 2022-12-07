@@ -28,7 +28,7 @@ public class IncomingRequestListViewAdapter extends RecyclerView.Adapter<Incomin
     public IncomingRequestListViewAdapter.ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new IncomingRequestListViewAdapter.ContactsViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contacts_card, parent, false));
+                .inflate(R.layout.fragment_incoming_request_card, parent, false));
     }
 
     @Override
