@@ -29,8 +29,8 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.ContactsGetInfoView
 public class FriendListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private @NonNull FragmentFriendListBinding binding;
-    private UserInfoViewModel mUserInfoModel;
+    private FragmentFriendListBinding binding;
+    private UserInfoViewModel mUserInfoViewModel;
     private FriendListViewModel mContactsModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
     private int mMemberID;
@@ -61,7 +61,7 @@ public class FriendListFragment extends Fragment {
         recyclerView = binding.listFriend;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mUserInfoModel = new ViewModelProvider(getActivity())
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         mContactsGetInfoModel.addResponseObserver(
                 getViewLifecycleOwner(),
@@ -69,7 +69,7 @@ public class FriendListFragment extends Fragment {
         mContactsModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
-        mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
+        mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
     }
 
     private void observeContacts(final JSONObject response) {
@@ -114,7 +114,7 @@ public class FriendListFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mContactsModel.connectContacts(mMemberID, mUserInfoModel.getmJwt());
+        mContactsModel.connectContacts(mMemberID, mUserInfoViewModel.getmJwt());
     }
 
     private void setUpContacts(JSONObject response) {
@@ -125,9 +125,13 @@ public class FriendListFragment extends Fragment {
             for (int i = 0; i < keys.length(); i++) {
                 String key = keys.getString(i);
                 JSONObject obj = response.getJSONObject(key);
+                String verified = obj.getString("verified");
                 String email = obj.getString("username");
                 String name = obj.getString("firstname") + " " + obj.getString("lastname");
-                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
+
+                if(verified.equals("1")){
+                    contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
+                }
             }
             recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
         } catch (JSONException e) {

@@ -5,7 +5,6 @@
     android:id="@+id/layout_contacts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.contacts.ContactsFragment">
 
     <TextView
@@ -33,9 +32,9 @@
         app:layout_constraintTop_toBottomOf="@+id/text_friends" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/layout_text_input_email"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="33dp"
@@ -44,13 +43,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="346dp"
-            android:layout_height="48dp"
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
             android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_request"
         android:layout_width="310dp"
         android:layout_height="41dp"
         android:layout_marginStart="50dp"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/layout_text_input_email"
         app:layout_constraintVertical_bias="0.0" />
 
 

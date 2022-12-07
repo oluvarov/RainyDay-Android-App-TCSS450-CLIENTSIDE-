@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_zip_code">Zip Code</string>
+    <string name="weather_tab_current">Current</string>
+    <string name="weather_tab_24_hour">24 Hour</string>
+    <string name="weather_tab_5_day">5 Day</string>
+    <string name="weather_tab_map">Map</string>
+    <string name="weather_search_button">Search with ZIP Code</string>
+    <string name="hint_search_friends">Search</string>
+</resources>
