@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -94,6 +95,11 @@ public class ChatFragment extends Fragment {
 //when we get the response back from the server, clear the edittext
         mSendModel.addResponseObserver(getViewLifecycleOwner(), response ->
                 binding.editMessage.setText(""));
+
+        binding.topAppBar.setNavigationOnClickListener(backButton ->
+                Navigation.findNavController(getView()).navigate(
+                        ChatFragmentDirections.actionNavigationChatToNavigationChatroom()
+                ));
 
     }
 
