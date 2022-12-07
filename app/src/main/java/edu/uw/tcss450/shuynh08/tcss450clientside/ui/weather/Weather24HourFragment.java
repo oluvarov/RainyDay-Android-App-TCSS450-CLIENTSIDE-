@@ -109,6 +109,7 @@ public class Weather24HourFragment extends Fragment {
             String city = cityObj.getString("name");
 
             JSONArray arrayOfWeather = response.getJSONArray("list");
+
             for (int i = 0; i < arrayOfWeather.length(); i++) {
                 JSONObject listObj = arrayOfWeather.getJSONObject(i);
                 JSONObject mainObj = listObj.getJSONObject("main");

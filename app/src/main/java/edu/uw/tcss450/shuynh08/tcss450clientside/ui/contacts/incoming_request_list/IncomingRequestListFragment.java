@@ -121,22 +121,22 @@ public class IncomingRequestListFragment extends Fragment {
     }
 
     private void setUpContacts(JSONObject response) {
-        Log.i("JSON", String.valueOf(response));
+        System.out.println(response.names());
+
         try {
             List<Contacts> contactsList = new ArrayList<>();
-            JSONArray keys = response.names();
-            for (int i = 0; i < keys.length(); i++) {
-                String key = keys.getString(i);
-                JSONObject obj = response.getJSONObject(key);
+            JSONObject incoming = response.getJSONObject("incoming_requests");
+            JSONArray incomingKeys = incoming.names();
+            for (int i = 0; i < incomingKeys.length(); i++) {
+                String key = incomingKeys.getString(i);
+                JSONObject obj = incoming.getJSONObject(key);
+                System.out.println(obj);
                 String verified = obj.getString("verified");
                 String email = obj.getString("username");
-                //Log.i("JSON", email);
                 String name = obj.getString("firstname") + " " + obj.getString("lastname");
+                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
 
-                if(verified.equals("0")){
-                    contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
-                }
-            }
+          }
             recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
         } catch (JSONException e) {
             e.printStackTrace();

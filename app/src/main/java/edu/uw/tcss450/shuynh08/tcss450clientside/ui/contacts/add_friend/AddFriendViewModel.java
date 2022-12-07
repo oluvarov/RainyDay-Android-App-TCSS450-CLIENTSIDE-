@@ -86,7 +86,6 @@ public class AddFriendViewModel extends AndroidViewModel {
             }
         };
 
-        Log.i("info","here i am");
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

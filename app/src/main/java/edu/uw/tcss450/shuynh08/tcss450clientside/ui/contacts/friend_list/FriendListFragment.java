@@ -121,17 +121,17 @@ public class FriendListFragment extends Fragment {
 
         try {
             List<Contacts> contactsList = new ArrayList<>();
-            JSONArray keys = response.names();
-            for (int i = 0; i < keys.length(); i++) {
-                String key = keys.getString(i);
-                JSONObject obj = response.getJSONObject(key);
+            JSONObject friends = response.getJSONObject("friends");
+            JSONArray friendsKeys = friends.names();
+            for (int i = 0; i < friendsKeys.length(); i++) {
+                String key = friendsKeys.getString(i);
+                JSONObject obj = friends.getJSONObject(key);
+                System.out.println(obj);
                 String verified = obj.getString("verified");
                 String email = obj.getString("username");
                 String name = obj.getString("firstname") + " " + obj.getString("lastname");
+                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
 
-                if(verified.equals("1")){
-                    contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
-                }
             }
             recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
         } catch (JSONException e) {

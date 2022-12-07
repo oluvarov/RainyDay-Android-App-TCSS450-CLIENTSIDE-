@@ -54,7 +54,7 @@ public class IncomingRequestViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("memberid_b", Integer.toString(memberID));
+                headers.put("memberid_a", Integer.toString(memberID));
                 headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
