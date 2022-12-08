@@ -68,35 +68,6 @@ public class FriendListViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-    public void deleteContacts(final int memberID, final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
-
-        Request request = new JsonObjectRequest(
-                Request.Method.DELETE,
-                url,
-                null, //no body for this get request
-                mFriends::setValue,
-                this::handleError) {
-
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("memberid_a", Integer.toString(memberID));
-                headers.put("Authorization", "Bearer "  + jwt);
-                return headers;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {

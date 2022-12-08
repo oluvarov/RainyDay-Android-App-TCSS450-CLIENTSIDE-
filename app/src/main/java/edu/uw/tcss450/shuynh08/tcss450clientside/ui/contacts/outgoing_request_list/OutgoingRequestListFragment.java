@@ -121,11 +121,15 @@ public class OutgoingRequestListFragment extends Fragment {
     }
 
     private void setUpContacts(JSONObject response) {
-
+        System.out.println(response);
         try {
             List<Contacts> contactsList = new ArrayList<>();
             JSONObject outgoing = response.getJSONObject("outgoing_requests");
             JSONArray outgoingKeys = outgoing.names();
+            if ( outgoingKeys == null) {
+                return;
+            }
+
             for (int i = 0; i < outgoingKeys.length(); i++) {
                 String key = outgoingKeys.getString(i);
                 JSONObject obj = outgoing.getJSONObject(key);

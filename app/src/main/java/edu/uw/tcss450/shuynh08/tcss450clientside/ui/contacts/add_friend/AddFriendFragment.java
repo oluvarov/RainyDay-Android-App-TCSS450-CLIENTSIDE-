@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,16 +73,19 @@ public class AddFriendFragment extends Fragment {
             if (response.has("code")) {
                 try {
                     String code = response.getString("code");
-                    if(code.equals("409")){
+                    System.out.println("Error Code " + code);
+                   if(code.equals("409")){
                         errorFriendExist();
-                    }else{
+                    }else if(code.equals("404")){
                         errorNotFound();
+                    }else{
+
                     }
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                sendFriendRequest();
+                success();
             }
         } else {
             Log.d("JSON Response", "No Response");
@@ -95,6 +100,10 @@ public class AddFriendFragment extends Fragment {
     private void errorFriendExist(){
         binding.editEmail.setError("Friend request already exist");
         binding.layoutWait.setVisibility(View.INVISIBLE);
+    }
+
+    private void success(){
+        binding.textAddFriend.setText("Friend request successful");
     }
 
     private void sendFriendRequest() {
