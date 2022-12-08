@@ -28,25 +28,40 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ * A ViewModel managing the data for Sign-In.
+ */
 public class SignInViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for the ViewModel. Initializes our mResponse with a blank JSONObject.
+     * @param application The Application
+     */
     public SignInViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
-
-
-
-
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -73,7 +88,7 @@ public class SignInViewModel extends AndroidViewModel {
 
     /**
      *  User inputs their email and password to sign in, info is sent to API to check
-     *  whether user is registered
+     *  whether user is registered.
      * @param email String email of the user
      * @param password String password of the user
      */
@@ -111,6 +126,10 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Asks the server if the user is verified.
+     * @param email String email of the user
+     */
     public void connectVerified(final String email) {
         String url = "https://tcss450-weather-chat.herokuapp.com/verification/status";
 

@@ -31,25 +31,55 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.PushyTokenViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
+/**
+ * A fragment used to display the main sign-in screen.
+ */
 public class SignInFragment extends Fragment {
 
+    /**
+     * Binding object for the Sign-In fragment
+     */
     private FragmentSignInBinding binding;
+
+    /**
+     * ViewModel object for the Sign-In fragment
+     */
     private SignInViewModel mSignInModel;
 
+    /**
+     * PushyTokenViewModel object for the Sign-In fragment using Pushy for user authentication.
+     */
     private PushyTokenViewModel mPushyTokenViewModel;
+
+    /**
+     * ViewModel object representing the user.
+     */
     private UserInfoViewModel mUserViewModel;
 
+    /**
+     * Required empty public constructor.
+     */
+    public SignInFragment() {
+    }
+
+    /**
+     * Serves as a validator for the returning user's email address.
+     */
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
+    /**
+     * Serves as a validator for the returning user's password.
+     */
     private PasswordValidator mPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
-    public SignInFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * Initializes the associated ViewModels (PushyTokenViewModel and SignInModel)
+     * for sign-in.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +90,13 @@ public class SignInFragment extends Fragment {
 
     }
 
+    /**
+     * Generates and assigns a view binding for the Sign-In fragment layout.
+     * @param inflater The LayoutInflater
+     * @param container The ViewGroup
+     * @param savedInstanceState The data of the UI state
+     * @return A ConstraintLayout based on the associated XML class for Sign-In fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +105,14 @@ public class SignInFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Here, the sign-in page is ready to observe user activity. The user can:
+     *      - Sign in
+     *      - Recover password
+     *      - Register for a new account
+     * @param view The View
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -101,7 +146,7 @@ public class SignInFragment extends Fragment {
                 binding.layoutWait.setVisibility(View.GONE);
                 });*/
 
-        //don't allow sign in until pushy token retrieved
+        // Don't allow sign in until pushy token retrieved
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
                 binding.buttonSignIn.setEnabled(!token.isEmpty()));
 
@@ -111,6 +156,10 @@ public class SignInFragment extends Fragment {
         binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
     }
 
+    /**
+     * Upon startup of the app, checks for JWT and if it is still valid before navigating
+     * to the Activity past Authentication.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -132,7 +181,11 @@ public class SignInFragment extends Fragment {
         }
     }
 
-
+    /**
+     * Upon user clicking the Sign In button, kicks off the sign-in process into a sequence
+     * of helper methods for both fields (email and password).
+     * @param button The Sign In button
+     */
     private void attemptSignIn(final View button) {
         validateEmail();
     }
@@ -144,11 +197,10 @@ public class SignInFragment extends Fragment {
         mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getmJwt());
     }
 
-
-
-
-
-
+    /**
+     * Processes the returning user's email with mEmailValidator, then proceed with validating
+     * password. Calls helper method to handle incorrect email address.
+     */
     private void validateEmail() {
         mEmailValidator.processResult(
                 mEmailValidator.apply(binding.editEmail.getText().toString().trim()),
@@ -156,11 +208,17 @@ public class SignInFragment extends Fragment {
                 result -> errorEmail());
     }
 
+    /**
+     * Handles incorrect email address.
+     */
     private void errorEmail() {
         binding.editEmail.setError("Please enter a valid Email address.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Attempts to authenticate password. Calls helper method to handle incorrect password.
+     */
     private void validatePassword() {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.editPassword.getText().toString()),
@@ -168,11 +226,17 @@ public class SignInFragment extends Fragment {
                 result -> errorPassword());
     }
 
+    /**
+     * Handles incorrect password.
+     */
     private void errorPassword() {
         binding.editPassword.setError("Please enter a valid Password.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Calls the Sign-In's ViewModel to ask the server if the user is authentic.
+     */
     private void verifyAuthWithServer() {
         mSignInModel.connect(
                 binding.editEmail.getText().toString(),
@@ -181,11 +245,15 @@ public class SignInFragment extends Fragment {
         //result of connect().
     }
 
+    /**
+     * Calls the Sign-In's ViewModel to ask the server if the user is verified.
+     */
     private void verifyVerificationWithServer() {
         mSignInModel.connectVerified(
                 binding.editEmail.getText().toString()
         );
     }
+
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
@@ -206,7 +274,6 @@ public class SignInFragment extends Fragment {
         //Remove THIS activity from the Task list. Pops off the backstack
         getActivity().finish();
     }
-
 
     /**
      * An observer on the HTTP Response from the web server. This observer should be

@@ -30,21 +30,42 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.AccountFragmentDirec
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.AccountViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
+/**
+ * A fragment used to display the Change Password screen for currently signed-in users.
+ */
 public class ChangePasswordFragment extends Fragment {
 
+    /**
+     * Binding object for the Change Password fragment.
+     */
     private FragmentChangePasswordBinding binding;
 
+    /**
+     * ViewModel object for the Change Password fragment.
+     */
     private ChangePasswordViewModel mChangePasswordModel;
 
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
     private UserInfoViewModel model;
 
+    /**
+     * Serves as a validator for the user's entered password.
+     */
     private PasswordValidator mPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
+    /**
+     * Required empty public constructor.
+     */
     public ChangePasswordFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Initializes the associated ViewModel for Change Password.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +73,13 @@ public class ChangePasswordFragment extends Fragment {
                 .get(ChangePasswordViewModel.class);
     }
 
+    /**
+     * Generates and assigns a view binding for the Change password layout.
+     * @param inflater The LayoutInflater
+     * @param container The ViewGroup
+     * @param savedInstanceState The data of the UI state
+     * @return a ConstraintLayout based on the associated XML class for the Change Password fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +87,11 @@ public class ChangePasswordFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Here, the Change Password Fragment is listening for input from the user.
+     * @param view The View
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -76,7 +109,7 @@ public class ChangePasswordFragment extends Fragment {
 
     /**
      * When the button is pressed, start the process of changing the user's password.
-     * @param button
+     * @param button Update Password
      */
     private void attemptChangePassword(final View button) {
         validateOldPassword();
@@ -174,7 +207,5 @@ public class ChangePasswordFragment extends Fragment {
         }
 
     }
-
-
 
 }

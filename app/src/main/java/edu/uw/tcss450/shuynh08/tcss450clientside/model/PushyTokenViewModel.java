@@ -29,9 +29,20 @@ import me.pushy.sdk.Pushy;
 
 public class PushyTokenViewModel extends AndroidViewModel{
 
+    /**
+     * Represents the PushyToken to be used for the device.
+     */
     private final MutableLiveData<String> mPushyToken;
+
+    /**
+     * Publishes responses from our API web calls.
+     */
     private final MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for the ViewModel. Initializes all fields to new/default values.
+     * @param application The Application
+     */
     public PushyTokenViewModel(@NonNull Application application) {
         super(application);
         mPushyToken = new MutableLiveData<>();
@@ -41,20 +52,28 @@ public class PushyTokenViewModel extends AndroidViewModel{
     }
 
     /**
-     * Register as an observer to listen for the PushToken.
-     * @param owner the fragments lifecycle owner
-     * @param observer the observer
+     * Register as an observer to listen for the PushyToken.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
      */
     public void addTokenObserver(@NonNull LifecycleOwner owner,
                                  @NonNull Observer<? super String> observer) {
         mPushyToken.observe(owner, observer);
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Retrieves the token. Informs if new token is fetched or old token is being used.
+     */
     public void retrieveToken() {
         if (!Pushy.isRegistered(getApplication().getApplicationContext())) {
 
@@ -69,6 +88,9 @@ public class PushyTokenViewModel extends AndroidViewModel{
     }
 
     /**
+     * Inner class assigns a PushyToken for the device.
+     *
+     * [ORIGINAL NOTE]
      * This is the method described in the Pushy documentation. Note the Android class
      * AsyncTask is deprecated as of Android Q. It is fine to use here and for this
      * quarter. In your future Android development, look for an alternative solution.
@@ -101,8 +123,8 @@ public class PushyTokenViewModel extends AndroidViewModel{
 
     /**
      * Send this Pushy device token to the web service.
-     * @param jwt
-     * @throws IllegalStateException when this method is called before the token is retrieve
+     * @param jwt the user's signed JWT
+     * @throws IllegalStateException when this method is called before the token is retrieved
      */
     public void sendTokenToWebservice(final String jwt) {
         if (mPushyToken.getValue().isEmpty()) {
@@ -144,6 +166,10 @@ public class PushyTokenViewModel extends AndroidViewModel{
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -167,6 +193,10 @@ public class PushyTokenViewModel extends AndroidViewModel{
         }
     }
 
+    /**
+     * Requests the token to be deleted from the web service.
+     * @param jwt the user's signed JWT
+     */
     public void deleteTokenFromWebservice(final String jwt) {
 
         String url = getApplication().getResources().getString(R.string.base_url_service) +

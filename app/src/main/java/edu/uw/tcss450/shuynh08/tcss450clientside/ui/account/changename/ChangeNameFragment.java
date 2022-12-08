@@ -33,20 +33,41 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.AccountViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragmentDirections;
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
+/**
+ * A fragment used to display a change-name screen for the user.
+ */
 public class ChangeNameFragment extends Fragment {
 
-    private ChangeNameViewModel mChangeNameModel;
-
+    /**
+     * Binding object for the Register fragment.
+     */
     private FragmentChangeNameBinding binding;
 
+    /**
+     * ViewModel object for the Change Name fragment.
+     */
+    private ChangeNameViewModel mChangeNameModel;
+
+    /**
+     * Serves as a validator for the user's new name.
+     */
     private PasswordValidator mNameValidator = checkPwdLength(1);
 
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
     private UserInfoViewModel model;
 
+    /**
+     * Required empty public constructor.
+     */
     public ChangeNameFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Initializes the associated ViewModel for Change Name.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +75,13 @@ public class ChangeNameFragment extends Fragment {
                 .get(ChangeNameViewModel.class);
     }
 
+    /**
+     * Generates and assigns a view binding for the Change Name layout.
+     * @param inflater The LayoutInflater
+     * @param container The ViewGroup
+     * @param savedInstanceState The data of the UI state
+     * @return a ConstraintLayout based on the associated XML class for the Change Name fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +89,11 @@ public class ChangeNameFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Here, the Change Name fragment is listening for input from the user.
+     * @param view The View
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -76,10 +109,23 @@ public class ChangeNameFragment extends Fragment {
 
     }
 
+    /**
+     * Upon user clicking the Update Name button, kicks off the sign-in process into a sequence
+     * of helper methods for both fields (first name and last name).
+     *
+     * If any measures fail, user will need to correct invalid input, hit the button again, and
+     * the validation process repeats.
+     * @param button The Update Name button
+     */
     private void attemptChangeName(final View button) {
         validateFirst();
     }
 
+    /**
+     * Processes new user's first name with mNameValidator, then proceed with validating last name.
+     *
+     * Shows an error to the user if the first name is excluded.
+     */
     private void validateFirst() {
         mNameValidator.processResult(
                 mNameValidator.apply(binding.editFirstName.getText().toString().trim()),
@@ -87,6 +133,12 @@ public class ChangeNameFragment extends Fragment {
                 result -> binding.editFirstName.setError("Please enter a first name."));
     }
 
+    /**
+     * Processes new user's last name with mNameValidator, then proceed with verifying
+     * with the server.
+     *
+     * Shows an error to the user if the last name is excluded.
+     */
     private void validateLast() {
         mNameValidator.processResult(
                 mNameValidator.apply(binding.editLastName.getText().toString().trim()),
@@ -94,6 +146,10 @@ public class ChangeNameFragment extends Fragment {
                 result -> binding.editLastName.setError("Please enter a last name."));
     }
 
+    /**
+     * Calls the Change Name ViewModel's connect() method to send the new first/last name info to
+     * the server, updating the record with the new name.
+     */
     private void verifyChangeNameWithServer() {
         System.out.println(model.getmJwt());
         mChangeNameModel.connect(

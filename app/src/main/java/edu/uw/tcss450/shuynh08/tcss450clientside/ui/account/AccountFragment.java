@@ -29,19 +29,39 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragmentDi
 
 /**
  * A simple {@link Fragment} subclass.
+ * Represents the Account Details page with the following options:
+ *      - Change Name
+ *      - Change Password
+ *      - Sign Out
  */
 public class AccountFragment extends Fragment {
 
+    /**
+     * Binding object for the Account Details fragment.
+     */
     private FragmentAccountBinding binding;
 
+    /**
+     * ViewModel object for the Account Details fragment.
+     */
     private AccountViewModel mAccountModel;
 
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
     private UserInfoViewModel mUserInfoModel;
 
+    /**
+     * Required empty public constructor.
+     */
     public AccountFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Initializes the associated ViewModels (AccountViewModel and UserInfoViewModel)
+     * for the Account Details fragment.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +71,13 @@ public class AccountFragment extends Fragment {
                 .get(UserInfoViewModel.class);
     }
 
+    /**
+     * Generates and assigns a view binding for the Account Details fragment layout.
+     * @param inflater The LayoutInflater
+     * @param container The ViewGroup
+     * @param savedInstanceState The data of the UI state
+     * @return A ConstraintLayout based on the associated XML class for Account Details fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +85,12 @@ public class AccountFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Here, the Account Details page is listening for interactions from the user
+     * to pick an option and acts upon the selection.
+     * @param view The View
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -77,6 +110,9 @@ public class AccountFragment extends Fragment {
 
     }
 
+    /**
+     * Sign out process deletes the JWT.
+     */
     private void signOut() {
         SharedPreferences prefs =
                 this.getActivity().getSharedPreferences(
