@@ -1,5 +1,6 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -101,7 +103,14 @@ public class ChatFragment extends Fragment {
                         ChatFragmentDirections.actionNavigationChatToNavigationChatroom()
                 ));
 
-
+        binding.topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Navigation.findNavController(getView()).navigate(ChatFragmentDirections
+                        .actionNavigationChatToAddToChatFragment());
+                return true;
+            }
+        });
     }
 
 

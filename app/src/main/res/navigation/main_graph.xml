@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_navigation_chatroom"
             app:destination="@id/navigation_chatroom" />
+        <action
+            android:id="@+id/action_navigation_chat_to_addToChatFragment"
+            app:destination="@id/addToChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"
@@ -103,4 +106,9 @@
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.new_chat.AddChatroomFragment"
         android:label="fragment_add_chatroom"
         tools:layout="@layout/fragment_add_chatroom" />
+    <fragment
+        android:id="@+id/addToChatFragment"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.add_to_chat.AddToChatFragment"
+        android:label="fragment_add_to_chat"
+        tools:layout="@layout/fragment_add_to_chat" />
 </navigation>
