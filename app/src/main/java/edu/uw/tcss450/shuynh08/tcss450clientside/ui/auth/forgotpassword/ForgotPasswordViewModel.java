@@ -22,20 +22,41 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+/**
+ * A ViewModel managing the data for the Forgot Password fragment.
+ */
 public class ForgotPasswordViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for the Forgot Password ViewModel. Initializes our mResponse with a blank
+     * JSONObject.
+     * @param application The Application
+     */
     public ForgotPasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
+
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -63,7 +84,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
     /**
      * User inputs their account's email address. Info is sent over to API
      * in order to reset their password.
-     * @param email
+     * @param email String email of the user
      */
     public void connect(final String email) {
         String url = "https://tcss450-weather-chat.herokuapp.com/forgotpassword";

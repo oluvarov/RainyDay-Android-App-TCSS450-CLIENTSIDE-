@@ -22,21 +22,40 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+/**
+ * A ViewModel managing the data for the Registration fragment.
+ */
 public class RegisterViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for the Register ViewModel. Initializes our mResponse with a blank JSONObject.
+     * @param application The Application
+     */
     public RegisterViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -64,10 +83,10 @@ public class RegisterViewModel extends AndroidViewModel {
     /**
      * User inputs their name, email, and password. Info is sent over to API
      * in order to register them.
-     * @param first
-     * @param last
-     * @param email
-     * @param password
+     * @param first String first name of the user
+     * @param last String last name of the user
+     * @param email String email of the user
+     * @param password String password of the user
      */
     public void connect(final String first,
                         final String last,
