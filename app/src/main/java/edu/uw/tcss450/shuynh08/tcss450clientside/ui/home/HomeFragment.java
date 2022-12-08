@@ -1,6 +1,7 @@
 
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.home;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChangeNameBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.account.changename.ChangeNameViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.Weather;
@@ -44,6 +46,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private WeatherCurrentViewModel mWeatherCurrentModel;
     private RecyclerView recyclerView;
+    private LocationViewModel mLocationModel;
+    private UserInfoViewModel mUserInfoModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,6 +58,10 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mWeatherCurrentModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
+        mLocationModel = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
 
     }
 
@@ -71,7 +79,6 @@ public class HomeFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
 
-        String ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
         recyclerView = binding.listHomeweather;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -80,10 +87,14 @@ public class HomeFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeWeatherCurrent);
 
+        mLocationModel.addLocationObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLocation);
+
         FragmentHomeBinding.bind(getView()).textHello.setText("Hello " + model.getEmail());
+
         Log.e("JWT", model.getmJwt());
 
-        mWeatherCurrentModel.connectCurrentIP(ip, model.getmJwt());
     }
     private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
@@ -102,6 +113,11 @@ public class HomeFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
+
+    private void observeGetLocation(final Location location) {
+        mWeatherCurrentModel.connectCurrentLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
+    }
+
     private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {

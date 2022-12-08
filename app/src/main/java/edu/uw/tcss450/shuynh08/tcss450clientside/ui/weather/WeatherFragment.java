@@ -2,15 +2,20 @@ package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
 
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import com.google.android.gms.location.LocationListener;
+
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -19,23 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Locale;
 
-import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
@@ -101,6 +94,7 @@ public class WeatherFragment extends Fragment {
                 super.onPageSelected(position);
                 binding.tabWeatherLayout.getTabAt(position).select();
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
@@ -112,14 +106,6 @@ public class WeatherFragment extends Fragment {
                 }
             }
         });
-
-        //binding.viewPagerWeather.setUserInputEnabled(false);
-
-        /*Context context = requireContext().getApplicationContext();
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
-
-        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
     }
 

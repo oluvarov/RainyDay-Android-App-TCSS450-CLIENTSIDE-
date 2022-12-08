@@ -140,7 +140,7 @@ public class Weather24HourViewModel extends AndroidViewModel {
      * @param jwt The JSON web token of the user.
      */
     public void connect24HourLatLng(final double lat, final double lon, final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/weather/forecast";
+        String url = "https://tcss450-weather-chat.herokuapp.com/weather/today";
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,

@@ -1,5 +1,6 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,12 +79,6 @@ public class WeatherCurrentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*Context context = requireContext().getApplicationContext();
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
-
-        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
-
         recyclerView = binding.listWeatherCurrent;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -99,7 +94,10 @@ public class WeatherCurrentFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetZipcode);
 
-        mWeatherCurrentModel.connectCurrentIP(ip, mUserInfoModel.getmJwt());
+        mLocationModel.addLocationObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLocation);
+
     }
 
     /**
@@ -174,6 +172,12 @@ public class WeatherCurrentFragment extends Fragment {
      */
     private void observeGetZipcode(final String zipcode) {
         mWeatherCurrentModel.connectCurrentZipcode(zipcode, mUserInfoModel.getmJwt());
+    }
+
+
+    private void observeGetLocation(final Location location) {
+        System.out.println("observeGetLocation");
+        mWeatherCurrentModel.connectCurrentLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
     }
 
 

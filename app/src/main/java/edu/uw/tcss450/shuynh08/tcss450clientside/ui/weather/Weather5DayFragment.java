@@ -80,11 +80,6 @@ public class Weather5DayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*Context context = requireContext().getApplicationContext();
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
-
-        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
         recyclerView = binding.listWeather5day;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -101,40 +96,11 @@ public class Weather5DayFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetZipcode);
 
-        String ipAddress = getIPAddress(true);
-        Log.e("IPADDRESS", ipAddress);
-        mWeather5DayModel.connect5DaysIP(ip, mUserInfoModel.getmJwt());
+        mLocationModel.addLocationObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLocation);
 
 
-    }
-
-
-
-    public static String getIPAddress(boolean useIPv4) {
-        try {
-            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface intf : interfaces) {
-                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-                for (InetAddress addr : addrs) {
-                    if (!addr.isLoopbackAddress()) {
-                        String sAddr = addr.getHostAddress();
-                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                        boolean isIPv4 = sAddr.indexOf(':')<0;
-
-                        if (useIPv4) {
-                            if (isIPv4)
-                                return sAddr;
-                        } else {
-                            if (!isIPv4) {
-                                int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
-                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) { } // for now eat exceptions
-        return "";
     }
 
     /**
@@ -221,6 +187,11 @@ public class Weather5DayFragment extends Fragment {
      */
     private void observeGetZipcode(final String zipcode) {
         mWeather5DayModel.connect5DaysZipcode(zipcode, mUserInfoModel.getmJwt());
+    }
+
+    private void observeGetLocation(final Location location) {
+        System.out.println("observeGetLocation");
+        mWeather5DayModel.connect5DaysLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
     }
 
 

@@ -1,6 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -9,18 +10,28 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.ActivityMainBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.NewMessageCountViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.services.PushReceiver;
@@ -37,10 +48,51 @@ public class MainActivity extends AppCompatActivity {
 
     private NewMessageCountViewModel mNewMessageModel;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    private LocationViewModel mLocationModel;
+
+    private LocationCallback mLocationCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
+                            , Manifest.permission.ACCESS_FINE_LOCATION},
+                    8414);
+        } else {
+            //The user has already allowed the use of Locations. Get the current location.
+            requestLocation();
+        }
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    // Update UI with location data
+                    // ...
+                    Log.d("LOCATION UPDATE!", location.toString());
+                    if (mLocationModel == null) {
+                        mLocationModel = new ViewModelProvider(MainActivity.this)
+                                .get(LocationViewModel.class);
+                    }
+                    mLocationModel.setLocation(location);
+                    Log.e("I GOT LOCATION", location.getLatitude() + " " + location.getLongitude());
+                }
+            };
+        };
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
@@ -66,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.navigation_chat) {
+            if (destination.getId() == R.id.navigation_chatroom) {
                 //When the user navigates to the chats page, reset the new message count.
                 //This will need some extra logic for your project as it should have
                 //multiple chat rooms.
@@ -75,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
-            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chatroom);
             badge.setMaxCharacterCount(2);
             if (count > 0) {
                 //new messages! update and show the notification badge.
@@ -88,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION
+                        , Manifest.permission.ACCESS_FINE_LOCATION},
+                8414);
     }
 
     @Override
@@ -147,13 +203,42 @@ public class MainActivity extends AppCompatActivity {
 
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chat) {
+                if (nd.getId() != R.id.navigation_chatroom) {
                     mNewMessageModel.increment();
                 }
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
+        }
+    }
+
+    private void requestLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            Log.d("REQUEST LOCATION", "User did NOT allow permission to request location!");
+        } else {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                Log.d("LOCATION", location.toString());
+                                if (mLocationModel == null) {
+                                    mLocationModel = new ViewModelProvider(MainActivity.this)
+                                            .get(LocationViewModel.class);
+                                }
+                                mLocationModel.setLocation(location);
+                            } else {
+                                Log.d("LOCATION", "No Location retrieved. Hopefully this is" +
+                                        " resolved in a later step");
+                            }
+                        }
+                    });
         }
     }
 

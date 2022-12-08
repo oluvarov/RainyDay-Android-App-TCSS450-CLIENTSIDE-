@@ -1,5 +1,6 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -73,11 +74,7 @@ public class Weather24HourFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*Context context = requireContext().getApplicationContext();
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());*/
 
-        ip = "2601:603:1a7f:84d0:60bf:26b3:c5ba:4de";
 
         recyclerView = binding.listWeather24hour;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -94,7 +91,10 @@ public class Weather24HourFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeGetZipcode);
 
-        mWeather24HourModel.connect24HourIP(ip, mUserInfoModel.getmJwt());
+        mLocationModel.addLocationObserver(
+                getViewLifecycleOwner(),
+                this::observeGetLocation);
+
     }
     /**
      * Used to parse through JSONObject and display 24 hour weather.
@@ -117,6 +117,7 @@ public class Weather24HourFragment extends Fragment {
                 String time = listObj.getString("dt_txt");
                 int indexofSpace = time.indexOf(' ');
                 String word = time.substring(indexofSpace);
+                Log.e("WORD", word);
 
 
                 JSONArray weatherArray = listObj.getJSONArray("weather");
@@ -173,6 +174,10 @@ public class Weather24HourFragment extends Fragment {
      */
     private void observeGetZipcode(final String zipcode) {
         mWeather24HourModel.connect24HourZipcode(zipcode, mUserInfoModel.getmJwt());
+    }
+
+    private void observeGetLocation(final Location location) {
+        mWeather24HourModel.connect24HourLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
     }
 
 }
