@@ -21,6 +21,8 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.MainActivity;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAccountBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentRegisterBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.PushyTokenViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.register.RegisterViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragment;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.auth.signin.SignInFragmentDirections;
@@ -34,6 +36,8 @@ public class AccountFragment extends Fragment {
 
     private AccountViewModel mAccountModel;
 
+    private UserInfoViewModel mUserInfoModel;
+
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -43,6 +47,8 @@ public class AccountFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAccountModel = new ViewModelProvider(getActivity())
                 .get(AccountViewModel.class);
+        mUserInfoModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
     }
 
     @Override
@@ -77,7 +83,14 @@ public class AccountFragment extends Fragment {
                         getString(R.string.keys_shared_prefs),
                         Context.MODE_PRIVATE);
         prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+
+        PushyTokenViewModel model = new ViewModelProvider(this)
+                .get(PushyTokenViewModel.class);
+
+        model.addResponseObserver(this, result -> getActivity().finishAndRemoveTask());
+
+        model.deleteTokenFromWebservice(mUserInfoModel.getmJwt());
         //End the app completely
-        this.getActivity().finish();
+        //this.getActivity().finish();
     }
 }

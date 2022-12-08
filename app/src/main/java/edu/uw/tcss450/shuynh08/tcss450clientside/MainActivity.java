@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.navigation_chatroom) {
+            if (destination.getId() == R.id.navigation_chatroom || destination.getId() == R.id.navigation_chat) {
                 //When the user navigates to the chats page, reset the new message count.
                 //This will need some extra logic for your project as it should have
                 //multiple chat rooms.
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chatroom) {
+                if (nd.getId() != R.id.navigation_chatroom && nd.getId() != R.id.navigation_chat) {
                     mNewMessageModel.increment();
                 }
                 //Inform the view model holding chatroom messages of the new

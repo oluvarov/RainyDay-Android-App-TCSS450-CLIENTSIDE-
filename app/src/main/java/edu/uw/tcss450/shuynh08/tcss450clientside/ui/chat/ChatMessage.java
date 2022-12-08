@@ -16,12 +16,16 @@ public final class ChatMessage implements Serializable {
     private final String mMessage;
     private final String mSender;
     private final String mTimeStamp;
+    private final String mFirstName;
+    private final String mLastName;
 
-    public ChatMessage(int messageId, String message, String sender, String timeStamp) {
+    public ChatMessage(int messageId, String message, String sender, String timeStamp, String firstName, String lastName) {
         mMessageId = messageId;
         mMessage = message;
         mSender = sender;
         mTimeStamp = timeStamp;
+        mFirstName = firstName;
+        mLastName = lastName;
     }
 
     /**
@@ -36,7 +40,9 @@ public final class ChatMessage implements Serializable {
         return new ChatMessage(msg.getInt("messageid"),
                 msg.getString("message"),
                 msg.getString("email"),
-                msg.getString("timestamp"));
+                msg.getString("timestamp"),
+                msg.getString("firstname"),
+                msg.getString("lastname"));
     }
 
     public String getMessage() {
@@ -55,6 +61,13 @@ public final class ChatMessage implements Serializable {
         return mMessageId;
     }
 
+    public String getFirstName() {
+        return mFirstName;
+    }
+
+    public String getLastName() {
+        return mLastName;
+    }
     /**
      * Provides equality solely based on MessageId.
      * @param other the other object to check for equality
