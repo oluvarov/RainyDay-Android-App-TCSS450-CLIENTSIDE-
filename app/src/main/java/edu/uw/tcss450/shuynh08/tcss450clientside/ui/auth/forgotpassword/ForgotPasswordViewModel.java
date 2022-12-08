@@ -20,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ForgotPasswordViewModel extends AndroidViewModel {
@@ -66,7 +68,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
      * @param email
      */
     public void connect(final String email) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/forgotpassword";
+        String url = "https://tcss450-weather-chat.herokuapp.com/forgotpassword/reset";
 
         JSONObject body = new JSONObject();
         try {
@@ -76,11 +78,20 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
         }
         Log.i("info", "connect: " + email);
         Request request = new JsonObjectRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 url,
                 body,
                 mResponse::setValue,
-                this::handleError);
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("email", email);
+                return headers;
+            }
+        };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,

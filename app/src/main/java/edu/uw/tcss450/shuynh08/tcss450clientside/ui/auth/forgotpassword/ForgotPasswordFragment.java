@@ -68,7 +68,7 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     private void verifyEmailWithServer() {
-        mForgotPasswordModel.connect(binding.editForgetEmail.getText().toString());
+        mForgotPasswordModel.connect(binding.editForgetEmail.getText().toString().trim());
     }
 
 
@@ -79,6 +79,7 @@ public class ForgotPasswordFragment extends Fragment {
      * @param response the Response from the server
      */
     private void observeResponse(final JSONObject response) {
+        System.out.println(response);
         Log.i("info", "connect: " + response);
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -90,7 +91,7 @@ public class ForgotPasswordFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                Snackbar snackbar = Snackbar.make(binding.buttonForgotGetPassword,"Successful! New password sent to your email.",Snackbar.LENGTH_SHORT);
+                Snackbar snackbar = Snackbar.make(binding.buttonForgotGetPassword,"A link to get your password is sent to your email.",Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
         } else {

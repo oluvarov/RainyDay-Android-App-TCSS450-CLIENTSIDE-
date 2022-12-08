@@ -93,7 +93,7 @@ public class AddChatroomFragment extends Fragment {
     }
 
     private void createNewChatroom() {
-        String name = mBinding.editChatName.toString().trim();
+        String name = mBinding.editChatName.getText().toString().trim();
         Log.i("info", name);
         mAddChatroomModel.connectNewChatroom(name, mUserInfoModel.getmJwt());
     }

@@ -119,8 +119,9 @@ public class ChatRoomFragment extends Fragment {
                 System.out.println("key " + key);
                 JSONObject obj = response.getJSONObject(key);
                 int chatID = obj.getInt("chatid");
+                String roomName= obj.getString("name");
                 System.out.println("chatid " + chatID);
-                chatRoomList.add(new ChatRoom("PlaceHolder",chatID, R.drawable.ic_rainychat_launcher_foreground));
+                chatRoomList.add(new ChatRoom(roomName,chatID, R.drawable.ic_rainychat_launcher_foreground));
             }
             recyclerView.setAdapter(new ChatRoomRecyclerViewAdapter(chatRoomList));
         } catch (JSONException e) {
