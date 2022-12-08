@@ -29,6 +29,9 @@ import java.util.Objects;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ *
+ */
 public class ChatViewModel extends AndroidViewModel {
     /**
      * A Map of Lists of Chat Messages.
@@ -37,6 +40,10 @@ public class ChatViewModel extends AndroidViewModel {
      */
     private Map<Integer, MutableLiveData<List<ChatMessage>>> mMessages;
 
+    /**
+     * Constructor for the Chat ViewModel. Initializes our Map of Lists of Chat Messages.
+     * @param application The Application
+     */
     public ChatViewModel(@NonNull Application application) {
         super(application);
         mMessages = new HashMap<>();
@@ -69,6 +76,11 @@ public class ChatViewModel extends AndroidViewModel {
         return getOrCreateMapEntry(chatId).getValue();
     }
 
+    /**
+     *
+     * @param chatId
+     * @return
+     */
     private MutableLiveData<List<ChatMessage>> getOrCreateMapEntry(final int chatId) {
         if(!mMessages.containsKey(chatId)) {
             mMessages.put(chatId, new MutableLiveData<>(new ArrayList<>()));
@@ -85,7 +97,7 @@ public class ChatViewModel extends AndroidViewModel {
      * getNextMessages()
      *
      * @param chatId the chatroom id to request messages of
-     * @param jwt the users signed JWT
+     * @param jwt the user's signed JWT
      */
     public void getFirstMessages(final int chatId, final String jwt) {
         System.out.println("FirstMessages");
@@ -178,6 +190,10 @@ public class ChatViewModel extends AndroidViewModel {
         getOrCreateMapEntry(chatId).setValue(list);
     }
 
+    /**
+     *
+     * @param response
+     */
     private void handelSuccess(final JSONObject response) {
         List<ChatMessage> list;
         if (!response.has("chatId")) {
@@ -215,6 +231,10 @@ public class ChatViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());

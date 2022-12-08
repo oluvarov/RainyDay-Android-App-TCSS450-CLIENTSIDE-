@@ -24,21 +24,41 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * A ViewModel managing the data for the Change Password fragment.
+ */
 public class ChangePasswordViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructor for the Change Password ViewModel. Initializes our mResponse with a blank
+     * JSONObject.
+     * @param application The Application
+     */
     public ChangePasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -66,9 +86,9 @@ public class ChangePasswordViewModel extends AndroidViewModel {
     /**
      * User inputs their old password and their new password twice. Info is sent to the server
      * and changes their password in the database.
-     * @param oldPassword
-     * @param newPassword
-     * @param jwt
+     * @param oldPassword String old password of the user
+     * @param newPassword String new password of the user
+     * @param jwt String signed JWT of the user
      */
     public void connect(final String oldPassword,
                         final String newPassword,

@@ -40,12 +40,24 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * App bar for the Main Activity to navigate through the various fragments.
+     */
     private AppBarConfiguration mAppBarConfiguration;
 
+    /**
+     * Binding object for the Main Activity.
+     */
     private ActivityMainBinding binding;
 
+    /**
+     * A field to instantiate a locally defined class to act as a BroadcastReceiver.
+     */
     private MainPushMessageReceiver mPushMessageReceiver;
 
+    /**
+     *
+     */
     private NewMessageCountViewModel mNewMessageModel;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -182,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * A BroadcastReceiver that listens for messages sent from PushReceiver
+     * A BroadcastReceiver that listens for messages sent from PushReceiver.
      */
     private class MainPushMessageReceiver extends BroadcastReceiver {
 
@@ -190,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
                 new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
 
+        /**
+         * Behavior to handle new messages received.
+         * @param context
+         * @param intent
+         */
         @Override
         public void onReceive(Context context, Intent intent) {
             NavController nc =
