@@ -46,11 +46,10 @@
     <string name="weather_tab_map">Map</string>
     <string name="weather_search_button">Search with ZIP Code</string>
     <string name="hint_search_friends">Search</string>
-    <string name="content_description_search">Search</string>
-    <string name="search">Search</string>
-    <string name="content_description_favorite">Favorite</string>
-    <string name="favorite">Favorite</string>
-
+    <string name="search">search</string>
+    <string name="content_description_search">search chat</string>
+    <string name="favorite">favorite</string>
+    <string name="content_description_favorite">favorite the chat</string>
     <string name="add_friend">Add Friend</string>
     <string name="contacts_tab_friends">Friends</string>
     <string name="contacts_tab_incoming_requests">Incoming Requests</string>
@@ -58,4 +57,11 @@
     <string name="hint_add_friend_email">Email</string>
     <string name="title_change_name">Change Name</string>
     <string name="action_update_name">Update Name</string>
+    <string name="add_chatroom">Add Chatroom</string>
+    <string name="title_create_chat">Create a chatroom</string>
+    <string name="new_chatroom_description">Create a new chatroom!</string>
+    <string name="new_chatroom">New Chatroom</string>
+    <string name="title_new_chatroom">New Chat</string>
+    <string name="hint_new_chat_name">Name</string>
+
 </resources>

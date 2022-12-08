@@ -52,11 +52,12 @@ tools:context=".ui.chat.ChatFragment">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent" />
 
+
 <!--  Used for loading new messages  -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="390dp"
-        android:layout_height="630dp"
+        android:layout_height="646dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

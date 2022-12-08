@@ -101,6 +101,7 @@ public class ChatFragment extends Fragment {
                         ChatFragmentDirections.actionNavigationChatToNavigationChatroom()
                 ));
 
+
     }
 
 

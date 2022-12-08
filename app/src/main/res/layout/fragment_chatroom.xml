@@ -20,6 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_chatroom"
+        style="@style/Widget.Material3.FloatingActionButton.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/add_chatroom"
+        app:icon="@drawable/ic_chat_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_chatroom"
         android:layout_width="0dp"
