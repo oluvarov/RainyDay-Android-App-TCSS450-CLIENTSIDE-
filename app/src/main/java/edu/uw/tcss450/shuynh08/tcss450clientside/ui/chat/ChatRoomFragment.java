@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,9 +80,11 @@ public class ChatRoomFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeChatRoom);
 
-
-
         mMemberInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
+
+        binding.addChatroom.setOnClickListener(button->
+                Navigation.findNavController(getView()).navigate(ChatRoomFragmentDirections
+                        .actionNavigationChatroomToAddChatroomFragment()));
 
     }
 

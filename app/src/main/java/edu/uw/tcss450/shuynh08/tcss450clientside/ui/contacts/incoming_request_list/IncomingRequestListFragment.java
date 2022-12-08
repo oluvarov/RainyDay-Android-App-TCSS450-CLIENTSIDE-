@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentFriendListBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentIncomingRequestCardBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentIncomingRequestListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
@@ -41,6 +44,8 @@ public class IncomingRequestListFragment extends Fragment {
     private IncomingRequestViewModel mIncomingRequestModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
     private int mMemberID;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +78,8 @@ public class IncomingRequestListFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeContacts);
         mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
+
+
     }
 
     private void observeContacts(final JSONObject response) {

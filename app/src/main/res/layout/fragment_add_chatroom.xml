@@ -12,7 +12,7 @@
         android:layout_width="117dp"
         android:layout_height="31dp"
         android:layout_marginTop="150dp"
-        android:text="@string/title_add_Friend"
+        android:text="@string/title_new_chatroom"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/add_friend_description"
+        android:text="@string/new_chatroom_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_friends" />
@@ -43,21 +43,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edit_chat_name"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:hint="@string/hint_add_friend_email" />
+            android:hint="@string/hint_new_chat_name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button_request"
+        android:id="@+id/button_new_chatroom"
         android:layout_width="310dp"
         android:layout_height="48dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="397dp"
-        android:text="@string/request"
+        android:text="@string/new_chatroom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -69,12 +69,11 @@
         android:id="@+id/text_add_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_request"
+        app:layout_constraintTop_toBottomOf="@+id/button_new_chatroom"
         app:layout_constraintVertical_bias="0.234" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
