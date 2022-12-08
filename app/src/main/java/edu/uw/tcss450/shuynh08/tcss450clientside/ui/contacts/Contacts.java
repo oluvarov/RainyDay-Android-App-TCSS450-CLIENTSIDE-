@@ -7,12 +7,14 @@ public class Contacts implements Serializable {
     private final String mEmail;
     private final String mName;
     private final int mImage;
+    private final int mMemberID;
 
 
-    public Contacts(String mEmail, String mName, int mImage) {
+    public Contacts(String mEmail, String mName, int mImage, int memberID) {
         this.mEmail = mEmail;
         this.mName = mName;
         this.mImage = mImage;
+        this.mMemberID = memberID;
     }
 
     public String getName() {
@@ -25,5 +27,9 @@ public class Contacts implements Serializable {
 
     public String getEmail() {
         return mEmail;
+    }
+
+    public int getMemberID() {
+        return mMemberID;
     }
 }

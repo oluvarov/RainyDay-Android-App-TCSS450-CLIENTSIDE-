@@ -56,6 +56,7 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
             binding.imageContactIcon.setImageResource(R.drawable.ic_rainychat_launcher_foreground);
             binding.textContactEmail.setText(contacts.getEmail());
             binding.textContactName.setText(contacts.getName());
+            binding.textContactoutgoingMemberID.setText(Integer.toString(contacts.getMemberID()));
 
         }
     }

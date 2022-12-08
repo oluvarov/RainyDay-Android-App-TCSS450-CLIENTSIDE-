@@ -127,6 +127,9 @@ public class IncomingRequestListFragment extends Fragment {
             List<Contacts> contactsList = new ArrayList<>();
             JSONObject incoming = response.getJSONObject("incoming_requests");
             JSONArray incomingKeys = incoming.names();
+            if ( incomingKeys == null) {
+                return;
+            }
             for (int i = 0; i < incomingKeys.length(); i++) {
                 String key = incomingKeys.getString(i);
                 JSONObject obj = incoming.getJSONObject(key);
@@ -134,10 +137,11 @@ public class IncomingRequestListFragment extends Fragment {
                 String verified = obj.getString("verified");
                 String email = obj.getString("username");
                 String name = obj.getString("firstname") + " " + obj.getString("lastname");
-                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
+                int memberID = obj.getInt("memberid");
+                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground, memberID));
 
           }
-            recyclerView.setAdapter(new IncomingRequestListViewAdapter(contactsList));
+            recyclerView.setAdapter(new IncomingRequestListViewAdapter(getContext(),contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }

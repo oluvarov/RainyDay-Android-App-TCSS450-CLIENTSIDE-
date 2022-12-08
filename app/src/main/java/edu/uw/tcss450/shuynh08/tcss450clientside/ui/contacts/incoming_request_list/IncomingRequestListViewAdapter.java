@@ -1,25 +1,38 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentIncomingRequestCardBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
 
 
 public class IncomingRequestListViewAdapter extends RecyclerView.Adapter<IncomingRequestListViewAdapter.ContactsViewHolder> {
 
+    private Context context;
+    private IncomingRequestViewModel incomingRequestViewModel;
+    private UserInfoViewModel mUserInfoViewModel;
     private final List<Contacts> mContacts;
 
-    public IncomingRequestListViewAdapter(List<Contacts> mContacts) {
+    public IncomingRequestListViewAdapter(Context context, List<Contacts> mContacts) {
+        this.context = context;
         this.mContacts = mContacts;
+
+        incomingRequestViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(IncomingRequestViewModel.class);
+        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(UserInfoViewModel.class);
     }
 
 
@@ -56,7 +69,14 @@ public class IncomingRequestListViewAdapter extends RecyclerView.Adapter<Incomin
             binding.imageContactIcon.setImageResource(R.drawable.ic_rainychat_launcher_foreground);
             binding.textContactEmail.setText(contacts.getEmail());
             binding.textContactName.setText(contacts.getName());
+            binding.textContactMemberID.setText(Integer.toString(contacts.getMemberID()));
+
+            binding.contactIncomingApproveFab.setOnClickListener(button ->
+                    incomingRequestViewModel.connectAcceptContact(contacts.getMemberID(), mUserInfoViewModel.getmJwt()));
+
+
 
         }
+
     }
 }
