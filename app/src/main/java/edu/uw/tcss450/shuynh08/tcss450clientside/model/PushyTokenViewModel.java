@@ -123,7 +123,7 @@ public class PushyTokenViewModel extends AndroidViewModel{
 
     /**
      * Send this Pushy device token to the web service.
-     * @param jwt String JSON Web Token of the user
+     * @param jwt the user's signed JWT
      * @throws IllegalStateException when this method is called before the token is retrieved
      */
     public void sendTokenToWebservice(final String jwt) {
@@ -195,7 +195,7 @@ public class PushyTokenViewModel extends AndroidViewModel{
 
     /**
      * Requests the token to be deleted from the web service.
-     * @param jwt String JSON Web Token of the user
+     * @param jwt the user's signed JWT
      */
     public void deleteTokenFromWebservice(final String jwt) {
 

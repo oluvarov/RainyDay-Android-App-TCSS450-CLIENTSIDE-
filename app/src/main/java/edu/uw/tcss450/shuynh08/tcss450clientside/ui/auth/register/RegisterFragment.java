@@ -75,7 +75,7 @@ public class RegisterFragment extends Fragment {
 
     /**
      * Initializes the associated ViewModel for Registration.
-     * @param savedInstanceState The Data of the UI state
+     * @param savedInstanceState The data of the UI state
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class RegisterFragment extends Fragment {
      * @param inflater The LayoutInflater
      * @param container The ViewGroup
      * @param savedInstanceState The data of the UI state
-     * @return a ConstraintLayout based on the associated XML class for register fragment
+     * @return a ConstraintLayout based on the associated XML class for the Register fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,7 +116,7 @@ public class RegisterFragment extends Fragment {
      * Upon user clicking the Register button, kicks off the registration validation process into a
      * sequence of helper methods for each of the fields (first name, last name, etc.).
      *
-     * If any measures fail, user will need to correct invalid input and hit the button again and
+     * If any measures fail, user will need to correct invalid input, hit the button again, and
      * the validation process repeats.
      *
      * @param button The Register button
@@ -128,7 +128,7 @@ public class RegisterFragment extends Fragment {
     /**
      * Processes new user's first name with mNameValidator, then proceed with validating last name.
      *
-     * Shows an error to the user if the first name is excluded.
+     * Shows an error to the user if the first name is invalid.
      */
     private void validateFirst() {
         mNameValidator.processResult(
@@ -195,7 +195,7 @@ public class RegisterFragment extends Fragment {
     }
 
     /**
-     * Calls the Register View Model's connect() method to send user's info to the API,
+     * Calls the Register View Model's connect() method to send user's info to the server,
      * registering them as a new user.
      */
     private void verifyAuthWithServer() {

@@ -27,7 +27,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentForgotPassw
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
 /**
- * A fragment used to display a forgot-password screen for returning users.
+ * A fragment used to display the Forgot Password screen for returning users.
  */
 public class ForgotPasswordFragment extends Fragment {
 
@@ -70,7 +70,7 @@ public class ForgotPasswordFragment extends Fragment {
      * @param inflater The LayoutInflater
      * @param container The ViewGroup
      * @param savedInstanceState The data of the UI state
-     * @return a ConstraintLayout based on the associated XML class for register fragment
+     * @return a ConstraintLayout based on the associated XML class for the Forgot Password fragment
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -80,7 +80,7 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     /**
-     * Here, the Forgot Password Fragment is listening for input from the user.
+     * Here, the Forgot Password fragment is listening for input from the user.
      * @param view The View
      * @param savedInstanceState The data of the UI state
      */
@@ -117,7 +117,7 @@ public class ForgotPasswordFragment extends Fragment {
      * An observer on the HTTP Response from the web server. This observer should be
      * attached to SignInViewModel.
      *
-     * @param response the Response from the server
+     * @param response The Response from the server
      */
     private void observeResponse(final JSONObject response) {
         Log.i("info", "connect: " + response);

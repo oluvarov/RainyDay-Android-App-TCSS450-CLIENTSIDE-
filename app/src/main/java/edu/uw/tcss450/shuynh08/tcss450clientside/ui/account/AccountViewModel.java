@@ -23,7 +23,7 @@ public class AccountViewModel extends AndroidViewModel {
 
     /**
      * Constructor for the Register ViewModel. Initializes our mResponse with a blank JSONObject.
-     * @param application
+     * @param application The Application
      */
     public AccountViewModel(@NonNull Application application) {
         super(application);

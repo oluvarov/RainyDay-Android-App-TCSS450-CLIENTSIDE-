@@ -76,7 +76,7 @@ public class AccountFragment extends Fragment {
      * @param inflater The LayoutInflater
      * @param container The ViewGroup
      * @param savedInstanceState The data of the UI state
-     * @return A ConstraintLayout based on the associated XML class for sign-in fragment
+     * @return A ConstraintLayout based on the associated XML class for Account Details fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

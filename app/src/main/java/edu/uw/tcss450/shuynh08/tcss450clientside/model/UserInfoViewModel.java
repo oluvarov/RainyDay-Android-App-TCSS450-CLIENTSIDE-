@@ -23,7 +23,7 @@ public class UserInfoViewModel extends ViewModel {
      * Constructor for the ViewModel. Initializes our fields based on email address
      * and JWT as specified in parameters.
      * @param email String email of the user
-     * @param jwt String JSON Web Token of the user
+     * @param jwt the user's signed JWT
      */
     private UserInfoViewModel(String email, String jwt) {
         mEmail = email;
@@ -62,7 +62,7 @@ public class UserInfoViewModel extends ViewModel {
         /**
          * Constructor for the ViewModel factory.
          * @param email String email of the user
-         * @param jwt String JSON Web Token of the user
+         * @param jwt the user's signed JWT
          */
         public UserInfoViewModelFactory(String email, String jwt) {
             this.email = email;

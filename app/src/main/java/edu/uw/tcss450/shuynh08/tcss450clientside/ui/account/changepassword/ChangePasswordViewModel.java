@@ -64,7 +64,7 @@ public class ChangePasswordViewModel extends AndroidViewModel {
     }
 
     /**
-     * User inputs their old password and their new password twice. Info is sent to the API
+     * User inputs their old password and their new password twice. Info is sent to the server
      * and changes their password in the database.
      * @param oldPassword
      * @param newPassword
