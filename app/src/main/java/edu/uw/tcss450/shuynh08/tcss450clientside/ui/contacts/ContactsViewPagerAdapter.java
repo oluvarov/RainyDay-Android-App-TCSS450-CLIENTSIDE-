@@ -15,7 +15,7 @@ public class ContactsViewPagerAdapter extends FragmentStateAdapter {
 
     /**
      * Constructor for our FragmentStateAdapter, using super class's defaults.
-     * @param fragmentActivity
+     * @param fragmentActivity The current fragment
      */
     public ContactsViewPagerAdapter(@NonNull ContactsFragment fragmentActivity) {
         super(fragmentActivity);

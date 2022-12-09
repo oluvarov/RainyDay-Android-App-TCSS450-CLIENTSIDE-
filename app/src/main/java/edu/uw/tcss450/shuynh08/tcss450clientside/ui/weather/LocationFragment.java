@@ -96,8 +96,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
     }
 
     /**
-     *
-     * @param googleMap
+     * Here, the Google Map is observing for user activity.
+     * @param googleMap The Google Map
      */
     @SuppressLint("MissingPermission")
     @Override
@@ -120,6 +120,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
     }
 
 
+    /**
+     * Applies a Marker to the Google Map upon user's tap, then records the location.
+     * @param latLng Latitude & Longitude
+     */
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
         mMap.clear();
@@ -143,8 +147,4 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
 
 
     }
-
-
-
-
 }

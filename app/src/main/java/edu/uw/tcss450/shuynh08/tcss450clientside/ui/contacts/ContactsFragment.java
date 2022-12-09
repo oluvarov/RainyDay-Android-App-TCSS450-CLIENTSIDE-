@@ -25,21 +25,33 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.add_friend.AddFriendFragment;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListViewModel;
 
+/**
+ * A fragment used to display, add, and accept requests for the user's Contacts.
+ */
 public class ContactsFragment extends Fragment {
 
-    private FriendListViewModel mContactsModel;
-    private ContactsGetInfoViewModel mContactsGetInfoModel;
+    /**
+     * Binding object for the Contacts fragment.
+     */
     private FragmentContactsBinding binding;
+
+    /**
+     *
+     */
+    private FriendListViewModel mContactsModel;
+
+    private ContactsGetInfoViewModel mContactsGetInfoModel;
+
     private RecyclerView recyclerView;
     private int mMemberID;
     private UserInfoViewModel mUserInfoModel;
     private ContactsViewPagerAdapter mContactsViewPagerAdapter;
     ExtendedFloatingActionButton mAddFriendFab;
 
-
-
+    /**
+     * Required empty public constructor.
+     */
     public ContactsFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -52,8 +64,6 @@ public class ContactsFragment extends Fragment {
 
 
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

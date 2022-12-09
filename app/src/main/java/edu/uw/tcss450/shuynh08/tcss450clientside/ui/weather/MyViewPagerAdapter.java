@@ -11,7 +11,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
 
     /**
      * Constructor for our FragmentStateAdapter, using super class's defaults.
-     * @param fragmentActivity
+     * @param fragmentActivity The current fragment
      */
     public MyViewPagerAdapter(@NonNull WeatherFragment fragmentActivity) {
         super(fragmentActivity);
