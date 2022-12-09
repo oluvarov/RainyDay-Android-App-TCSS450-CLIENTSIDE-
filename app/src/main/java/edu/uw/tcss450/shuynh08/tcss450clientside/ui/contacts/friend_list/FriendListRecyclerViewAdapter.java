@@ -1,24 +1,36 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsCardBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list.IncomingRequestViewModel;
 
 public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendListRecyclerViewAdapter.ContactsViewHolder> {
 
+    private Context context;
+    private UserInfoViewModel mUserInfoViewModel;
+    private FriendListViewModel mFriendListViewModel;
     private final List<Contacts> mContacts;
 
-    public FriendListRecyclerViewAdapter(List<Contacts> mContacts) {
+    public FriendListRecyclerViewAdapter(Context context, List<Contacts> mContacts) {
         this.mContacts = mContacts;
+        this.context = context;
+
+        mFriendListViewModel =  new ViewModelProvider((ViewModelStoreOwner) context).get(FriendListViewModel.class);
+        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(UserInfoViewModel.class);
     }
 
 
@@ -54,6 +66,10 @@ public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendLi
             binding.imageContactIcon.setImageResource(R.drawable.ic_rainychat_launcher_foreground);
             binding.textContactEmail.setText(contacts.getEmail());
             binding.textContactName.setText(contacts.getName());
+            binding.textContactfriendMemberID.setText(Integer.toString(contacts.getMemberID()));
+
+            binding.contactFriendDeleteFab.setOnClickListener(button ->
+                    mFriendListViewModel.connectDeleteContacts(contacts.getMemberID(), mUserInfoViewModel.getmJwt()));
 
         }
     }
