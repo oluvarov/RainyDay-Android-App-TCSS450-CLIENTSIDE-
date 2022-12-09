@@ -67,8 +67,7 @@ public class AddFriendViewModel extends AndroidViewModel {
 
         String url = "https://tcss450-weather-chat.herokuapp.com/contact/request";
         JSONObject body = new JSONObject();
-        Log.i("info",jwt);
-        Log.i("info",email);
+
 
         Request request = new JsonObjectRequest(
                 Request.Method.POST,

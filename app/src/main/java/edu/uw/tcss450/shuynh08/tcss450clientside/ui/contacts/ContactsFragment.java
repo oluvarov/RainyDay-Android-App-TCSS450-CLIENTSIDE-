@@ -106,32 +106,4 @@ public class ContactsFragment extends Fragment {
     }
 
 
-
-//    private void setUpInfo(JSONObject response) {
-//        try {
-//            mMemberID = response.getInt("memberid");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        mContactsModel.connectContacts(mMemberID, mUserInfoModel.getmJwt());
-//    }
-
-//    private void setUpContacts(JSONObject response) {
-//
-//        try {
-//            List<Contacts> contactsList = new ArrayList<>();
-//            JSONArray keys = response.names();
-//            for (int i = 0; i < keys.length(); i++) {
-//                String key = keys.getString(i);
-//                JSONObject obj = response.getJSONObject(key);
-//                String email = obj.getString("username");
-//                String name = obj.getString("firstname") + " " + obj.getString("lastname");
-//                contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground));
-//            }
-//            recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }
