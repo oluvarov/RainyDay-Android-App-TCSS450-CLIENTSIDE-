@@ -78,7 +78,7 @@
             android:layout_marginTop="17dp"
             android:layout_marginBottom="18dp"
             android:clickable="true"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:fabCustomSize="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/contact_incoming_approve_fab"

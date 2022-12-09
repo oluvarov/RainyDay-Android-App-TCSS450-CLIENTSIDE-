@@ -37,6 +37,11 @@ public final class ChatMessage implements Serializable {
      */
     public static ChatMessage createFromJsonString(final String cmAsJson) throws JSONException {
         final JSONObject msg = new JSONObject(cmAsJson);
+        System.out.println(msg.getInt("messageid"));
+        System.out.println(msg.getString("message"));
+        System.out.println(msg.getString("email"));
+        System.out.println( msg.getString("timestamp"));
+
         return new ChatMessage(msg.getInt("messageid"),
                 msg.getString("message"),
                 msg.getString("email"),

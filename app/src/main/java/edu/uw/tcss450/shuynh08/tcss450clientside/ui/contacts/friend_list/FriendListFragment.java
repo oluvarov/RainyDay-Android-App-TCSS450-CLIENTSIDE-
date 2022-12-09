@@ -133,7 +133,7 @@ public class FriendListFragment extends Fragment {
                 int memberID = obj.getInt("memberid");
                 contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground,memberID));
             }
-            recyclerView.setAdapter(new FriendListRecyclerViewAdapter(contactsList));
+            recyclerView.setAdapter(new FriendListRecyclerViewAdapter(getContext(),contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -41,6 +41,8 @@ public class PushReceiver extends BroadcastReceiver {
         ChatMessage message = null;
         int chatId = -1;
         try{
+            Log.e("PUSHY MESSAGE PLEASE", intent.getStringExtra("message"));
+            Log.e("PUSHY MESSAGE PLEASE", intent.toString());
             message = ChatMessage.createFromJsonString(intent.getStringExtra("message"));
             chatId = intent.getIntExtra("chatid", -1);
         } catch (JSONException e) {
