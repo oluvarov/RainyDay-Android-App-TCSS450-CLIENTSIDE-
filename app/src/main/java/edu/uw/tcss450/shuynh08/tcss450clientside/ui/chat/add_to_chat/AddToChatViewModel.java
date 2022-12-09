@@ -63,13 +63,13 @@ public class AddToChatViewModel extends AndroidViewModel {
         }
     }
 
-    public void connectAddToChatroom(String memberID, String chatID, final String jwt) {
+    public void connectAddToChatroom(String email, String chatID, final String jwt) {
 
-        String url = "https://tcss450-weather-chat.herokuapp.com/chats/:" + chatID + "/:" + memberID;
+        String url = "https://tcss450-weather-chat.herokuapp.com/chats/" + chatID + "/" + email;
         Log.i("info",jwt);
 
         Request request = new JsonObjectRequest(
-                Request.Method.POST,
+                Request.Method.PUT,
                 url,
                 null,
                 mChatRecipient::setValue,

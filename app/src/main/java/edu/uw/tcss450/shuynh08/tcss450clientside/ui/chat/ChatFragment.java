@@ -107,7 +107,7 @@ public class ChatFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Navigation.findNavController(getView()).navigate(ChatFragmentDirections
-                        .actionNavigationChatToAddToChatFragment());
+                        .actionNavigationChatToAddToChatFragment(HARD_CODED_CHAT_ID));
                 return true;
             }
         });

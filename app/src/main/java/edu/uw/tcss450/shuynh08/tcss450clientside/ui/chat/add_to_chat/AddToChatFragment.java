@@ -26,6 +26,7 @@ public class AddToChatFragment extends Fragment {
     private FragmentAddToChatBinding mBinding;
     private AddToChatViewModel mAddToChatModel;
     private UserInfoViewModel mUserInfoModel;
+    private static int HARD_CODED_CHAT_ID;
 
     public AddToChatFragment() {
         // Required empty public constructor
@@ -35,6 +36,8 @@ public class AddToChatFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAddToChatModel = new ViewModelProvider(getActivity()).get((AddToChatViewModel.class));
+        AddToChatFragmentArgs args = AddToChatFragmentArgs.fromBundle(getArguments());
+        HARD_CODED_CHAT_ID = args.getChatID();
     }
 
     @Override
@@ -54,6 +57,9 @@ public class AddToChatFragment extends Fragment {
         mAddToChatModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
+        mBinding.buttonAddToChat.setOnClickListener(button -> {
+            addToChatRoom();
+        });
     }
 
     private void observeAddFriends(JSONObject response){
@@ -94,10 +100,10 @@ public class AddToChatFragment extends Fragment {
         mBinding.textAddFriend.setText("Friend request successful");
     }
 
-//    private void addToChatRoom() {
-//        String email = mBinding.editChatName.getText().toString().trim();
-//        //Get memberID and chatID and send to connectAddToChatroom
-//        mAddToChatModel.connectAddToChatroom(,mUserInfoModel.getmJwt());
-//    }
+    private void addToChatRoom() {
+        String email = mBinding.editChatName.getText().toString().trim();
+        int chatID = HARD_CODED_CHAT_ID ;
+        mAddToChatModel.connectAddToChatroom( email, Integer.toString(chatID),mUserInfoModel.getmJwt());
+    }
 
 }

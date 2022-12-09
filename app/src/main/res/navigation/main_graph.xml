@@ -114,5 +114,9 @@
         android:id="@+id/addToChatFragment"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.add_to_chat.AddToChatFragment"
         android:label="fragment_add_to_chat"
-        tools:layout="@layout/fragment_add_to_chat" />
+        tools:layout="@layout/fragment_add_to_chat" >
+        <argument
+            android:name="chatID"
+            app:argType="integer" />
+    </fragment>
 </navigation>
