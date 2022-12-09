@@ -1,25 +1,39 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.outgoing_request_list;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentOutgoingRequestCardBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list.IncomingRequestViewModel;
 
 
 public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<OutgoingRequestListViewAdapter.ContactsViewHolder> {
 
+    private Context mContext;
+    private OutgoingRequestViewModel mOutgoingRequestViewModel;
+    private UserInfoViewModel mUserInfoViewModel;
     private final List<Contacts> mContacts;
 
-    public OutgoingRequestListViewAdapter(List<Contacts> mContacts) {
+    public OutgoingRequestListViewAdapter(Context context, List<Contacts> mContacts) {
+        this.mContext = context;
         this.mContacts = mContacts;
+
+        mOutgoingRequestViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(OutgoingRequestViewModel.class);
+        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(UserInfoViewModel.class);
     }
 
 
@@ -58,6 +72,9 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
             binding.textContactName.setText(contacts.getName());
             binding.textContactoutgoingMemberID.setText(Integer.toString(contacts.getMemberID()));
 
+            binding.contactoutgoingDeleteFab.setOnClickListener(button ->
+                    mOutgoingRequestViewModel.connectDeleteContacts(contacts.getMemberID(),
+                            mUserInfoViewModel.getmJwt()));
         }
     }
 }

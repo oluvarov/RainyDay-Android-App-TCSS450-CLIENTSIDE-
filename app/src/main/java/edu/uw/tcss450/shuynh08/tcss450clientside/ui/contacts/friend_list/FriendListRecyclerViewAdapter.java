@@ -29,8 +29,10 @@ public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendLi
         this.mContacts = mContacts;
         this.context = context;
 
-        mFriendListViewModel =  new ViewModelProvider((ViewModelStoreOwner) context).get(FriendListViewModel.class);
-        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(UserInfoViewModel.class);
+        mFriendListViewModel =  new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(FriendListViewModel.class);
+        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(UserInfoViewModel.class);
     }
 
 
@@ -69,7 +71,8 @@ public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendLi
             binding.textContactfriendMemberID.setText(Integer.toString(contacts.getMemberID()));
 
             binding.contactFriendDeleteFab.setOnClickListener(button ->
-                    mFriendListViewModel.connectDeleteContacts(contacts.getMemberID(), mUserInfoViewModel.getmJwt()));
+                    mFriendListViewModel.connectDeleteContacts(contacts.getMemberID()
+                            , mUserInfoViewModel.getmJwt()));
 
         }
     }

@@ -141,7 +141,7 @@ public class OutgoingRequestListFragment extends Fragment {
                 contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground, memberID));
 
             }
-            recyclerView.setAdapter(new OutgoingRequestListViewAdapter(contactsList));
+            recyclerView.setAdapter(new OutgoingRequestListViewAdapter(getContext(), contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }
