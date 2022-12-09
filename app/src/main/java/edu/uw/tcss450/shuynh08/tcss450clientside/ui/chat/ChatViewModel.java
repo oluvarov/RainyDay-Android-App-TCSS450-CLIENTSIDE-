@@ -8,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -109,7 +108,7 @@ public class ChatViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handelSuccess,
+                this::handleSuccess,
                 this::handleError) {
 
             @Override
@@ -155,7 +154,7 @@ public class ChatViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handelSuccess,
+                this::handleSuccess,
                 this::handleError) {
 
             @Override
@@ -194,7 +193,7 @@ public class ChatViewModel extends AndroidViewModel {
      *
      * @param response
      */
-    private void handelSuccess(final JSONObject response) {
+    private void handleSuccess(final JSONObject response) {
         List<ChatMessage> list;
         if (!response.has("chatId")) {
             throw new IllegalStateException("Unexpected response in ChatViewModel: " + response);

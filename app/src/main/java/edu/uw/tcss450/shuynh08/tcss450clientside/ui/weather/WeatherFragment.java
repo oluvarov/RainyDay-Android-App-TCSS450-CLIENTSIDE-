@@ -1,29 +1,22 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
-
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import com.google.android.gms.location.LocationListener;
-
 import android.location.LocationManager;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,15 +30,31 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
  */
 public class WeatherFragment extends Fragment {
 
-    private LocationViewModel mLocationModel;
+    /**
+     * Binding object for the Weather fragment.
+     */
     private FragmentWeatherBinding binding;
-    private String ip;
+
+    /**
+     * ViewModel object of Location for the Weather fragment.
+     */
+    private LocationViewModel mLocationModel;
+
+    /**
+     *
+     */
     MyViewPagerAdapter mViewPagerAdapter;
 
+    /**
+     * Required empty public constructor.
+     */
     public WeatherFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Initializes the associated LocationViewModel for Weather.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +63,13 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

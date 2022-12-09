@@ -8,8 +8,19 @@ import android.os.Bundle;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.PushyTokenViewModel;
 import me.pushy.sdk.Pushy;
 
+/**
+ * The activity that facilitates user authentication before gaining access
+ * to the app.
+ *      - Sign-in
+ *      - Register
+ *      - Forgot password
+ */
 public class AuthActivity extends AppCompatActivity {
 
+    /**
+     * Initialize the ContentView and requests a PushyToken.
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +31,9 @@ public class AuthActivity extends AppCompatActivity {
         initiatePushyTokenRequest();
     }
 
+    /**
+     * Requests the PushyToken.
+     */
     private void initiatePushyTokenRequest() {
         new ViewModelProvider(this).get(PushyTokenViewModel.class).retrieveToken();
     }

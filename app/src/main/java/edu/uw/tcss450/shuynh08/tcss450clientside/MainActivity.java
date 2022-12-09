@@ -38,6 +38,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.services.PushReceiver;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatMessage;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatViewModel;
 
+/**
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     /**

@@ -34,12 +34,15 @@ public class NewMessageCountViewModel extends ViewModel {
     }
 
     /**
-     *
+     * Adds +1 to the current message count.
      */
     public void increment() {
         mNewMessageCount.setValue(mNewMessageCount.getValue() + 1);
     }
 
+    /**
+     * Resets the message count back to zero.
+     */
     public void reset() {
         mNewMessageCount.setValue(0);
     }

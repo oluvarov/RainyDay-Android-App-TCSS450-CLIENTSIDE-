@@ -28,19 +28,43 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 
 
 /**
- * A fragment that's used to display a Google map and allows for markers to be placed..
+ * A fragment that's used to display a Google Map and allows for markers to be placed.
  */
 public class LocationFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
-    private LocationViewModel mModel;
-    private GoogleMap mMap;
-    private Marker mMarker;
+    /**
+     * Binding object for the Location fragment.
+     */
     private FragmentLocationBinding binding;
+
+    /**
+     * ViewModel object for the Location fragment.
+     */
+    private LocationViewModel mModel;
+
+    /**
+     * A field for the Google Map object for use within the Location fragment.
+     */
+    private GoogleMap mMap;
+
+    /**
+     * A field for the Marker object to get the user-specified location on the Map.
+     */
+    private Marker mMarker;
+
+    /**
+     * Required empty public constructor.
+     */
     public LocationFragment() {
-        // Required empty public constructor
     }
 
-
+    /**
+     * Generates and assigns a view binding for the Location layout.
+     * @param inflater The LayoutInflater
+     * @param container The ViewGroup
+     * @param savedInstanceState The data of the UI state
+     * @return a ConstraintLayout based on the associated XML class for the Location fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,10 +73,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
         return binding.getRoot();
     }
 
+    /**
+     * Here, the Location fragment observes for interaction from the user.
+     * @param view The View
+     * @param savedInstanceState The data of the UI state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         mModel = new ViewModelProvider(getActivity())
                 .get(LocationViewModel.class);
@@ -62,12 +90,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
         //add this fragment as the OnMapReadyCallback -> See onMapReady()
         mapFragment.getMapAsync(this);
-
-
     }
 
+    /**
+     *
+     * @param googleMap
+     */
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
