@@ -7,26 +7,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ui.chat.ChatFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/swipe_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color1"
-            app:menu="@menu/chat_topappbar_menu"
-            app:navigationIcon="@drawable/ic_arrow_back_24dp" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-<EditText
+    <EditText
     android:id="@+id/edit_message"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
@@ -56,18 +37,16 @@ tools:context=".ui.chat.ChatFragment">
 <!--  Used for loading new messages  -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
-        android:layout_width="390dp"
-        android:layout_height="646dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/edit_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_messages"
@@ -80,5 +59,24 @@ tools:context=".ui.chat.ChatFragment">
             tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
             tools:listitem="@layout/fragment_chat_message" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color1"
+            app:menu="@menu/chat_topappbar_menu"
+            app:navigationIcon="@drawable/ic_arrow_back_24dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
