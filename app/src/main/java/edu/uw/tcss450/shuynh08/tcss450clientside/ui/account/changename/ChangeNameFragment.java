@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -71,7 +72,7 @@ public class ChangeNameFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mChangeNameModel = new ViewModelProvider(getActivity())
+        mChangeNameModel = new ViewModelProvider(this)
                 .get(ChangeNameViewModel.class);
     }
 
@@ -181,8 +182,10 @@ public class ChangeNameFragment extends Fragment {
                 }
             } else {
 
-                Snackbar snackbar = Snackbar.make(binding.buttonUpdatename,"Name successfully changed.",Snackbar.LENGTH_SHORT);
-                snackbar.show();
+                Toast toast = Toast.makeText(getContext(),"Name successfully changed.",Toast.LENGTH_SHORT);
+                toast.show();
+                /*Snackbar snackbar = Snackbar.make(binding.buttonUpdatename,"Name successfully changed.",Snackbar.LENGTH_SHORT);
+                snackbar.show();*/
 
             }
         } else {

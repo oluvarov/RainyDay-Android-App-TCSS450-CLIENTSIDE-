@@ -40,6 +40,7 @@ public class AddFriendFragment extends Fragment {
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
+
     public AddFriendFragment(){
 
     }
@@ -105,6 +106,7 @@ public class AddFriendFragment extends Fragment {
         binding.editEmail.setError("Friend request already exist");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
+
 
     private void sendFriendRequest(final View button) {
         String email = binding.editEmail.getText().toString().trim();

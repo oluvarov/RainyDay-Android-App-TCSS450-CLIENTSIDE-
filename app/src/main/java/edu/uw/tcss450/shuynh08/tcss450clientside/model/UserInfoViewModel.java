@@ -15,7 +15,7 @@ public class UserInfoViewModel extends ViewModel {
     private final String mEmail;
 
     /**
-     * Field represnting user's JSON web token (JWT)
+     * Field representing user's JSON web token (JWT)
      */
     private final String mJwt;
 

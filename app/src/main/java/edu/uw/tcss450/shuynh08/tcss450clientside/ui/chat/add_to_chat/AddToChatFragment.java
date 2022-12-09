@@ -1,5 +1,9 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.add_to_chat;
 
+import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkExcludeWhiteSpace;
+import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkPwdLength;
+import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkPwdSpecialChar;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +25,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAddFriendBi
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAddToChatBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.add_friend.AddFriendViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
 public class AddToChatFragment extends Fragment {
 
@@ -27,6 +33,9 @@ public class AddToChatFragment extends Fragment {
     private AddToChatViewModel mAddToChatModel;
     private UserInfoViewModel mUserInfoModel;
     private static int HARD_CODED_CHAT_ID;
+    private PasswordValidator mEmailValidator = checkPwdLength(2)
+            .and(checkExcludeWhiteSpace())
+            .and(checkPwdSpecialChar("@"));
 
     public AddToChatFragment() {
         // Required empty public constructor
@@ -57,9 +66,7 @@ public class AddToChatFragment extends Fragment {
         mAddToChatModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
-        mBinding.buttonAddToChat.setOnClickListener(button -> {
-            addToChatRoom();
-        });
+        mBinding.buttonAddToChat.setOnClickListener(this::attemptAddToChat);
     }
 
     private void observeAddFriends(JSONObject response){
@@ -97,7 +104,25 @@ public class AddToChatFragment extends Fragment {
     }
 
     private void success(){
-        mBinding.textAddFriend.setText("Friend request successful");
+        Toast toast = Toast.makeText(getContext(),"Friend request successful.",Toast.LENGTH_SHORT);
+        toast.show();
+        /*mBinding.textAddFriend.setText("Friend request successful");*/
+    }
+
+    private void attemptAddToChat(final View button) {
+        validateEmail();
+    }
+
+    private void validateEmail() {
+        mEmailValidator.processResult(
+                mEmailValidator.apply(mBinding.editChatName.getText().toString().trim()),
+                this::addToChatRoom,
+                result -> errorEmail());
+    }
+
+    private void errorEmail() {
+        Toast toast = Toast.makeText(getContext(),"Please enter a valid Email address.",Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void addToChatRoom() {

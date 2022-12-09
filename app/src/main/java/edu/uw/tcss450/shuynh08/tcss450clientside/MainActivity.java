@@ -28,7 +28,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.ActivityMainBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
