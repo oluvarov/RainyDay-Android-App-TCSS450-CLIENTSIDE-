@@ -10,16 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAddFriendBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
@@ -37,8 +40,8 @@ public class AddFriendFragment extends Fragment {
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
-    public AddFriendFragment() {
-        // Required empty public constructor
+    public AddFriendFragment(){
+
     }
 
     @Override
@@ -65,7 +68,10 @@ public class AddFriendFragment extends Fragment {
         mAddFriendModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
-        binding.buttonRequest.setOnClickListener(button->sendFriendRequest());
+        binding.buttonRequest.setOnClickListener(this::sendFriendRequest);
+        binding.buttonBack.setOnClickListener(this::navigateToContacts);
+
+
     }
 
     private void observeAddFriends(JSONObject response){
@@ -78,8 +84,6 @@ public class AddFriendFragment extends Fragment {
                         errorFriendExist();
                     }else if(code.equals("404")){
                         errorNotFound();
-                    }else{
-
                     }
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
@@ -102,13 +106,20 @@ public class AddFriendFragment extends Fragment {
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    private void success(){
-        binding.textAddFriend.setText("Friend request successful");
-    }
-
-    private void sendFriendRequest() {
+    private void sendFriendRequest(final View button) {
         String email = binding.editEmail.getText().toString().trim();
         mAddFriendModel.connectAddFriends(email,mUserInfoModel.getmJwt());
+    }
+
+    private void success(){
+        Snackbar snackbar = Snackbar.make(binding.buttonRequest,"Friend Request Sent to "
+                + binding.editEmail.getText().toString().trim(),Snackbar.LENGTH_LONG);
+        snackbar.show();
+    };
+
+    private void navigateToContacts(final View button){
+        Navigation.findNavController(getView()).navigate(
+                AddFriendFragmentDirections.actionAddFriendFragmentToNavigationContacts());
     }
 
 

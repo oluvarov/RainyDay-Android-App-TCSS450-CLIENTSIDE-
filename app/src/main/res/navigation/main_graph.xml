@@ -100,7 +100,11 @@
     <fragment
         android:id="@+id/addFriendFragment"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.add_friend.AddFriendFragment"
-        android:label="AddFriendFragment" />
+        android:label="AddFriendFragment" >
+        <action
+            android:id="@+id/action_addFriendFragment_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
+    </fragment>
     <fragment
         android:id="@+id/addChatroomFragment"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.new_chat.AddChatroomFragment"

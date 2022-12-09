@@ -123,6 +123,9 @@ public class FriendListFragment extends Fragment {
             List<Contacts> contactsList = new ArrayList<>();
             JSONObject friends = response.getJSONObject("friends");
             JSONArray friendsKeys = friends.names();
+            if (friendsKeys == null) {
+                return;
+            }
             for (int i = 0; i < friendsKeys.length(); i++) {
                 String key = friendsKeys.getString(i);
                 JSONObject obj = friends.getJSONObject(key);

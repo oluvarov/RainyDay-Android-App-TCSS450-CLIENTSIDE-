@@ -37,7 +37,7 @@
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
 
     <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
-
+    <string name ="back">Back</string>
     <string name="label_location">Current location:</string>
     <string name="hint_zip_code">ZIP Code</string>
     <string name="weather_tab_current">Current</string>
