@@ -104,7 +104,7 @@ public class AddToChatFragment extends Fragment {
     }
 
     private void success(){
-        Toast toast = Toast.makeText(getContext(),"Friend request successful.",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(),"User invited to chat.",Toast.LENGTH_SHORT);
         toast.show();
         /*mBinding.textAddFriend.setText("Friend request successful");*/
     }
