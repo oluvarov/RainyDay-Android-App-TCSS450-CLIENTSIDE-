@@ -36,17 +36,20 @@ public class ContactsFragment extends Fragment {
     private FragmentContactsBinding binding;
 
     /**
-     *
+     * FragmentStateAdapter object for the Contacts fragment.
      */
+    private ContactsViewPagerAdapter mContactsViewPagerAdapter;
+
+    /**
+     * A floating button to add a contact.
+     */
+    ExtendedFloatingActionButton mAddFriendFab;
+
     private FriendListViewModel mContactsModel;
-
     private ContactsGetInfoViewModel mContactsGetInfoModel;
-
     private RecyclerView recyclerView;
     private int mMemberID;
     private UserInfoViewModel mUserInfoModel;
-    private ContactsViewPagerAdapter mContactsViewPagerAdapter;
-    ExtendedFloatingActionButton mAddFriendFab;
 
     /**
      * Required empty public constructor.
@@ -109,7 +112,10 @@ public class ContactsFragment extends Fragment {
         mAddFriendFab.setOnClickListener(this::displayAddFriendFragment);
     }
 
-
+    /**
+     * Display the FloatingActionButton
+     * @param fab The Add Friend FloatingActionButton
+     */
     private void displayAddFriendFragment(View fab) {
         Navigation.findNavController(getView()).navigate(
                 ContactsFragmentDirections.actionNavigationContactsToAddFriendFragment());

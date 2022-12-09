@@ -40,15 +40,37 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
  */
 public class Weather24HourFragment extends Fragment {
 
-    private UserInfoViewModel mUserInfoModel;
-    private LocationViewModel mLocationModel;
+    /**
+     * Binding object for the 24-Hour Weather fragment.
+     */
     private FragmentWeather24hourBinding binding;
-    private Weather24HourViewModel mWeather24HourModel;
-    private RecyclerView recyclerView;
-    private String ip;
 
+    /**
+     * ViewModel object for the 24-Hour Weather fragment.
+     */
+    private Weather24HourViewModel mWeather24HourModel;
+
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
+    private UserInfoViewModel mUserInfoModel;
+
+    /**
+     * ViewModel object of Location for the Weather fragment.
+     */
+    private LocationViewModel mLocationModel;
+
+    /**
+     * RecyclerView to hold 24 hours' worth of weather forecast cards.
+     */
+    private RecyclerView recyclerView;
+
+    // private String ip;
+
+    /**
+     * Required empty public constructor.
+     */
     public Weather24HourFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -75,7 +97,6 @@ public class Weather24HourFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         recyclerView = binding.listWeather24hour;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -99,6 +120,11 @@ public class Weather24HourFragment extends Fragment {
     /**
      * Used to parse through JSONObject and display 24 hour weather.
      * @param response The JSONObject given by the API for 24 hour weather.
+     */
+
+    /**
+     * Used to parse through JSONObject and display 24-hour weather.
+     * @param response The JSONObject given by the API for 24-hour weather.
      */
     private void setUp24Hour(JSONObject response) {
         System.out.println(response);
@@ -137,9 +163,10 @@ public class Weather24HourFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     /**
-     * Used to observe for a response from the API for a JSONObject of 24 hour weather
-     * @param response The JSONObject given by the API for 24 hour weather.
+     * Used to observe for a response from the API for a JSONObject of 24-hour weather
+     * @param response The JSONObject given by the API for 24-hour weather.
      */
     private void observeWeather24Hour(final JSONObject response) {
         if (response.length() > 0) {
@@ -161,21 +188,27 @@ public class Weather24HourFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
+
     /**
      * Used to observe a response from LocationViewModel on a change of latitude and longitude.
-     * @param latLng The latlng from LocationViewModel.
+     * @param latLng The latLng from LocationViewModel.
      */
     private void observeGetLatLng(final LatLng latLng) {
         mWeather24HourModel.connect24HourLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
-    /**
-     * Used to observe a response from LocationViewModel on a change of zipcode.
-     * @param zipcode The zipcode from LocationViewModel.
+
+   /**
+     * Used to observe a response from LocationViewModel on a change of ZIP Code.
+     * @param zipcode The ZIP Code from LocationViewModel.
      */
     private void observeGetZipcode(final String zipcode) {
         mWeather24HourModel.connect24HourZipcode(zipcode, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of location.
+     * @param location The location from LocationViewModel.
+     */
     private void observeGetLocation(final Location location) {
         mWeather24HourModel.connect24HourLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
     }

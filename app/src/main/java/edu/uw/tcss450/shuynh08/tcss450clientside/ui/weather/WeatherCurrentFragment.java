@@ -42,13 +42,20 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
  * Fragment that's used to get the current weather of a given location.
  */
 public class WeatherCurrentFragment extends Fragment {
+
+    /**
+     * Binding object for the Current Weather fragment.
+     */
+    private FragmentWeatherCurrentBinding binding;
+
     private FragmentWeatherBinding mWeatherBinding;
     private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
-    private FragmentWeatherCurrentBinding binding;
+
+
     private WeatherCurrentViewModel mWeatherCurrentModel;
     private RecyclerView recyclerView;
-    private String ip;
+    // private String ip;
 
     public WeatherCurrentFragment() {
         // Required empty public constructor

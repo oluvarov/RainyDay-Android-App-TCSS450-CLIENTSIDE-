@@ -46,15 +46,37 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
  */
 public class Weather5DayFragment extends Fragment {
 
-    private UserInfoViewModel mUserInfoModel;
-    private LocationViewModel mLocationModel;
+    /**
+     * Binding object for the 5-Day Weather fragment.
+     */
     private FragmentWeather5dayBinding binding;
-    private Weather5DayViewModel mWeather5DayModel;
-    private RecyclerView recyclerView;
-    private String ip;
 
+    /**
+     * ViewModel object for the 5-Day Weather fragment.
+     */
+    private Weather5DayViewModel mWeather5DayModel;
+
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
+    private UserInfoViewModel mUserInfoModel;
+
+    /**
+     * ViewModel object of Location for the Weather fragment.
+     */
+    private LocationViewModel mLocationModel;
+
+    /**
+     * RecyclerView to hold 5 days' worth of weather forecast cards.
+     */
+    private RecyclerView recyclerView;
+
+    // private String ip;
+
+    /**
+     * Required empty public constructor.
+     */
     public Weather5DayFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -104,8 +126,8 @@ public class Weather5DayFragment extends Fragment {
     }
 
     /**
-     * Used to parse through JSONObject and display 5 day weather.
-     * @param response The JSONObject given by the API for 5 day weather.
+     * Used to parse through JSONObject and display 5-day weather.
+     * @param response The JSONObject given by the API for 5-day weather.
      */
     private void setUp5Day(JSONObject response) {
         System.out.println(response);
@@ -175,20 +197,24 @@ public class Weather5DayFragment extends Fragment {
 
     /**
      * Used to observe a response from LocationViewModel on a change of latitude and longitude.
-     * @param latLng The latlng from LocationViewModel.
+     * @param latLng The latLng from LocationViewModel.
      */
     private void observeGetLatLng(final LatLng latLng) {
         mWeather5DayModel.connect5DaysLatLng(latLng.latitude, latLng.longitude, mUserInfoModel.getmJwt());
     }
 
     /**
-     * Used to observe a response from LocationViewModel on a change of zipcode.
-     * @param zipcode The zipcode from LocationViewModel.
+     * Used to observe a response from LocationViewModel on a change of ZIP Code.
+     * @param zipcode The ZIP Code from LocationViewModel.
      */
     private void observeGetZipcode(final String zipcode) {
         mWeather5DayModel.connect5DaysZipcode(zipcode, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Used to observe a response from LocationViewModel on a change of location.
+     * @param location The location from LocationViewModel.
+     */
     private void observeGetLocation(final Location location) {
         System.out.println("observeGetLocation");
         mWeather5DayModel.connect5DaysLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());

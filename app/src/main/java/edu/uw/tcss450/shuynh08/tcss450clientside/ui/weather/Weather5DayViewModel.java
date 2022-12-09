@@ -24,24 +24,39 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 /**
- * A viewmodel for 5 day weather that helps make API calls.
+ * A ViewModel for 5-Day Weather that helps make API calls.
  */
 public class Weather5DayViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mWeather;
 
+    /**
+     * Constructor for the Register ViewModel. Initializes our mWeather with a blank JSONObject.
+     * @param application The Application
+     */
     public Weather5DayViewModel(@NonNull Application application) {
         super(application);
         mWeather = new MutableLiveData<>();
         mWeather.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mWeather.observe(owner, observer);
     }
 
-
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -65,8 +80,10 @@ public class Weather5DayViewModel extends AndroidViewModel {
             }
         }
     }
+
     /**
      * Method that creates a HTTP request to an API for 5 day weather using an IP.
+     * [May be deleted if not used]
      * @param ip The IP of the device making the request.
      * @param jwt The JSON web token of the user.
      */
@@ -99,6 +116,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
+
     /**
      * Method that creates a HTTP request to an API for 5 day weather using a zipcode.
      * @param zipcode The zipcode given by the user.
@@ -113,7 +131,6 @@ public class Weather5DayViewModel extends AndroidViewModel {
                 null, //no body for this get request
                 mWeather::setValue,
                 this::handleError) {
-
 
             @Override
             public Map<String, String> getHeaders() {
@@ -133,6 +150,7 @@ public class Weather5DayViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
+
     /**
      * Method that creates a HTTP request to an API for 5 day weather using latitude and longitude.
      * @param lat The latitude given by the user.
