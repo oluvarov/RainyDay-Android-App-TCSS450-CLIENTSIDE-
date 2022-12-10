@@ -175,7 +175,8 @@ public class SignInFragment extends Fragment {
             // created on the web service.
             if(!jwt.isExpired(0)) {
                 String email = jwt.getClaim("email").asString();
-                navigateToSuccess(email, token);
+                int memberID = jwt.getClaim("memberid").asInt();
+                navigateToSuccess(email, token,memberID);
                 return;
             }
         }
@@ -259,7 +260,7 @@ public class SignInFragment extends Fragment {
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
-    private void navigateToSuccess(final String email, final String jwt) {
+    private void navigateToSuccess(final String email, final String jwt, final int memberid) {
         if (binding.switchSignin.isChecked()) {
             SharedPreferences prefs =
                     getActivity().getSharedPreferences(
@@ -270,7 +271,7 @@ public class SignInFragment extends Fragment {
         }
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
-                        .actionLoginFragmentToMainActivity(email, jwt));
+                        .actionLoginFragmentToMainActivity(email, jwt,memberid));
         //Remove THIS activity from the Task list. Pops off the backstack
         getActivity().finish();
     }
@@ -296,7 +297,8 @@ public class SignInFragment extends Fragment {
                     mUserViewModel = new ViewModelProvider(getActivity(),
                             new UserInfoViewModel.UserInfoViewModelFactory(
                                     binding.editEmail.getText().toString(),
-                                    response.getString("token")
+                                    response.getString("token"),
+                                    response.getInt("memberid")
                             )).get(UserInfoViewModel.class);
 
                     sendPushyToken();
@@ -326,7 +328,8 @@ public class SignInFragment extends Fragment {
             } else {
                 navigateToSuccess(
                         binding.editEmail.getText().toString(),
-                        mUserViewModel.getmJwt()
+                        mUserViewModel.getmJwt(),
+                        mUserViewModel.getMemberID()
                 );
             }
         }

@@ -27,6 +27,8 @@ import java.util.Iterator;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAddFriendBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list.IncomingRequestListViewAdapter;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list.IncomingRequestViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
 /**
@@ -38,6 +40,7 @@ public class AddFriendFragment extends Fragment {
     private AddFriendViewModel mAddFriendModel;
     private UserInfoViewModel mUserInfoModel;
     private boolean isButtonPressed = false;
+    private IncomingRequestViewModel mIncomingRequestModel;
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
@@ -52,6 +55,8 @@ public class AddFriendFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAddFriendModel = new ViewModelProvider(getActivity())
                 .get(AddFriendViewModel.class);
+        mIncomingRequestModel = new ViewModelProvider(getActivity())
+                .get(IncomingRequestViewModel.class);
     }
 
     @Override

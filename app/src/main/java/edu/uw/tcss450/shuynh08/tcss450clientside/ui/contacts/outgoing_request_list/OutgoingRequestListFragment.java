@@ -118,6 +118,7 @@ public class OutgoingRequestListFragment extends Fragment {
             e.printStackTrace();
         }
         mOutGoingRequestModel.connectContacts(mMemberID, mUserInfoViewModel.getmJwt());
+
     }
 
     private void setUpContacts(JSONObject response) {
@@ -145,5 +146,7 @@ public class OutgoingRequestListFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        mOutGoingRequestModel.connectContacts(mUserInfoViewModel.getMemberID(),mUserInfoViewModel.getmJwt());
     }
+
 }

@@ -154,4 +154,8 @@ public class IncomingRequestListFragment extends Fragment {
         }
     }
 
+    private int getMemberId(){
+        return mMemberID;
+    }
+
 }

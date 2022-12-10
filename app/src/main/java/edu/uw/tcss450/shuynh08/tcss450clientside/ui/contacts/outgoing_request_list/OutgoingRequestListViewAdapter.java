@@ -23,7 +23,9 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
 
     private Context mContext;
     private OutgoingRequestViewModel mOutgoingRequestViewModel;
-    private UserInfoViewModel mUserInfoViewModel;
+    private UserInfoViewModel mUserInfoModel;
+    private OutgoingRequestViewModel outgoingRequestModel;
+    private OutgoingRequestListFragment mOutgoingFragment;
     private final List<Contacts> mContacts;
 
     public OutgoingRequestListViewAdapter(Context context, List<Contacts> mContacts) {
@@ -32,7 +34,7 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
 
         mOutgoingRequestViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
                 .get(OutgoingRequestViewModel.class);
-        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
+        mUserInfoModel = new ViewModelProvider((ViewModelStoreOwner) context)
                 .get(UserInfoViewModel.class);
     }
 
@@ -60,6 +62,7 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
         private @NonNull
         FragmentOutgoingRequestCardBinding binding;
 
+
         ContactsViewHolder(@NonNull View view) {
             super(view);
             this.mView = view;
@@ -74,7 +77,7 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
 
             binding.contactoutgoingDeleteFab.setOnClickListener(button ->
                     mOutgoingRequestViewModel.connectDeleteContacts(contacts.getMemberID(),
-                            mUserInfoViewModel.getmJwt()));
+                            mUserInfoModel.getmJwt()));
         }
     }
 }

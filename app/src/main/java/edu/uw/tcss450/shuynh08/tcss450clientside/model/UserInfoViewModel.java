@@ -20,14 +20,20 @@ public class UserInfoViewModel extends ViewModel {
     private final String mJwt;
 
     /**
+     * Field representing user's member id
+     */
+    private final int mMemberID;
+
+    /**
      * Constructor for the ViewModel. Initializes our fields based on email address
      * and JWT as specified in parameters.
      * @param email String email of the user
      * @param jwt the user's signed JWT
      */
-    private UserInfoViewModel(String email, String jwt) {
+    private UserInfoViewModel(String email, String jwt, int memberid) {
         mEmail = email;
         mJwt = jwt;
+        mMemberID = memberid;
     }
 
     /**
@@ -45,6 +51,13 @@ public class UserInfoViewModel extends ViewModel {
     }
 
     /**
+     * @return the user's member id as int
+     */
+    public int getMemberID() {
+        return mMemberID;
+    }
+
+    /**
      * Factory method to instantiate UserInfoViewModels.
      */
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {
@@ -55,18 +68,24 @@ public class UserInfoViewModel extends ViewModel {
         private final String email;
 
         /**
-         * Field representing user's email address.
+         * Field representing user's JWT.
          */
         private final String jwt;
+
+        /**
+         * Field representing user's member id.
+         */
+        private final int memberID;
 
         /**
          * Constructor for the ViewModel factory.
          * @param email String email of the user
          * @param jwt the user's signed JWT
          */
-        public UserInfoViewModelFactory(String email, String jwt) {
+        public UserInfoViewModelFactory(String email, String jwt, int memberID) {
             this.email = email;
             this.jwt = jwt;
+            this.memberID = memberID;
         }
 
         /**
@@ -79,7 +98,7 @@ public class UserInfoViewModel extends ViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass == UserInfoViewModel.class) {
-                return (T) new UserInfoViewModel(email, jwt);
+                return (T) new UserInfoViewModel(email, jwt, memberID);
             }
             throw new IllegalArgumentException(
                     "Argument must be: " + UserInfoViewModel.class);
