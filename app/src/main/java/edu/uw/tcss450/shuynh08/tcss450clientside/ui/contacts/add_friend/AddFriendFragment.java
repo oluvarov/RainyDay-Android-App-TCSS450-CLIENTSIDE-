@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -36,6 +37,7 @@ public class AddFriendFragment extends Fragment {
     private FragmentAddFriendBinding binding;
     private AddFriendViewModel mAddFriendModel;
     private UserInfoViewModel mUserInfoModel;
+    private boolean isButtonPressed = false;
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
@@ -76,25 +78,30 @@ public class AddFriendFragment extends Fragment {
     }
 
     private void observeAddFriends(JSONObject response){
-        if (response.length() > 0) {
-            if (response.has("code")) {
-                try {
-                    String code = response.getString("code");
-                    System.out.println("Error Code " + code);
-                   if(code.equals("409")){
-                        errorFriendExist();
-                    }else if(code.equals("404")){
-                        errorNotFound();
+        System.out.println(isButtonPressed + " Observe before");
+        if(isButtonPressed == true){
+            if (response.length() > 0) {
+                if (response.has("code")) {
+                    try {
+                        String code = response.getString("code");
+                        System.out.println("Error Code " + code);
+                        if(code.equals("409")){
+                            errorFriendExist();
+                        }else if(code.equals("404")){
+                            errorNotFound();
+                        }
+                    } catch (JSONException e) {
+                        Log.e("JSON Parse Error", e.getMessage());
                     }
-                } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                success();
+                Log.d("JSON Response", "No Response");
             }
-        } else {
-            Log.d("JSON Response", "No Response");
+            success();
         }
+        isButtonPressed = false;
+        System.out.println(isButtonPressed + " Observe after");
+
     }
 
     private void errorNotFound(){
@@ -109,14 +116,19 @@ public class AddFriendFragment extends Fragment {
 
 
     private void sendFriendRequest(final View button) {
+        isButtonPressed = true;
+        System.out.println(isButtonPressed + " button top");
         String email = binding.editEmail.getText().toString().trim();
         mAddFriendModel.connectAddFriends(email,mUserInfoModel.getmJwt());
     }
 
     private void success(){
-        Snackbar snackbar = Snackbar.make(binding.buttonRequest,"Friend Request Sent to "
-                + binding.editEmail.getText().toString().trim(),Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Toast toast = Toast.makeText(getContext(),"Friend Request Sent to "
+                + binding.editEmail.getText().toString().trim(),Toast.LENGTH_SHORT);
+        toast.show();
+//        Snackbar snackbar = Snackbar.make(binding.buttonRequest,"Friend Request Sent to "
+//                + binding.editEmail.getText().toString().trim(),Snackbar.LENGTH_LONG);
+//        snackbar.show();
     };
 
     private void navigateToContacts(final View button){

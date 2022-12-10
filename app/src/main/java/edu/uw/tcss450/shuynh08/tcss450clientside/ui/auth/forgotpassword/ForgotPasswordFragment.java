@@ -132,6 +132,7 @@ public class ForgotPasswordFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
+
                 Snackbar snackbar = Snackbar.make(binding.buttonForgotGetPassword,"A link to get your password is sent to your email.",Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
