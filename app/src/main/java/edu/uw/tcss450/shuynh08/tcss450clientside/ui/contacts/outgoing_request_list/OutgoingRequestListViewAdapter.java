@@ -16,28 +16,25 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentOutgoingRequestCardBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list.IncomingRequestViewModel;
 
 
 public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<OutgoingRequestListViewAdapter.ContactsViewHolder> {
 
     private Context mContext;
-    private OutgoingRequestViewModel mOutgoingRequestViewModel;
+    private OutgoingDeleteViewModel mOutgoingDeleteModel;
     private UserInfoViewModel mUserInfoModel;
-    private OutgoingRequestViewModel outgoingRequestModel;
-    private OutgoingRequestListFragment mOutgoingFragment;
     private final List<Contacts> mContacts;
+
 
     public OutgoingRequestListViewAdapter(Context context, List<Contacts> mContacts) {
         this.mContext = context;
         this.mContacts = mContacts;
 
-        mOutgoingRequestViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
-                .get(OutgoingRequestViewModel.class);
+        mOutgoingDeleteModel = new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(OutgoingDeleteViewModel.class);
         mUserInfoModel = new ViewModelProvider((ViewModelStoreOwner) context)
                 .get(UserInfoViewModel.class);
     }
-
 
     @NonNull
     @Override
@@ -76,8 +73,9 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
             binding.textContactoutgoingMemberID.setText(Integer.toString(contacts.getMemberID()));
 
             binding.contactoutgoingDeleteFab.setOnClickListener(button ->
-                    mOutgoingRequestViewModel.connectDeleteContacts(contacts.getMemberID(),
+                    mOutgoingDeleteModel.connectDeleteContacts(contacts.getMemberID(),
                             mUserInfoModel.getmJwt()));
+
         }
     }
 }

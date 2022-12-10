@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,7 @@ public class OutgoingRequestListFragment extends Fragment {
     private UserInfoViewModel mUserInfoViewModel;
     private OutgoingRequestViewModel mOutGoingRequestModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
+    private OutgoingDeleteViewModel mOutgoingDeleteModel;
     private int mMemberID;
 
     @Override
@@ -72,7 +74,28 @@ public class OutgoingRequestListFragment extends Fragment {
         mOutGoingRequestModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
+        mOutgoingDeleteModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeDeleteContacts);
         mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
+    }
+
+    private void observeDeleteContacts(JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.textOutgoingRequestList.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                deleteSuccess();
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
     }
 
     private void observeContacts(final JSONObject response) {
@@ -125,6 +148,7 @@ public class OutgoingRequestListFragment extends Fragment {
         System.out.println(response);
         try {
             List<Contacts> contactsList = new ArrayList<>();
+            OutgoingRequestListViewAdapter mAdapter = new OutgoingRequestListViewAdapter(getContext(),contactsList);
             JSONObject outgoing = response.getJSONObject("outgoing_requests");
             JSONArray outgoingKeys = outgoing.names();
             if ( outgoingKeys == null) {
@@ -141,12 +165,17 @@ public class OutgoingRequestListFragment extends Fragment {
                 int memberID = obj.getInt("memberid");
                 contactsList.add(new Contacts(email, name, R.drawable.ic_rainychat_launcher_foreground, memberID));
 
+
             }
             recyclerView.setAdapter(new OutgoingRequestListViewAdapter(getContext(), contactsList));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mOutGoingRequestModel.connectContacts(mUserInfoViewModel.getMemberID(),mUserInfoViewModel.getmJwt());
+    }
+
+    private void deleteSuccess() {
+        Toast toast = Toast.makeText(getContext(),"Successful Deletion Of Contacts",Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 }

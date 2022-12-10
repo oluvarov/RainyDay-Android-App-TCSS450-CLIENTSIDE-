@@ -24,11 +24,11 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-public class OutgoingRequestViewModel extends AndroidViewModel {
+public class OutgoingDeleteViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mContacts;
 
-    public OutgoingRequestViewModel(@NonNull Application application) {
+    public OutgoingDeleteViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
         mContacts.setValue(new JSONObject());
@@ -39,11 +39,11 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
         mContacts.observe(owner, observer);
     }
 
-    public void connectContacts(final int memberID, final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
+    public void connectDeleteContacts(final int memberID, final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/contact/request";
 
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.DELETE,
                 url,
                 null, //no body for this get request
                 mContacts::setValue,
@@ -54,7 +54,7 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("memberid_a", Integer.toString(memberID));
+                headers.put("memberid_b", Integer.toString(memberID));
                 headers.put("Authorization", "Bearer "  + jwt);
                 return headers;
             }
@@ -92,4 +92,5 @@ public class OutgoingRequestViewModel extends AndroidViewModel {
             }
         }
     }
+
 }
