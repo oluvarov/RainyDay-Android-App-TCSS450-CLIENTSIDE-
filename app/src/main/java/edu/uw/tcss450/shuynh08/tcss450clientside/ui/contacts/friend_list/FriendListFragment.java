@@ -69,6 +69,7 @@ public class FriendListFragment extends Fragment {
         mContactsModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
+
         mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
     }
 

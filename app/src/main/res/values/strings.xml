@@ -63,7 +63,7 @@
     <string name="new_chatroom">New Chatroom</string>
     <string name="title_new_chatroom">New Chat</string>
     <string name="hint_new_chat_name">Name</string>
-    <string name="title_add">"Add"</string>
+    <string name="title_add">Add to Chatroom</string>
     <string name="add_to_chatroom_description">Add someone to this chatroom!</string>
     <string name="hint_add_to_chat">Email</string>
     <string name="add_to_chat">Add</string>

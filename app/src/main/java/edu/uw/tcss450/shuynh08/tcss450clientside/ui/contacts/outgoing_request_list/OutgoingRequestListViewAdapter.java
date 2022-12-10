@@ -72,10 +72,12 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
             binding.textContactName.setText(contacts.getName());
             binding.textContactoutgoingMemberID.setText(Integer.toString(contacts.getMemberID()));
 
-            binding.contactoutgoingDeleteFab.setOnClickListener(button ->
-                    mOutgoingDeleteModel.connectDeleteContacts(contacts.getMemberID(),
-                            mUserInfoModel.getmJwt()));
 
+            binding.contactoutgoingDeleteFab.setOnClickListener(view -> {
+                mOutgoingDeleteModel.connectDeleteContacts(contacts.getMemberID(),
+                        mUserInfoModel.getmJwt());
+                binding.contactoutgoingDeleteFab.setVisibility(View.INVISIBLE);
+            });
         }
     }
 }

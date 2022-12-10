@@ -49,6 +49,7 @@ public class OutgoingRequestListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mOutGoingRequestModel = new ViewModelProvider(getActivity()).get(OutgoingRequestViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
+        mOutgoingDeleteModel = new ViewModelProvider(getActivity()).get(OutgoingDeleteViewModel.class);
     }
 
     @Override
