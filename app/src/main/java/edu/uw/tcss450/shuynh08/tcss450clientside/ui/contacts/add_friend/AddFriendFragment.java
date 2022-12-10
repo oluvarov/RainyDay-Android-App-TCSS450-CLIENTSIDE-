@@ -89,19 +89,27 @@ public class AddFriendFragment extends Fragment {
                             errorFriendExist();
                         }else if(code.equals("404")){
                             errorNotFound();
+                        }else if(code.equals("408")){
+                            errorCannotAddYourself();
                         }
                     } catch (JSONException e) {
                         Log.e("JSON Parse Error", e.getMessage());
                     }
+                }else{
+                    success();
                 }
             } else {
                 Log.d("JSON Response", "No Response");
             }
-            success();
         }
         isButtonPressed = false;
         System.out.println(isButtonPressed + " Observe after");
 
+    }
+
+    private void errorCannotAddYourself() {
+        binding.editEmail.setError("Cannot add yourself.");
+        binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
     private void errorNotFound(){
@@ -110,7 +118,7 @@ public class AddFriendFragment extends Fragment {
     }
 
     private void errorFriendExist(){
-        binding.editEmail.setError("Friend request already exist");
+        binding.editEmail.setError("Friend request already exist.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
