@@ -63,6 +63,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
+        app:backgroundTint="#96ccff"
         app:icon="@drawable/ic_add_friend_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -77,7 +77,6 @@ public class AddFriendFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
         binding.buttonRequest.setOnClickListener(this::sendFriendRequest);
-        binding.buttonBack.setOnClickListener(this::navigateToContacts);
 
 
     }
