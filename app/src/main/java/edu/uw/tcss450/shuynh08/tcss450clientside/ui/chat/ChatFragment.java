@@ -115,6 +115,9 @@ public class ChatFragment extends Fragment {
                         Navigation.findNavController(getView()).navigate(ChatFragmentDirections
                                 .actionNavigationChatToAddToChatFragment(HARD_CODED_CHAT_ID));
                         break;
+                    case R.id.delete_chatroom:
+                        Navigation.findNavController(getView()).navigate(ChatFragmentDirections
+                                .actionNavigationChatToDeleteChatRoomFragment(HARD_CODED_CHAT_ID));
                 }
                 return true;
             }

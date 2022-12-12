@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatMembersFragment"
             app:destination="@id/chatMembersFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_deleteChatRoomFragment"
+            app:destination="@id/deleteChatRoomFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"
@@ -126,6 +129,15 @@
         android:id="@+id/chatMembersFragment"
         android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.chat_members.ChatMembersFragment"
         android:label="ChatMembersFragment" >
+        <argument
+            android:name="chatID"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteChatRoomFragment"
+        android:name="edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.delete_chatroom.DeleteChatRoomFragment"
+        android:label="fragment_delete_chat_room"
+        tools:layout="@layout/fragment_delete_chat_room" >
         <argument
             android:name="chatID"
             app:argType="integer" />
