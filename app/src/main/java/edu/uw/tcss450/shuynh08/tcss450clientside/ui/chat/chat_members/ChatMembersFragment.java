@@ -63,13 +63,13 @@ public class ChatMembersFragment extends Fragment {
                 .get(UserInfoViewModel.class);
         mChatMembersViewModel.addResponseObserver(
                 getViewLifecycleOwner(),
-                this::observeAddFriends);
+                this::observeRemoveFriend);
         mBinding.buttonAddToChat.setOnClickListener(button ->
                 removeFromChatRoom());
 
     }
 
-    private void observeAddFriends(JSONObject response){
+    private void observeRemoveFriend(JSONObject response){
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
