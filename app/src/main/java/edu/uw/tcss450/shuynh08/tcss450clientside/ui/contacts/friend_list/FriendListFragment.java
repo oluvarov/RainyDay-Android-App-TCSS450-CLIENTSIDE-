@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
@@ -33,6 +36,7 @@ public class FriendListFragment extends Fragment {
     private UserInfoViewModel mUserInfoModel;
     private FriendListViewModel mContactsModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
+    private FragmentContactsBinding mContactsBinding;
     private int mMemberID;
 
     public FriendListFragment() {
@@ -51,6 +55,7 @@ public class FriendListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFriendListBinding.inflate(inflater);
+        mContactsBinding = FragmentContactsBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -71,6 +76,17 @@ public class FriendListFragment extends Fragment {
                 this::observeContacts);
 
         mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
+
+        binding.listFriend.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0) {
+                    mContactsBinding.addFriendFab.hide();
+                } else if (dy < 0) {
+                    mContactsBinding.addFriendFab.show();
+                }
+            }
+        });
     }
 
     private void observeContacts(final JSONObject response) {

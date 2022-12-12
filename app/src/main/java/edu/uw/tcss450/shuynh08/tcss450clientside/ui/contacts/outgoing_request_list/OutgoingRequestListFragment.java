@@ -50,6 +50,7 @@ public class OutgoingRequestListFragment extends Fragment {
         mOutGoingRequestModel = new ViewModelProvider(getActivity()).get(OutgoingRequestViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
         mOutgoingDeleteModel = new ViewModelProvider(getActivity()).get(OutgoingDeleteViewModel.class);
+
     }
 
     @Override
@@ -78,6 +79,8 @@ public class OutgoingRequestListFragment extends Fragment {
         mOutgoingDeleteModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeDeleteContacts);
+
+
         mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
     }
 

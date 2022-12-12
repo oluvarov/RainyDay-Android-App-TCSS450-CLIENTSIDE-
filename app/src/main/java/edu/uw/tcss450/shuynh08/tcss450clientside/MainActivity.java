@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         mNewMessageModel.addMessageCountObserver(this, count -> {
             BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chatroom);
             badge.setMaxCharacterCount(2);
