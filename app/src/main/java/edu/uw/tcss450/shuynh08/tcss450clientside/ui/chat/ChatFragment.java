@@ -106,11 +106,20 @@ public class ChatFragment extends Fragment {
         binding.topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Navigation.findNavController(getView()).navigate(ChatFragmentDirections
-                        .actionNavigationChatToAddToChatFragment(HARD_CODED_CHAT_ID));
+                switch(item.getItemId()){
+                    case R.id.review_participants:
+                        Navigation.findNavController(getView()).navigate(ChatFragmentDirections
+                                .actionNavigationChatToChatMembersFragment(HARD_CODED_CHAT_ID));
+                        break;
+                    case R.id.add_friend:
+                        Navigation.findNavController(getView()).navigate(ChatFragmentDirections
+                                .actionNavigationChatToAddToChatFragment(HARD_CODED_CHAT_ID));
+                        break;
+                }
                 return true;
             }
         });
+
     }
 
 

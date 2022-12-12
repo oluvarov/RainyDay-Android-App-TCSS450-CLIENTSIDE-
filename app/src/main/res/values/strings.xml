@@ -16,7 +16,7 @@
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
     <string name="forgot_description">Provide your account\'s email address to reset your password</string>
-    <string name="forgot_button_next">Next</string>
+    <string name="forgot_button_next">Reset Password</string>
     <string name="chat_new_chatroom">New Chatroom</string>
     <string name="password_old">Old Password</string>
     <string name="password_new">New Password</string>
@@ -37,7 +37,7 @@
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
 
     <string name="base_url_service">https://tcss450-weather-chat.herokuapp.com/</string>
-    <string name ="back">Back</string>
+    <string name="back">Back</string>
     <string name="label_location">Current location:</string>
     <string name="hint_zip_code">ZIP Code</string>
     <string name="weather_tab_current">Current</string>
@@ -67,5 +67,9 @@
     <string name="add_to_chatroom_description">Add someone to this chatroom!</string>
     <string name="hint_add_to_chat">Email</string>
     <string name="add_to_chat">Add</string>
+    <string name="review_participants">review participants</string>
+    <string name="title_remove">Remove Member</string>
+    <string name="remove_member_description">Remove someone from this chatroom</string>
+    <string name="remove_member">Remove</string>
 
 </resources>
