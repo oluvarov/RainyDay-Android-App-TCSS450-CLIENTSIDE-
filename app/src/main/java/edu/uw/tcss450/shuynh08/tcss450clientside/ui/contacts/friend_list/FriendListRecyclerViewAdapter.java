@@ -70,7 +70,7 @@ public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendLi
             binding.textContactName.setText(contacts.getName());
             binding.textContactfriendMemberID.setText(Integer.toString(contacts.getMemberID()));
 
-            binding.contactFriendDeleteFab.setOnClickListener(button ->
+            binding.buttonContactFriendDelete.setOnClickListener(button ->
                     mFriendListViewModel.connectDeleteContacts(contacts.getMemberID()
                             , mUserInfoViewModel.getmJwt()));
 

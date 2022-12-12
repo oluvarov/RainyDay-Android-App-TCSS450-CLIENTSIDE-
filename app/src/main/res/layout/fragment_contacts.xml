@@ -81,6 +81,7 @@
         android:id="@+id/view_pager_contacts"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tab_contacts_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +96,6 @@
         android:layout_gravity="end"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:text="@string/add_friend"
         app:icon="@drawable/ic_add_friend_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

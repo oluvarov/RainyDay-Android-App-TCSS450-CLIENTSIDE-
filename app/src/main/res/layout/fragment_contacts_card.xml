@@ -55,35 +55,6 @@
             app:layout_constraintVertical_bias="1.0"
             tools:srcCompat="@tools:sample/avatars[0]" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/contact_friend_message_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="25dp"
-            android:clickable="true"
-            app:fabCustomSize="35dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/contact_friend_delete_fab"
-            app:layout_constraintStart_toEndOf="@+id/image_contact_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_contact_message_24dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/contact_friend_delete_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="18dp"
-            android:clickable="true"
-            app:fabCustomSize="35dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/contact_friend_message_fab"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_contact_reject_24dp" />
-
         <TextView
             android:id="@+id/text_contactfriend_memberID"
             android:layout_width="wrap_content"
@@ -94,6 +65,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_contact_friend_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.454"
+            app:srcCompat="@drawable/ic_contact_reject_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
