@@ -16,7 +16,7 @@
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
     <string name="forgot_description">Provide your account\'s email address to reset your password</string>
-    <string name="forgot_button_next">Next</string>
+    <string name="forgot_button_next">Reset Password</string>
     <string name="chat_new_chatroom">New Chatroom</string>
     <string name="password_old">Old Password</string>
     <string name="password_new">New Password</string>

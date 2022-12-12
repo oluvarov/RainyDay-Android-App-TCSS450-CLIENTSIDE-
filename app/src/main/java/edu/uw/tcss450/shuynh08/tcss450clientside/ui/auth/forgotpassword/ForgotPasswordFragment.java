@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -133,8 +134,9 @@ public class ForgotPasswordFragment extends Fragment {
                 }
             } else {
 
-                Snackbar snackbar = Snackbar.make(binding.buttonForgotGetPassword,"A link to get your password is sent to your email.",Snackbar.LENGTH_SHORT);
-                snackbar.show();
+                Toast toast = Toast.makeText(getContext(),"A link to get your password is sent to your email.",Toast.LENGTH_SHORT);
+                toast.show();
+
             }
         } else {
             Log.d("JSON Response", "No Response");
