@@ -77,7 +77,7 @@ public class AddFriendFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
         binding.buttonRequest.setOnClickListener(this::sendFriendRequest);
-        binding.buttonBack.setOnClickListener(this::navigateToContacts);
+        //binding.buttonBack.setOnClickListener(this::navigateToContacts);
 
 
     }
@@ -143,10 +143,10 @@ public class AddFriendFragment extends Fragment {
 //        snackbar.show();
     };
 
-    private void navigateToContacts(final View button){
-        Navigation.findNavController(getView()).navigate(
-                AddFriendFragmentDirections.actionAddFriendFragmentToNavigationContacts());
-    }
+//    private void navigateToContacts(final View button){
+//        Navigation.findNavController(getView()).navigate(
+//                AddFriendFragmentDirections.actionAddFriendFragmentToNavigationContacts());
+//    }
 
 
 }
