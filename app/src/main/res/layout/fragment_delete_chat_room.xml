@@ -2,79 +2,48 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_contacts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contacts.ContactsFragment">
+    tools:context=".ui.chat.delete_chatroom.DeleteChatRoomFragment">
 
     <TextView
-        android:id="@+id/text_friends"
-        android:layout_width="117dp"
+        android:id="@+id/text_remove_chatroom"
+        android:layout_width="wrap_content"
         android:layout_height="31dp"
         android:layout_marginTop="150dp"
-        android:text="@string/title_new_chatroom"
+        android:text="Remove Chatroom"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/text_remove_chatroom_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_remove_chatroom_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/new_chatroom_description"
+        android:text="Delete this chatroom and remove its members"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_friends" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_text_input_email"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_chat_name"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:hint="@string/hint_new_chat_name" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/text_remove_chatroom" />
 
     <Button
-        android:id="@+id/button_new_chatroom"
+        android:id="@+id/button_remove_chatroom"
         android:layout_width="310dp"
         android:layout_height="48dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="397dp"
-        android:text="@string/new_chatroom"
+        android:layout_marginBottom="324dp"
+        android:text="@string/remove_member"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_text_input_email"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/text_add_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_new_chatroom"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintTop_toBottomOf="@+id/text_remove_chatroom_description" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_wait"
@@ -101,5 +70,12 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/text_remove_chatroom_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_remove_chatroom" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-

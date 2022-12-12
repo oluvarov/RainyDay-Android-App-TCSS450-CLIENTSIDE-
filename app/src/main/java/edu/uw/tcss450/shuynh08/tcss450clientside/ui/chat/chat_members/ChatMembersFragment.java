@@ -1,5 +1,6 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.chat_members;
 
+import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkExcludeWhiteSpace;
 import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator.checkPwdSpecialChar;
 
@@ -19,12 +20,14 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAddToChatBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChatMembersBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.add_to_chat.AddToChatFragmentArgs;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.add_to_chat.AddToChatViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
-/**
- * A fragment used to display a remove-members screen for chatrooms.
- */
 public class ChatMembersFragment extends Fragment {
 
     private FragmentChatMembersBinding mBinding;
@@ -32,10 +35,8 @@ public class ChatMembersFragment extends Fragment {
     private UserInfoViewModel mUserInfoModel;
     private static int HARD_CODED_CHAT_ID;
 
-    /**
-     * Required empty public constructor.
-     */
     public ChatMembersFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -68,10 +69,6 @@ public class ChatMembersFragment extends Fragment {
 
     }
 
-    /**
-     * Observer for the action of removing a friend.
-     * @param response JSONObject the API response
-     */
     private void observeRemoveFriend(JSONObject response){
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -96,33 +93,21 @@ public class ChatMembersFragment extends Fragment {
         }
     }
 
-    /**
-     * Handles error of user not being found.
-     */
     private void errorNotFound(){
         mBinding.editChatName.setError("User not found.");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Handles error of user trying to add friend to the same chat again.
-     */
     private void errorFriendExist(){
         mBinding.editChatName.setError("Person is not in chat");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Handles success of removing user from the chat.
-     */
     private void success(){
         Toast toast = Toast.makeText(getContext(),"User removed from chat.",Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    /**
-     * Removes user from the chatroom.
-     */
     private void removeFromChatRoom() {
         String email = mBinding.editChatName.getText().toString().trim();
         int chatID = HARD_CODED_CHAT_ID;

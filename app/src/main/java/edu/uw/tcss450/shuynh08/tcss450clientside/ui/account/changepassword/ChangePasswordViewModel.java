@@ -37,7 +37,7 @@ public class ChangePasswordViewModel extends AndroidViewModel {
     /**
      * Constructor for the Change Password ViewModel. Initializes our mResponse with a blank
      * JSONObject.
-     * @param application for maintaining global Application state
+     * @param application The Application
      */
     public ChangePasswordViewModel(@NonNull Application application) {
         super(application);

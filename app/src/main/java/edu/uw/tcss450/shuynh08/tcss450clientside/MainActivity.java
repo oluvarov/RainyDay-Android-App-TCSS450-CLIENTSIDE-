@@ -37,16 +37,34 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatMessage;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.chat.ChatViewModel;
 
 /**
- * MainActivity - The entry point for the app.
+ *
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * App bar for the Main Activity to navigate through the various fragments.
+     */
     private AppBarConfiguration mAppBarConfiguration;
+
+    /**
+     * Binding object for the Main Activity.
+     */
     private ActivityMainBinding binding;
+
+    /**
+     * A field to instantiate a locally defined class to act as a BroadcastReceiver.
+     */
     private MainPushMessageReceiver mPushMessageReceiver;
+
+    /**
+     *
+     */
     private NewMessageCountViewModel mNewMessageModel;
+
     private FusedLocationProviderClient mFusedLocationClient;
+
     private LocationViewModel mLocationModel;
+
     private LocationCallback mLocationCallback;
 
     @Override
@@ -168,14 +186,22 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+
+
     /**
-     * Inner class for a BroadcastReceiver that listens for messages sent from PushReceiver.
+     * A BroadcastReceiver that listens for messages sent from PushReceiver.
      */
     private class MainPushMessageReceiver extends BroadcastReceiver {
 
-        private ChatViewModel mModel = new ViewModelProvider(MainActivity.this)
+        private ChatViewModel mModel =
+                new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
 
+        /**
+         * Behavior to handle new messages received.
+         * @param context
+         * @param intent
+         */
         @Override
         public void onReceive(Context context, Intent intent) {
             NavController nc =
@@ -199,19 +225,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Requests location permission from the user.
-     */
     private void requestLocation() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            Log.d("REQUEST LOCATION",
-                    "User did NOT allow permission to request location!");
+            Log.d("REQUEST LOCATION", "User did NOT allow permission to request location!");
         } else {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -226,11 +246,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 mLocationModel.setLocation(location);
                             } else {
-                                Log.d("LOCATION", "No Location retrieved. Hopefully " +
-                                        "this is resolved in a later step");
+                                Log.d("LOCATION", "No Location retrieved. Hopefully this is" +
+                                        " resolved in a later step");
                             }
                         }
                     });
         }
     }
+
 }

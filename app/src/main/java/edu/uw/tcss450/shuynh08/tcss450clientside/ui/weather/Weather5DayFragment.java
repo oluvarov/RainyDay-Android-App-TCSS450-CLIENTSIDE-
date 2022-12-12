@@ -124,6 +124,8 @@ public class Weather5DayFragment extends Fragment {
         mLocationModel.addLocationObserver(
                 getViewLifecycleOwner(),
                 this::observeGetLocation);
+
+
     }
 
     /**
@@ -134,6 +136,7 @@ public class Weather5DayFragment extends Fragment {
         System.out.println(response);
         Format f = new SimpleDateFormat("EEEE");
         try {
+
             List<Weather> weatherList = new ArrayList<>();
             JSONObject cityObj = response.getJSONObject("city");
             String city = cityObj.getString("name");
@@ -179,6 +182,7 @@ public class Weather5DayFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Used to observe for a response from the API for a JSONObject of 5 day weather

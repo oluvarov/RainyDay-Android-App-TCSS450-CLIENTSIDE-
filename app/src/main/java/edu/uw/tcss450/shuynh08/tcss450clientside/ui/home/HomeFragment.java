@@ -43,7 +43,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherCurrentViewMo
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherRecyclerViewAdapter;
 
 /**
- * A simple {@link Fragment} subclass representing the Home screen, which user sees upon sign-in.
+ * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -53,10 +53,8 @@ public class HomeFragment extends Fragment {
     private UserInfoViewModel mUserInfoModel;
     private FragmentAccountBinding mAccountBinding;
 
-    /**
-     * Required empty public constructor.
-     */
     public HomeFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -86,6 +84,7 @@ public class HomeFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
 
+
         recyclerView = binding.listHomeweather;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -102,18 +101,12 @@ public class HomeFragment extends Fragment {
         Log.e("JWT", model.getmJwt());
 
     }
-
-    /**
-     * Observes for the current weather on the home page, so the user can see current conditions.
-     * @param response JSONObject the API response
-     */
     private void observeWeatherCurrent(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    Snackbar snackbar = Snackbar.make(binding.textHome,"Error Authenticating: "
-                            + response.getJSONObject("data")
-                            .getString("message"),Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar = Snackbar.make(binding.textHome,"Error Authenticating: " +
+                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
@@ -126,19 +119,10 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    /**
-     * Used to observe a response from LocationViewModel.
-     * @param location The location from LocationViewModel
-     */
     private void observeGetLocation(final Location location) {
-        mWeatherCurrentModel.connectCurrentLatLng(location.getLatitude(),location.getLongitude(),
-                mUserInfoModel.getmJwt());
+        mWeatherCurrentModel.connectCurrentLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());
     }
 
-    /**
-     * Displays the current weather for the Home page.
-     * @param response JSONObject the API response
-     */
     private void setUpCurrent(JSONObject response) {
         System.out.println(response);
         try {
@@ -153,6 +137,8 @@ public class HomeFragment extends Fragment {
             String weatherDescription = weatherObject.getString("description");
             String icon = weatherObject.getString("icon");
             String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
+
+
 
             JSONObject tempObject = response.getJSONObject("main");
             double temp = Math.floor(tempObject.getDouble("temp"));;
@@ -169,8 +155,7 @@ public class HomeFragment extends Fragment {
             }
 
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, tempString, city,
-                    "Today", url);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, tempString, city, "Today", url);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
@@ -178,4 +163,7 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+
+
 }

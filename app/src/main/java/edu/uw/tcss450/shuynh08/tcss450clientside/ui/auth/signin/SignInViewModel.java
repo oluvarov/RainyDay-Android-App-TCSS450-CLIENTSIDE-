@@ -40,7 +40,7 @@ public class SignInViewModel extends AndroidViewModel {
 
     /**
      * Constructor for the ViewModel. Initializes our mResponse with a blank JSONObject.
-     * @param application for maintaining global Application state
+     * @param application The Application
      */
     public SignInViewModel(@NonNull Application application) {
         super(application);

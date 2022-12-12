@@ -19,23 +19,16 @@ import java.util.List;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChatMessageBinding;
 
-/**
- * A RecyclerViewAdapter used to display chats in a RecyclerView.
- */
+
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
 
     private final List<ChatMessage> mMessages;
     private final String mEmail;
-
-    /**
-     * Initializes our fields.
-     * @param messages the List of messages.
-     * @param email the String of the email address.
-     */
     public ChatRecyclerViewAdapter(List<ChatMessage> messages, String email) {
         this.mMessages = messages;
         mEmail = email;
     }
+
 
     @NonNull
     @Override
@@ -55,27 +48,16 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         return mMessages.size();
     }
 
-    /**
-     * Inner class to set and update messages.
-     */
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
         private FragmentChatMessageBinding binding;
 
-        /**
-         * Constructor to set the view binding.
-         * @param view the View
-         */
         public MessageViewHolder(@NonNull View view) {
             super(view);
             mView = view;
             binding = FragmentChatMessageBinding.bind(view);
         }
 
-        /**
-         * Sets the text and appearance of an individual message.
-         * @param message the ChatMessage
-         */
         void setMessage(final ChatMessage message) {
             final Resources res = mView.getContext().getResources();
             final MaterialCardView card = binding.cardRoot;

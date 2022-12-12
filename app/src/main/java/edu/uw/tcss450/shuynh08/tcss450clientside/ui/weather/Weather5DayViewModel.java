@@ -34,9 +34,8 @@ public class Weather5DayViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> mWeather;
 
     /**
-     * Constructor for the 5-Day Weather ViewModel. Initializes our mWeather with a
-     * blank JSONObject.
-     * @param application for maintaining global Application state
+     * Constructor for the Register ViewModel. Initializes our mWeather with a blank JSONObject.
+     * @param application The Application
      */
     public Weather5DayViewModel(@NonNull Application application) {
         super(application);

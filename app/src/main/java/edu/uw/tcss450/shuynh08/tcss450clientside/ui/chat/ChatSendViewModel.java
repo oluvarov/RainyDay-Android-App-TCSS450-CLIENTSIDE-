@@ -25,39 +25,22 @@ import java.util.Objects;
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-/**
- * A ViewModel managing the data for sending chat messages.
- */
+
 public class ChatSendViewModel extends AndroidViewModel {
 
     private final MutableLiveData<JSONObject> mResponse;
 
-    /**
-     * Constructor for the Chat Send ViewModel. Initializes our mResponse with a blank JSONObject.
-     * @param application for maintaining global Application state
-     */
     public ChatSendViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
-    /**
-     * Used to observe our API responses.
-     * @param owner The fragment's lifecycle owner
-     * @param observer The observer
-     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
-    /**
-     * Makes an API call to send a chat message.
-     * @param chatId integer of the chat ID
-     * @param jwt the user's signed JWT
-     * @param message String of the message
-     */
     public void sendMessage(final int chatId, final String jwt, final String message) {
         String url = getApplication().getResources().getString(R.string.base_url_service) +
                 "messages";
@@ -95,10 +78,8 @@ public class ChatSendViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    /**
-     * Used to handle errors with API calls.
-     * @param error VolleyError
-     */
+
+
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());

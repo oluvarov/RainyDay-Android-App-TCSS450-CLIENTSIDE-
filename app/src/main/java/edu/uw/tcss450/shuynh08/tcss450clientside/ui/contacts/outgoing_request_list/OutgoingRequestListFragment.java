@@ -23,13 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
-import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentOutgoingRequestListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.ContactsGetInfoViewModel;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListRecyclerViewAdapter;
-import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListViewModel;
 
 /**
  * create an instance of this fragment.
@@ -41,7 +38,7 @@ public class OutgoingRequestListFragment extends Fragment {
     private UserInfoViewModel mUserInfoViewModel;
     private OutgoingRequestViewModel mOutGoingRequestModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
-    private OutgoingDeleteViewModel mOutgoingDeleteModel;
+    private OutgoingRequestDeleteViewModel mOutgoingDeleteModel;
     private int mMemberID;
 
     @Override
@@ -49,7 +46,7 @@ public class OutgoingRequestListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mOutGoingRequestModel = new ViewModelProvider(getActivity()).get(OutgoingRequestViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
-        mOutgoingDeleteModel = new ViewModelProvider(getActivity()).get(OutgoingDeleteViewModel.class);
+        mOutgoingDeleteModel = new ViewModelProvider(getActivity()).get(OutgoingRequestDeleteViewModel.class);
 
     }
 
@@ -178,7 +175,7 @@ public class OutgoingRequestListFragment extends Fragment {
     }
 
     private void deleteSuccess() {
-        Toast toast = Toast.makeText(getContext(),"Successful Deletion Of Contacts",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(),"Successful Deletion Of Contact",Toast.LENGTH_SHORT);
         toast.show();
 
     }

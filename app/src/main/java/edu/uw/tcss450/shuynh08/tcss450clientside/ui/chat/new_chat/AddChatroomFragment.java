@@ -81,17 +81,12 @@ public class AddChatroomFragment extends Fragment {
         }
     }
 
-    /**
-     * Handles error of user not being found.
-     */
+
     private void errorNotFound(){
         mBinding.editChatName.setError("Chat not found.");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Handles error of user trying to add friend to the same chat again.
-     */
     private void errorFriendExist(){
         mBinding.editChatName.setError("Chatroom already exist");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);

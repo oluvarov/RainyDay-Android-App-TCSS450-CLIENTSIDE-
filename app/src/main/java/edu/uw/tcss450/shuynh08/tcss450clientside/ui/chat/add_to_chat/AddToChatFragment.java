@@ -27,9 +27,6 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.add_friend.AddFriendViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.utils.PasswordValidator;
 
-/**
- * A fragment used to display an Add-To-Chat screen.
- */
 public class AddToChatFragment extends Fragment {
 
     private FragmentAddToChatBinding mBinding;
@@ -40,10 +37,8 @@ public class AddToChatFragment extends Fragment {
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
-    /**
-     * Required empty public constructor.
-     */
     public AddToChatFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -74,10 +69,6 @@ public class AddToChatFragment extends Fragment {
         mBinding.buttonAddToChat.setOnClickListener(this::attemptAddToChat);
     }
 
-    /**
-     * Observer for the action of adding a friend.
-     * @param response JSONObject the API response
-     */
     private void observeAddFriends(JSONObject response){
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -102,42 +93,26 @@ public class AddToChatFragment extends Fragment {
         }
     }
 
-    /**
-     * Handles error of user not being found.
-     */
     private void errorNotFound(){
         mBinding.editChatName.setError("User not found.");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Handles error of user trying to add friend to the same chat again.
-     */
     private void errorFriendExist(){
         mBinding.editChatName.setError("Person is already in chat");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Handles success of inviting user to the chat.
-     */
     private void success(){
         Toast toast = Toast.makeText(getContext(),"User invited to chat.",Toast.LENGTH_SHORT);
         toast.show();
         /*mBinding.textAddFriend.setText("Friend request successful");*/
     }
 
-    /**
-     * Attempt adding user to chat.
-     * @param button Add
-     */
     private void attemptAddToChat(final View button) {
         validateEmail();
     }
 
-    /**
-     * Checks to see if the email is valid.
-     */
     private void validateEmail() {
         mEmailValidator.processResult(
                 mEmailValidator.apply(mBinding.editChatName.getText().toString().trim()),
@@ -145,22 +120,15 @@ public class AddToChatFragment extends Fragment {
                 result -> errorEmail());
     }
 
-    /**
-     * Handles incorrect email address.
-     */
     private void errorEmail() {
         Toast toast = Toast.makeText(getContext(),"Please enter a valid Email address.",Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    /**
-     * Calls the view model's method to add an entered user to the chatroom.
-     */
     private void addToChatRoom() {
         String email = mBinding.editChatName.getText().toString().trim();
         int chatID = HARD_CODED_CHAT_ID ;
-        mAddToChatModel.connectAddToChatroom( email, Integer.toString(chatID),
-                mUserInfoModel.getmJwt());
+        mAddToChatModel.connectAddToChatroom( email, Integer.toString(chatID),mUserInfoModel.getmJwt());
     }
 
 }

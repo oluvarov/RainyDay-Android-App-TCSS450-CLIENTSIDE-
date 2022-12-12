@@ -183,7 +183,8 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     /**
-     * An observer on the HTTP Response from the web server.
+     * An observer on the HTTP Response from the web server. This observer should be
+     * attached to SignInViewModel.
      *
      * @param response the Response from the server
      */

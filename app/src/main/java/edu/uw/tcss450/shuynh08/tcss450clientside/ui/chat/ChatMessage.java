@@ -19,15 +19,6 @@ public final class ChatMessage implements Serializable {
     private final String mFirstName;
     private final String mLastName;
 
-    /**
-     * Initializes the fields related to an individual chat message.
-     * @param messageId Integer of the message ID
-     * @param message String of the message
-     * @param sender String of the message sender
-     * @param timeStamp String of the message timestamp
-     * @param firstName String of the sender's first name
-     * @param lastName String of the sender's last name
-     */
     public ChatMessage(int messageId, String message, String sender, String timeStamp, String firstName, String lastName) {
         mMessageId = messageId;
         mMessage = message;
@@ -59,48 +50,29 @@ public final class ChatMessage implements Serializable {
                 msg.getString("lastname"));
     }
 
-    /**
-     * @return the chat message as a String.
-     */
     public String getMessage() {
         return mMessage;
     }
 
-    /**
-     * @return the sender as a String.
-     */
     public String getSender() {
         return mSender;
     }
 
-    /**
-     * @return the timestamp as a String.
-     */
     public String getTimeStamp() {
         return mTimeStamp;
     }
 
-    /**
-     * @return the message ID as an integer.
-     */
     public int getMessageId() {
         return mMessageId;
     }
 
-    /**
-     * @return the sender's first name as a String.
-     */
     public String getFirstName() {
         return mFirstName;
     }
 
-    /**
-     * @return the sender's last name as a String.
-     */
     public String getLastName() {
         return mLastName;
     }
-
     /**
      * Provides equality solely based on MessageId.
      * @param other the other object to check for equality

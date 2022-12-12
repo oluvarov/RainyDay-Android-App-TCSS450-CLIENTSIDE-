@@ -31,30 +31,18 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mWeather;
 
-    /**
-     * Constructor for the Current Weather view model.
-     * @param application for maintaining global Application state
-     */
     public WeatherCurrentViewModel(@NonNull Application application) {
         super(application);
         mWeather = new MutableLiveData<>();
         mWeather.setValue(new JSONObject());
     }
 
-    /**
-     * Used to observe our API responses.
-     * @param owner The fragment's lifecycle owner
-     * @param observer The observer
-     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mWeather.observe(owner, observer);
     }
 
-    /**
-     * Used to handle errors with API calls.
-     * @param error VolleyError
-     */
+
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -94,6 +82,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 mWeather::setValue,
                 this::handleError) {
 
+
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -127,6 +116,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 null, //no body for this get request
                 mWeather::setValue,
                 this::handleError) {
+
 
             @Override
             public Map<String, String> getHeaders() {
@@ -183,4 +173,6 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
+
+
 }

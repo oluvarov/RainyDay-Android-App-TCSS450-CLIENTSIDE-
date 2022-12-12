@@ -64,6 +64,8 @@ public class ContactsFragment extends Fragment {
                 .get(FriendListViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity())
                 .get(ContactsGetInfoViewModel.class);
+
+
     }
 
     @Override
@@ -118,4 +120,6 @@ public class ContactsFragment extends Fragment {
         Navigation.findNavController(getView()).navigate(
                 ContactsFragmentDirections.actionNavigationContactsToAddFriendFragment());
     }
+
+
 }

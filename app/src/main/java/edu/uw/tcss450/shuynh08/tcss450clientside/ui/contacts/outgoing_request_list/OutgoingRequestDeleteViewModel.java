@@ -1,4 +1,4 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.outgoing_request_list;
 
 import android.app.Application;
 import android.util.Log;
@@ -13,7 +13,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,11 +22,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ContactsGetInfoViewModel extends AndroidViewModel {
+import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
+
+public class OutgoingRequestDeleteViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mContacts;
 
-    public ContactsGetInfoViewModel(@NonNull Application application) {
+    public OutgoingRequestDeleteViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
         mContacts.setValue(new JSONObject());
@@ -38,6 +39,35 @@ public class ContactsGetInfoViewModel extends AndroidViewModel {
         mContacts.observe(owner, observer);
     }
 
+    public void connectDeleteContacts(final int memberID, final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/contact/request";
+
+        Request request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null, //no body for this get request
+                mContacts::setValue,
+                this::handleError) {
+
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("memberid_b", Integer.toString(memberID));
+                headers.put("Authorization", "Bearer "  + jwt);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -62,37 +92,5 @@ public class ContactsGetInfoViewModel extends AndroidViewModel {
             }
         }
     }
-
-    public void connectMemberInfo(final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/user/";
-
-        Request request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                mContacts::setValue,
-                this::handleError) {
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("Authorization", "Bearer "  + jwt);
-                return headers;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
-    }
-
-
-
-
 
 }

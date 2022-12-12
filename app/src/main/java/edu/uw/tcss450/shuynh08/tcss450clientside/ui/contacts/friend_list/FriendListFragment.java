@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -37,6 +38,7 @@ public class FriendListFragment extends Fragment {
     private FriendListViewModel mContactsModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
     private FragmentContactsBinding mContactsBinding;
+    private FriendListDeleteViewModel mFriendListDeleteModel;
     private int mMemberID;
 
     public FriendListFragment() {
@@ -48,6 +50,7 @@ public class FriendListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mContactsModel = new ViewModelProvider(getActivity()).get(FriendListViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
+        mFriendListDeleteModel= new ViewModelProvider(getActivity()).get(FriendListDeleteViewModel.class);
     }
 
     @Override
@@ -74,6 +77,9 @@ public class FriendListFragment extends Fragment {
         mContactsModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
+        mFriendListDeleteModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observeDeleteContact);
 
         mContactsGetInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
 
@@ -88,6 +94,27 @@ public class FriendListFragment extends Fragment {
             }
         });
     }
+
+    private void observeDeleteContact(JSONObject response) {
+
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    binding.textContactFriendList.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                approveDelete();
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+
+    }
+
 
     private void observeContacts(final JSONObject response) {
         if (response.length() > 0) {
@@ -158,4 +185,11 @@ public class FriendListFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void approveDelete() {
+        Toast toast = Toast.makeText(getContext(),"Successful Deletion Of Contact",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
 }
