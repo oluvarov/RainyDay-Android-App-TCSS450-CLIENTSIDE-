@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.AuthActivity;
 import edu.uw.tcss450.shuynh08.tcss450clientside.MainActivity;
@@ -108,6 +109,26 @@ public class AccountFragment extends Fragment {
         binding.buttonAccountSignout.setOnClickListener(button ->
                 signOut());
 
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                getString(R.string.keys_shared_prefs),
+                Context.MODE_PRIVATE);
+
+        boolean tempUnit = prefs.getBoolean("unit",true);
+
+        if (tempUnit) {
+            binding.switchAccountTemperature.setChecked(true);
+        } else {
+            binding.switchAccountTemperature.setChecked(false);
+        }
+
+        binding.switchAccountTemperature.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (checked) {
+                prefs.edit().putBoolean("unit",true).apply();
+            } else {
+                prefs.edit().putBoolean("unit",false).apply();
+            }
+        });
+
     }
 
     /**
@@ -119,6 +140,7 @@ public class AccountFragment extends Fragment {
                         getString(R.string.keys_shared_prefs),
                         Context.MODE_PRIVATE);
         prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+
 
         PushyTokenViewModel model = new ViewModelProvider(this)
                 .get(PushyTokenViewModel.class);

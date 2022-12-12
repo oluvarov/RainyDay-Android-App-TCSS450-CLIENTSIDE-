@@ -49,4 +49,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_change_password" />
 
+    <Switch
+        android:id="@+id/switch_account_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:showText="false"
+        android:text="Fahrenheit As Default"
+        android:textOff="Fahrenheit"
+        android:textOn="Celcius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_account_signout"
+        tools:checked="false" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -33,6 +35,7 @@ import java.util.Locale;
 
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAccountBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCurrentBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
@@ -51,6 +54,7 @@ public class WeatherCurrentFragment extends Fragment {
     private FragmentWeatherBinding mWeatherBinding;
     private UserInfoViewModel mUserInfoModel;
     private LocationViewModel mLocationModel;
+    private FragmentAccountBinding mAccountBinding;
 
 
     private WeatherCurrentViewModel mWeatherCurrentModel;
@@ -79,6 +83,7 @@ public class WeatherCurrentFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentWeatherCurrentBinding.inflate(inflater);
         mWeatherBinding = FragmentWeatherBinding.inflate(inflater);
+        mAccountBinding = FragmentAccountBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -132,9 +137,20 @@ public class WeatherCurrentFragment extends Fragment {
 
             JSONObject tempObject = response.getJSONObject("main");
             double temp = Math.floor(tempObject.getDouble("temp"));
+            String tempString;
 
+            SharedPreferences prefs = getActivity().getSharedPreferences(
+                    getString(R.string.keys_shared_prefs),
+                    Context.MODE_PRIVATE);
+            boolean tempUnit = prefs.getBoolean("unit",true);
+            if (tempUnit) {
+                temp = Math.floor(temp * 1.8) + 32;
+                tempString = temp + "\u00B0" + "F";
+            } else {
+                tempString = temp + "\u00B0" + "C";
+            }
             String city = response.getString("name");
-            Weather weatherThing = new Weather(weatherType, weatherDescription, temp, city, "Today", url);
+            Weather weatherThing = new Weather(weatherType, weatherDescription, tempString, city, "Today", url);
             List<Weather> weatherList = new ArrayList<>();
             weatherList.add(weatherThing);
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));

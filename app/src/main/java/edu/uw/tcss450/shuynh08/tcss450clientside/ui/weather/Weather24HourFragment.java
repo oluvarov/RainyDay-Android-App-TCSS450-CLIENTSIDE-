@@ -1,5 +1,7 @@
 package edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAccountBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeather24hourBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.LocationViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
@@ -65,7 +68,7 @@ public class Weather24HourFragment extends Fragment {
      */
     private RecyclerView recyclerView;
 
-    // private String ip;
+    private FragmentAccountBinding mAccountBinding;
 
     /**
      * Required empty public constructor.
@@ -89,6 +92,7 @@ public class Weather24HourFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentWeather24hourBinding.inflate(inflater);
+        mAccountBinding = FragmentAccountBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -139,7 +143,20 @@ public class Weather24HourFragment extends Fragment {
             for (int i = 0; i < arrayOfWeather.length(); i++) {
                 JSONObject listObj = arrayOfWeather.getJSONObject(i);
                 JSONObject mainObj = listObj.getJSONObject("main");
+
                 Double temp = Math.floor(mainObj.getDouble("temp"));;
+                String tempString;
+                SharedPreferences prefs = getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+                boolean tempUnit = prefs.getBoolean("unit",true);
+                if (tempUnit) {
+                    temp = Math.floor(temp * 1.8) + 32;
+                    tempString = temp + "\u00B0" + "F";
+                } else {
+                    tempString = temp + "\u00B0" + "C";
+                }
+
                 String time = listObj.getString("dt_txt");
                 int indexofSpace = time.indexOf(' ');
                 String word = time.substring(indexofSpace);
@@ -155,7 +172,7 @@ public class Weather24HourFragment extends Fragment {
                 String icon = weatherObj.getString("icon");
                 String url = "http://openweathermap.org/img/wn/"+ icon + "@2x.png";
 
-                weatherList.add(new Weather(weatherType, weatherDescription, temp, city, word, url));
+                weatherList.add(new Weather(weatherType, weatherDescription, tempString, city, word, url));
             }
             recyclerView.setAdapter(new WeatherRecyclerViewAdapter(weatherList));
 

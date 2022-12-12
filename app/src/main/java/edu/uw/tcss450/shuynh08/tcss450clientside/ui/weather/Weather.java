@@ -20,7 +20,7 @@ public class Weather implements Serializable {
     /**
      * String of the current temperature.
      */
-    private final double mTemperature;
+    private final String mTemperature;
 
     /**
      * String of the city's name.
@@ -46,7 +46,7 @@ public class Weather implements Serializable {
      * @param time String of the current time
      * @param iconUrl String of the URL for an icon for the current weather
      */
-    public Weather(String weatherType, String weatherDescription, double temperature, String city, String time, String iconUrl) {
+    public Weather(String weatherType, String weatherDescription, String temperature, String city, String time, String iconUrl) {
         this.mWeatherType = weatherType;
         this.mWeatherDescription = weatherDescription;
         this.mTemperature = temperature;
@@ -87,7 +87,7 @@ public class Weather implements Serializable {
         /**
          * Double of the current temperature.
          */
-        private double mTemperature = 0.0;
+        private String mTemperature = "0.0";
 
         /**
          * String of the city's name.
@@ -116,10 +116,10 @@ public class Weather implements Serializable {
 
         /**
          * Adds the temperature.
-         * @param temperature Double of the current temperature
+         * @param temperature String of the current temperature
          * @return The current build with the temperature now applied
          */
-        public Builder addTemperature(final double temperature) {
+        public Builder addTemperature(final String temperature) {
             mTemperature = temperature;
             return this;
         }
@@ -158,9 +158,9 @@ public class Weather implements Serializable {
     }
 
     /**
-     * @return Double of the current temperature.
+     * @return String of the current temperature.
      */
-    public double getTemperature() {
+    public String getTemperature() {
         return mTemperature;
     }
 

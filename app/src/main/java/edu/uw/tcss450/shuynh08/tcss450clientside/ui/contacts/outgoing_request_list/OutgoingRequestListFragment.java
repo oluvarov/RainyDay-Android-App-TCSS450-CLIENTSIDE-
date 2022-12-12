@@ -177,6 +177,7 @@ public class OutgoingRequestListFragment extends Fragment {
     private void deleteSuccess() {
         Toast toast = Toast.makeText(getContext(),"Successful Deletion Of Contacts",Toast.LENGTH_SHORT);
         toast.show();
+
     }
 
 }

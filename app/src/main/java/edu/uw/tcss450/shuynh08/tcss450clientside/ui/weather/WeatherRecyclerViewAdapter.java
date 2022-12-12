@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentAccountBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentWeatherCardBinding;
 
 /**
@@ -60,7 +61,8 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
             binding.textCity.setText(weather.getCity());
             binding.textType.setText(weather.getWeatherType());
             binding.textDesc.setText(weather.getWeatherDescription());
-            binding.textTemp.setText(Double.toString(weather.getTemperature()) + "\u00B0" + "C");
+
+            binding.textTemp.setText(weather.getTemperature());
             binding.textTime.setText(weather.getTime());
             Log.e("ICON URL", weather.getIconUrl());
             Picasso.get()

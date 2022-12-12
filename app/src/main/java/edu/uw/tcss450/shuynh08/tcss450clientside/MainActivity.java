@@ -15,7 +15,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -185,15 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void signOut() {
-        SharedPreferences prefs =
-                getSharedPreferences(
-                        getString(R.string.keys_shared_prefs),
-                        Context.MODE_PRIVATE);
-        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
-        //End the app completely
-        finishAndRemoveTask();
-    }
+
 
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver.
