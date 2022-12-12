@@ -1,4 +1,4 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.outgoing_request_list;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
 
 import android.app.Application;
 import android.util.Log;
@@ -24,20 +24,21 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-public class OutgoingDeleteViewModel extends AndroidViewModel {
+public class FriendListDeleteViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mContacts;
+    private MutableLiveData<JSONObject> mFriends;
 
-    public OutgoingDeleteViewModel(@NonNull Application application) {
+    public FriendListDeleteViewModel(@NonNull Application application) {
         super(application);
-        mContacts = new MutableLiveData<>();
-        mContacts.setValue(new JSONObject());
+        mFriends = new MutableLiveData<>();
+        mFriends.setValue(new JSONObject());
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
-        mContacts.observe(owner, observer);
+        mFriends.observe(owner, observer);
     }
+
 
     public void connectDeleteContacts(final int memberID, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/contact/request";
@@ -46,7 +47,7 @@ public class OutgoingDeleteViewModel extends AndroidViewModel {
                 Request.Method.DELETE,
                 url,
                 null, //no body for this get request
-                mContacts::setValue,
+                mFriends::setValue,
                 this::handleError) {
 
 
@@ -72,7 +73,7 @@ public class OutgoingDeleteViewModel extends AndroidViewModel {
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
-                mContacts.setValue(new JSONObject("{" +
+                mFriends.setValue(new JSONObject("{" +
                         "error:\"" + error.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
@@ -86,11 +87,10 @@ public class OutgoingDeleteViewModel extends AndroidViewModel {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mContacts.setValue(response);
+                mFriends.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
     }
-
 }

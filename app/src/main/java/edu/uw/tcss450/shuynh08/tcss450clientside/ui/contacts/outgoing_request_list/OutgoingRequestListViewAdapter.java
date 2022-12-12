@@ -21,7 +21,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
 public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<OutgoingRequestListViewAdapter.ContactsViewHolder> {
 
     private Context mContext;
-    private OutgoingDeleteViewModel mOutgoingDeleteModel;
+    private OutgoingRequestDeleteViewModel mOutgoingDeleteModel;
     private UserInfoViewModel mUserInfoModel;
     private final List<Contacts> mContacts;
 
@@ -31,7 +31,7 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
         this.mContacts = mContacts;
 
         mOutgoingDeleteModel = new ViewModelProvider((ViewModelStoreOwner) context)
-                .get(OutgoingDeleteViewModel.class);
+                .get(OutgoingRequestDeleteViewModel.class);
         mUserInfoModel = new ViewModelProvider((ViewModelStoreOwner) context)
                 .get(UserInfoViewModel.class);
     }
@@ -78,6 +78,8 @@ public class OutgoingRequestListViewAdapter extends RecyclerView.Adapter<Outgoin
                         mUserInfoModel.getmJwt());
                 binding.contactoutgoingDeleteFab.setVisibility(View.INVISIBLE);
             });
+
+
         }
     }
 }

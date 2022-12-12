@@ -136,8 +136,7 @@ public class AddFriendFragment extends Fragment {
     }
 
     private void success(){
-        Toast toast = Toast.makeText(getContext(),"Friend Request Sent to "
-                + binding.editEmail.getText().toString().trim(),Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(),"Friend Request Sent.",Toast.LENGTH_SHORT);
         toast.show();
 //        Snackbar snackbar = Snackbar.make(binding.buttonRequest,"Friend Request Sent to "
 //                + binding.editEmail.getText().toString().trim(),Snackbar.LENGTH_LONG);

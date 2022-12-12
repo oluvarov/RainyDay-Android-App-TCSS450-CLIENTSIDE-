@@ -1,4 +1,5 @@
-package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list;
+package edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_list;
+
 
 import android.app.Application;
 import android.util.Log;
@@ -24,11 +25,12 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
-public class FriendListViewModel extends AndroidViewModel {
+public class IncomingRequestApproveViewModel extends AndroidViewModel {
+
 
     private MutableLiveData<JSONObject> mFriends;
 
-    public FriendListViewModel(@NonNull Application application) {
+    public IncomingRequestApproveViewModel(@NonNull Application application) {
         super(application);
         mFriends = new MutableLiveData<>();
         mFriends.setValue(new JSONObject());
@@ -39,11 +41,12 @@ public class FriendListViewModel extends AndroidViewModel {
         mFriends.observe(owner, observer);
     }
 
-    public void connectContacts(final int memberID, final String jwt) {
-        String url = "https://tcss450-weather-chat.herokuapp.com/contact/list";
+
+    public void connectApproveContact(final int memberID, final String jwt) {
+        String url = "https://tcss450-weather-chat.herokuapp.com/contact/request";
 
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.PATCH,
                 url,
                 null, //no body for this get request
                 mFriends::setValue,
@@ -54,8 +57,9 @@ public class FriendListViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("memberid_a", Integer.toString(memberID));
+                headers.put("memberid_b", Integer.toString(memberID));
                 headers.put("Authorization", "Bearer "  + jwt);
+                headers.put("verified",Integer.toString(1));
                 return headers;
             }
         };
@@ -68,7 +72,6 @@ public class FriendListViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
 
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {

@@ -21,17 +21,17 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.incoming_request_li
 public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendListRecyclerViewAdapter.ContactsViewHolder> {
 
     private Context context;
-    private UserInfoViewModel mUserInfoViewModel;
-    private FriendListViewModel mFriendListViewModel;
+    private UserInfoViewModel mUserInfoModel;
+    private FriendListDeleteViewModel mFriendListDeleteModel;
     private final List<Contacts> mContacts;
 
     public FriendListRecyclerViewAdapter(Context context, List<Contacts> mContacts) {
         this.mContacts = mContacts;
         this.context = context;
 
-        mFriendListViewModel =  new ViewModelProvider((ViewModelStoreOwner) context)
-                .get(FriendListViewModel.class);
-        mUserInfoViewModel = new ViewModelProvider((ViewModelStoreOwner) context)
+        mFriendListDeleteModel =  new ViewModelProvider((ViewModelStoreOwner) context)
+                .get(FriendListDeleteViewModel.class);
+        mUserInfoModel = new ViewModelProvider((ViewModelStoreOwner) context)
                 .get(UserInfoViewModel.class);
     }
 
@@ -70,10 +70,11 @@ public class FriendListRecyclerViewAdapter extends RecyclerView.Adapter<FriendLi
             binding.textContactName.setText(contacts.getName());
             binding.textContactfriendMemberID.setText(Integer.toString(contacts.getMemberID()));
 
-            binding.buttonContactFriendDelete.setOnClickListener(button ->
-                    mFriendListViewModel.connectDeleteContacts(contacts.getMemberID()
-                            , mUserInfoViewModel.getmJwt()));
-
+            binding.buttonContactFriendDelete.setOnClickListener(button ->{
+                    mFriendListDeleteModel.connectDeleteContacts(contacts.getMemberID()
+                            , mUserInfoModel.getmJwt());
+                    binding.buttonContactFriendDelete.setVisibility(View.INVISIBLE);
+            });
         }
     }
 }
