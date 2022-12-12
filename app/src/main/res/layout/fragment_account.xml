@@ -63,4 +63,13 @@
         app:layout_constraintTop_toBottomOf="@+id/button_account_signout"
         tools:checked="false" />
 
+    <Switch
+        android:id="@+id/switch_account_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dark Theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_account_temperature" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

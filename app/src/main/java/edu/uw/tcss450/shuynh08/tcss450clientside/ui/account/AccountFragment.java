@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -114,7 +116,6 @@ public class AccountFragment extends Fragment {
                 Context.MODE_PRIVATE);
 
         boolean tempUnit = prefs.getBoolean("unit",true);
-
         if (tempUnit) {
             binding.switchAccountTemperature.setChecked(true);
         } else {
@@ -128,6 +129,23 @@ public class AccountFragment extends Fragment {
                 prefs.edit().putBoolean("unit",false).apply();
             }
         });
+
+        binding.switchAccountTheme.setOnCheckedChangeListener(((compoundButton, checked) -> {
+            if (checked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }));
+
+        switch(getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                binding.switchAccountTheme.setChecked(true);
+                break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    binding.switchAccountTheme.setChecked(false);
+        }
+
 
     }
 
@@ -151,4 +169,6 @@ public class AccountFragment extends Fragment {
         //End the app completely
         //this.getActivity().finish();
     }
+
+
 }
