@@ -27,22 +27,38 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ * A ViewModel managing the data for the ChatRoom fragment.
+ */
 public class ChatRoomViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mChatRoom;
 
+    /**
+     * Constructor for the Chat Room ViewModel. Initializes our mChatRoom with a blank
+     * JSONObject.
+     * @param application for maintaining global Application state
+     */
     public ChatRoomViewModel(@NonNull Application application) {
         super(application);
         mChatRoom = new MutableLiveData<>();
         mChatRoom.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mChatRoom.observe(owner, observer);
     }
 
-
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -67,6 +83,11 @@ public class ChatRoomViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Asks the server for the member info.
+     * [May be deleted if not used.]
+     * @param jwt the user's signed JWT
+     */
     public void connectMemberInfo(final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/user/";
 
@@ -95,6 +116,11 @@ public class ChatRoomViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * Load chat member's data from the server.
+     * @param memberID String of the member's ID
+     * @param jwt the user's signed JWT
+     */
     public void connectChatRoom(final int memberID, final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/user/list/chat";
 
@@ -104,7 +130,6 @@ public class ChatRoomViewModel extends AndroidViewModel {
                 null, //no body for this get request
                 mChatRoom::setValue,
                 this::handleError) {
-
 
             @Override
             public Map<String, String> getHeaders() {
@@ -124,8 +149,4 @@ public class ChatRoomViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
-
-
-
 }

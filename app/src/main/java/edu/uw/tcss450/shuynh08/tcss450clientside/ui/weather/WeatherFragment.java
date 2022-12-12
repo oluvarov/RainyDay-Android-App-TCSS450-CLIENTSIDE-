@@ -51,10 +51,6 @@ public class WeatherFragment extends Fragment {
     public WeatherFragment() {
     }
 
-    /**
-     * Initializes the associated LocationViewModel for Weather.
-     * @param savedInstanceState The data of the UI state
-     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,13 +59,6 @@ public class WeatherFragment extends Fragment {
 
     }
 
-    /**
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +74,6 @@ public class WeatherFragment extends Fragment {
         mViewPagerAdapter = new MyViewPagerAdapter(this);
         binding.viewPagerWeather.setAdapter(mViewPagerAdapter);
         binding.buttonWeather.setOnClickListener(this::attemptGetZipcode);
-
 
         binding.tabWeatherLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -125,6 +113,11 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    /**
+     * Obtain the user's entered ZIP Code from the associated text box. If it is valid,
+     * set the location to the provided ZIP.
+     * @param button the ZIP Code search button
+     */
     private void attemptGetZipcode(final View button) {
         String zipcode = binding.editLocation.getText().toString().trim();
         String regex = "^[0-9]{5}(?:-[0-9]{4})?$";

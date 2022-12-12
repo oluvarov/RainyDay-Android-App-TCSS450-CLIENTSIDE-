@@ -45,9 +45,10 @@ public class AddFriendFragment extends Fragment {
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
-
+    /**
+     * Required empty public constructor.
+     */
     public AddFriendFragment(){
-
     }
 
     @Override
@@ -77,11 +78,13 @@ public class AddFriendFragment extends Fragment {
                 getViewLifecycleOwner(),
                 this::observeAddFriends);
         binding.buttonRequest.setOnClickListener(this::sendFriendRequest);
-        //binding.buttonBack.setOnClickListener(this::navigateToContacts);
-
-
+        binding.buttonBack.setOnClickListener(this::navigateToContacts);
     }
 
+    /**
+     *
+     * @param response JSONObject the API response
+     */
     private void observeAddFriends(JSONObject response){
         System.out.println(isButtonPressed + " Observe before");
         if(isButtonPressed == true){
@@ -112,22 +115,34 @@ public class AddFriendFragment extends Fragment {
 
     }
 
+    /**
+     * Error to handle user's attempt at adding themselves.
+     */
     private void errorCannotAddYourself() {
         binding.editEmail.setError("Cannot add yourself.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Handles error of user not being found.
+     */
     private void errorNotFound(){
         binding.editEmail.setError("User not found.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Handles error of user trying to make a friend request again.
+     */
     private void errorFriendExist(){
         binding.editEmail.setError("Friend request already exist.");
         binding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
-
+    /**
+     * Upon user tapping the button, attempt to send the friend request.
+     * @param button the Request button
+     */
     private void sendFriendRequest(final View button) {
         isButtonPressed = true;
         System.out.println(isButtonPressed + " button top");
@@ -135,18 +150,26 @@ public class AddFriendFragment extends Fragment {
         mAddFriendModel.connectAddFriends(email,mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Handles success of sending a friend request.
+     */
     private void success(){
-        Toast toast = Toast.makeText(getContext(),"Friend Request Sent.",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(),"Friend Request Sent to "
+                + binding.editEmail.getText().toString().trim(),Toast.LENGTH_SHORT);
         toast.show();
 //        Snackbar snackbar = Snackbar.make(binding.buttonRequest,"Friend Request Sent to "
 //                + binding.editEmail.getText().toString().trim(),Snackbar.LENGTH_LONG);
 //        snackbar.show();
     };
 
-//    private void navigateToContacts(final View button){
-//        Navigation.findNavController(getView()).navigate(
-//                AddFriendFragmentDirections.actionAddFriendFragmentToNavigationContacts());
-//    }
+    /**
+     * The back button to navigate back to the Contacts screen.
+     * @param button Back
+     */
+    private void navigateToContacts(final View button){
+        Navigation.findNavController(getView()).navigate(
+                AddFriendFragmentDirections.actionAddFriendFragmentToNavigationContacts());
+    }
 
 
 }

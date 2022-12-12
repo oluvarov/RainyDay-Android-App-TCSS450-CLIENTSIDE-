@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -74,20 +73,25 @@ public class AddChatroomFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
-                Toast toast = Toast.makeText(getContext(),"New chatroom made.",Toast.LENGTH_SHORT);
-                toast.show();
+                Snackbar snackbar = Snackbar.make(mBinding.editChatName,"New chat made",Snackbar.LENGTH_SHORT);
+                snackbar.show();
             }
         } else {
             Log.d("JSON Response", "No Response");
         }
     }
 
-
+    /**
+     * Handles error of user not being found.
+     */
     private void errorNotFound(){
         mBinding.editChatName.setError("Chat not found.");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Handles error of user trying to add friend to the same chat again.
+     */
     private void errorFriendExist(){
         mBinding.editChatName.setError("Chatroom already exist");
         mBinding.layoutWait.setVisibility(View.INVISIBLE);

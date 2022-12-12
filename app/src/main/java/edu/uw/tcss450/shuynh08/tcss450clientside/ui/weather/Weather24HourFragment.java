@@ -121,10 +121,6 @@ public class Weather24HourFragment extends Fragment {
                 this::observeGetLocation);
 
     }
-    /**
-     * Used to parse through JSONObject and display 24 hour weather.
-     * @param response The JSONObject given by the API for 24 hour weather.
-     */
 
     /**
      * Used to parse through JSONObject and display 24-hour weather.

@@ -20,17 +20,21 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChatBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 
+/**
+ * A fragment used to display an ongoing chat between two members.
+ */
 public class ChatFragment extends Fragment {
 
     //The chat ID for "global" chat
     private static int HARD_CODED_CHAT_ID;
-
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
     private ChatSendViewModel mSendModel;
 
+    /**
+     * Required empty public constructor.
+     */
     public ChatFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -115,9 +119,6 @@ public class ChatFragment extends Fragment {
                         Navigation.findNavController(getView()).navigate(ChatFragmentDirections
                                 .actionNavigationChatToAddToChatFragment(HARD_CODED_CHAT_ID));
                         break;
-                    case R.id.delete_chatroom:
-                        Navigation.findNavController(getView()).navigate(ChatFragmentDirections
-                                .actionNavigationChatToDeleteChatRoomFragment(HARD_CODED_CHAT_ID));
                 }
                 return true;
             }

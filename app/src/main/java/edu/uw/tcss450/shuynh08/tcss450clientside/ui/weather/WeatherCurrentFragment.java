@@ -51,9 +51,22 @@ public class WeatherCurrentFragment extends Fragment {
      */
     private FragmentWeatherCurrentBinding binding;
 
+    /**
+     * Binding object for the Weather object/
+     */
     private FragmentWeatherBinding mWeatherBinding;
+
+    /**
+     * A ViewModel representing and holding the state of the current user.
+     */
     private UserInfoViewModel mUserInfoModel;
+
+    /**
+     * ViewModel object of Location for the Weather fragment.
+     */
     private LocationViewModel mLocationModel;
+
+
     private FragmentAccountBinding mAccountBinding;
 
 
@@ -61,10 +74,11 @@ public class WeatherCurrentFragment extends Fragment {
     private RecyclerView recyclerView;
     // private String ip;
 
+    /**
+     * Required empty public constructor.
+     */
     public WeatherCurrentFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +89,6 @@ public class WeatherCurrentFragment extends Fragment {
                 .get(LocationViewModel.class);
         mUserInfoModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-
     }
 
     @Override
@@ -197,7 +210,10 @@ public class WeatherCurrentFragment extends Fragment {
         mWeatherCurrentModel.connectCurrentZipcode(zipcode, mUserInfoModel.getmJwt());
     }
 
-
+    /**
+     * Used to observe a response from LocationViewModel on a change of location.
+     * @param location The location from LocationViewModel.
+     */
     private void observeGetLocation(final Location location) {
         System.out.println("observeGetLocation");
         mWeatherCurrentModel.connectCurrentLatLng(location.getLatitude(),location.getLongitude(), mUserInfoModel.getmJwt());

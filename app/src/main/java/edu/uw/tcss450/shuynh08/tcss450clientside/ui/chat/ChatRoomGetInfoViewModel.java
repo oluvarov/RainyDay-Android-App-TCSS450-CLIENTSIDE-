@@ -25,22 +25,41 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ * A ViewModel managing the data for a ChatRoom fragment.
+ */
 public class ChatRoomGetInfoViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mChatRoom;
 
+    /**
+     * Constructor for the ChatRoom Info's ViewModel. Initializes our mResponse with a blank
+     * JSONObject.
+     * @param application for maintaining global Application state
+     */
     public ChatRoomGetInfoViewModel(@NonNull Application application) {
         super(application);
         mChatRoom = new MutableLiveData<>();
         mChatRoom.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mChatRoom.observe(owner, observer);
     }
 
-
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -65,6 +84,10 @@ public class ChatRoomGetInfoViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Asks the server for the member info.
+     * @param jwt the user's signed JWT
+     */
     public void connectMemberInfo(final String jwt) {
         String url = "https://tcss450-weather-chat.herokuapp.com/user/";
 
@@ -92,9 +115,4 @@ public class ChatRoomGetInfoViewModel extends AndroidViewModel {
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
     }
-
-
-
-
-
 }

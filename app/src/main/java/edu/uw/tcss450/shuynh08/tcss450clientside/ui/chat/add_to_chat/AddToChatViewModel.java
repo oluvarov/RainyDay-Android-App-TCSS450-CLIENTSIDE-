@@ -24,21 +24,38 @@ import java.util.Objects;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
+/**
+ * A ViewModel managing the data for the Add-To-Chat fragment.
+ */
 public class AddToChatViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mChatRecipient;
 
+    /**
+     * Constructor for the Add-To-Chat ViewModel. Initializes our mChatRecepient object with a blank
+     * JSONObject.
+     * @param application for maintaining global Application state
+     */
     public AddToChatViewModel(@NonNull Application application) {
         super(application);
         mChatRecipient = new MutableLiveData<>();
         mChatRecipient.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer){
         mChatRecipient.observe(owner, observer);
     }
 
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -63,6 +80,12 @@ public class AddToChatViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Calls the API to add a user to a chatroom.
+     * @param email the String of the email address.
+     * @param chatID the String of the chatID
+     * @param jwt the String of the signed JWT of the user
+     */
     public void connectAddToChatroom(String email, String chatID, final String jwt) {
 
         String url = "https://tcss450-weather-chat.herokuapp.com/chats/" + chatID + "/" + email;
@@ -90,7 +113,5 @@ public class AddToChatViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
-
-
     }
 }

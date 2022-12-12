@@ -28,7 +28,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        app:backgroundTint="#96ccff"
+        android:text="@string/add_chatroom"
         app:icon="@drawable/ic_chat_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

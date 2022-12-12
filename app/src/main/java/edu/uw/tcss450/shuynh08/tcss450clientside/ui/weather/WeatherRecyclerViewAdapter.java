@@ -25,6 +25,10 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
 
     private final List<Weather> mWeather;
 
+    /**
+     * Initializes our Weather List.
+     * @param weather List of type Weather.
+     */
     public WeatherRecyclerViewAdapter(List<Weather> weather) {
         this.mWeather = weather;
     }
@@ -47,16 +51,27 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
         return mWeather.size();
     }
 
+    /**
+     * Inner class to set up and update Weather cards.
+     */
     class WeatherViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
         private FragmentWeatherCardBinding binding;
 
+        /**
+         * Constructor to set the view binding.
+         * @param view the View
+         */
         public WeatherViewHolder(@NonNull View view) {
             super(view);
             mView = view;
             binding = FragmentWeatherCardBinding.bind(view);
         }
 
+        /**
+         * Sets the appearance of an individual Weather card.
+         * @param weather the Weather object
+         */
         void setWeather(final Weather weather) {
             binding.textCity.setText(weather.getCity());
             binding.textType.setText(weather.getWeatherType());

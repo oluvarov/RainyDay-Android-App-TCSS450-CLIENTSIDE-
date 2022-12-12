@@ -41,7 +41,7 @@ public class PushyTokenViewModel extends AndroidViewModel{
 
     /**
      * Constructor for the ViewModel. Initializes all fields to new/default values.
-     * @param application The Application
+     * @param application for maintaining global Application state
      */
     public PushyTokenViewModel(@NonNull Application application) {
         super(application);

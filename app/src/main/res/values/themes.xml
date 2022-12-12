@@ -3,8 +3,8 @@
     <style name="Theme.TCSS450ClientSide" parent="Theme.Material3.DayNight.NoActionBar">
         <!--Theme.MaterialComponents.DayNight.DarkActionBar-->
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#64b1f3</item>
-        <item name="colorPrimaryVariant">#64b1f3</item>
+        <item name="colorPrimary">#00AAFF</item>
+        <item name="colorPrimaryVariant">#00AAFF</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#252121</item>

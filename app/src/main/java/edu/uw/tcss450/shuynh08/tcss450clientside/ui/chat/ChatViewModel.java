@@ -29,7 +29,7 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.R;
 import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
 
 /**
- *
+ * A ViewModel managing the data for the Chat fragment.
  */
 public class ChatViewModel extends AndroidViewModel {
     /**
@@ -41,7 +41,7 @@ public class ChatViewModel extends AndroidViewModel {
 
     /**
      * Constructor for the Chat ViewModel. Initializes our Map of Lists of Chat Messages.
-     * @param application The Application
+     * @param application for maintaining global Application state
      */
     public ChatViewModel(@NonNull Application application) {
         super(application);
@@ -50,8 +50,8 @@ public class ChatViewModel extends AndroidViewModel {
 
     /**
      * Register as an observer to listen to a specific chat room's list of messages.
-     * @param chatId the chatid of the chat to observer
-     * @param owner the fragments lifecycle owner
+     * @param chatId the chat ID of the chat to observer
+     * @param owner the fragment's lifecycle owner
      * @param observer the observer
      */
     public void addMessageObserver(int chatId,
@@ -76,9 +76,9 @@ public class ChatViewModel extends AndroidViewModel {
     }
 
     /**
-     *
-     * @param chatId
-     * @return
+     * Compiles a raw list of ChatMessage objects.
+     * @param chatId the int of the chat ID
+     * @return MutableLiveData<List<ChatMessage>>>
      */
     private MutableLiveData<List<ChatMessage>> getOrCreateMapEntry(final int chatId) {
         if(!mMessages.containsKey(chatId)) {
@@ -190,7 +190,7 @@ public class ChatViewModel extends AndroidViewModel {
     }
 
     /**
-     *
+     * Used to handle successful API calls.
      * @param response
      */
     private void handleSuccess(final JSONObject response) {

@@ -30,6 +30,9 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentChatroomBin
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.weather.WeatherRecyclerViewAdapter;
 
+/**
+ * A fragment used to display all chatrooms a user can choose from.
+ */
 public class ChatRoomFragment extends Fragment {
 
     private ChatRoomViewModel mChatRoomModel;
@@ -39,9 +42,10 @@ public class ChatRoomFragment extends Fragment {
     private UserInfoViewModel mUserInfoModel;
     private int mMemberID;
 
-
+    /**
+     * Required empty public constructor.
+     */
     public ChatRoomFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -88,14 +92,28 @@ public class ChatRoomFragment extends Fragment {
 
     }
 
+    /**
+     * Gets the member info from the server.
+     * [May be deleted if not used.]
+     * @param button The button
+     */
     private void attemptGetMemberInfo(final View button) {
         mMemberInfoModel.connectMemberInfo(mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Gets the chat rooms from the server.
+     * [May be deleted if not used.]
+     * @param button The button
+     */
     private void attemptGetChatRooms(final View button) {
         mChatRoomModel.connectChatRoom(mMemberID, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Sets up the member's info by obtaining their ID, then connects their chatrooms.
+     * @param response JSONObject the API response
+     */
     private void setUpMemberInfo(JSONObject response) {
         System.out.println("setupmemberinfo");
         System.out.println(response + " setupmemberinfo");
@@ -108,6 +126,11 @@ public class ChatRoomFragment extends Fragment {
         mChatRoomModel.connectChatRoom(mMemberID, mUserInfoModel.getmJwt());
     }
 
+    /**
+     * Upon receiving the list of chatrooms from the API response, it will set up
+     * the chatrooms within the app.
+     * @param response JSONObject the API response
+     */
     private void setUpChatRoom(JSONObject response) {
         System.out.println("setupchatroom");
         System.out.println(response + " setupchatroom");
@@ -129,24 +152,11 @@ public class ChatRoomFragment extends Fragment {
         }
     }
 
-    private void observeChatRoom(final JSONObject response) {
-        if (response.length() > 0) {
-            if (response.has("code")) {
-                try {
-                    Snackbar snackbar = Snackbar.make(binding.textChat,"Error Authenticating: " +
-                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
-                }
-            } else {
-                setUpChatRoom(response);
-            }
-        } else {
-            Log.d("JSON Response", "No Response");
-        }
-    }
-
+    /**
+     * Upon receiving a successful response from an API call, set up the member's ID by calling
+     * setUpMemberInfo().
+     * @param response JSONObject the API response
+     */
     private void observeMemberInfo(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -165,6 +175,26 @@ public class ChatRoomFragment extends Fragment {
         }
     }
 
-
-
+    /**
+     * Upon receiving a successful response from an API call, set up the chatrooms by calling
+     * setUpChatRoom().
+     * @param response JSONObject the API response
+     */
+    private void observeChatRoom(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    Snackbar snackbar = Snackbar.make(binding.textChat,"Error Authenticating: " +
+                            response.getJSONObject("data").getString("message"),Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                setUpChatRoom(response);
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
 }

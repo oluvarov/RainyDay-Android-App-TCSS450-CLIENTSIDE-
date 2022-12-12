@@ -37,7 +37,7 @@ public class ChangeNameViewModel extends AndroidViewModel {
 
     /**
      * Constructor for the Change Name ViewModel. Initializes our mResponse with a blank JSONObject.
-     * @param application The Application
+     * @param application for maintaining global Application state
      */
     public ChangeNameViewModel(@NonNull Application application) {
         super(application);

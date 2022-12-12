@@ -164,8 +164,7 @@ public class ChangeNameFragment extends Fragment {
     }
 
     /**
-     * An observer on the HTTP Response from the web server. This observer should be
-     * attached to SignInViewModel.
+     * An observer on the HTTP Response from the web server.
      *
      * @param response the Response from the server
      */

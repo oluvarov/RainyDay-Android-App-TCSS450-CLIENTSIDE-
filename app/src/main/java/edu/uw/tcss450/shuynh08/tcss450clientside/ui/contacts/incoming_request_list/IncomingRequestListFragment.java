@@ -13,7 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,10 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.shuynh08.tcss450clientside.R;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentFriendListBinding;
+import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentIncomingRequestCardBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.databinding.FragmentIncomingRequestListBinding;
 import edu.uw.tcss450.shuynh08.tcss450clientside.model.UserInfoViewModel;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.Contacts;
 import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.ContactsGetInfoViewModel;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListRecyclerViewAdapter;
+import edu.uw.tcss450.shuynh08.tcss450clientside.ui.contacts.friend_list.FriendListViewModel;
 
 /**
  * create an instance of this fragment.
@@ -38,7 +43,6 @@ public class IncomingRequestListFragment extends Fragment {
     private UserInfoViewModel mUserInfoViewModel;
     private IncomingRequestViewModel mIncomingRequestModel;
     private ContactsGetInfoViewModel mContactsGetInfoModel;
-    private IncomingRequestApproveViewModel mIncomingRequestApproveModel;
     private int mMemberID;
 
 
@@ -48,7 +52,6 @@ public class IncomingRequestListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mIncomingRequestModel = new ViewModelProvider(getActivity()).get(IncomingRequestViewModel.class);
         mContactsGetInfoModel = new ViewModelProvider(getActivity()).get(ContactsGetInfoViewModel.class);
-        mIncomingRequestApproveModel = new ViewModelProvider(getActivity()).get(IncomingRequestApproveViewModel.class);
     }
 
     @Override
@@ -74,32 +77,10 @@ public class IncomingRequestListFragment extends Fragment {
         mIncomingRequestModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeContacts);
-        mIncomingRequestApproveModel.addResponseObserver(
-                getViewLifecycleOwner(),
-                this::observeApproveContacts);
         mContactsGetInfoModel.connectMemberInfo(mUserInfoViewModel.getmJwt());
 
 
     }
-
-    private void observeApproveContacts(JSONObject response) {
-        if (response.length() > 0) {
-            if (response.has("code")) {
-                try {
-                    binding.textIncomingRequestList.setError(
-                            "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
-                } catch (JSONException e) {
-                    Log.e("JSON Parse Error", e.getMessage());
-                }
-            } else {
-                successApprove();
-            }
-        } else {
-            Log.d("JSON Response", "No Response");
-        }
-    }
-
 
     private void observeContacts(final JSONObject response) {
         if (response.length() > 0) {
@@ -173,10 +154,8 @@ public class IncomingRequestListFragment extends Fragment {
         }
     }
 
-
-    private void successApprove() {
-        Toast toast = Toast.makeText(getContext(),"Successful Approval Of Contact",Toast.LENGTH_SHORT);
-        toast.show();
+    private int getMemberId(){
+        return mMemberID;
     }
 
 }

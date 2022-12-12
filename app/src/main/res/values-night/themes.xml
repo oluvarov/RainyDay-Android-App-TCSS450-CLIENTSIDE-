@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.TCSS450ClientSide" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#64b1f3</item>
-        <item name="colorPrimaryVariant">#64b1f3</item>
+        <item name="colorPrimary">#00AAFF</item>
+        <item name="colorPrimaryVariant">#00AAFF</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

@@ -90,9 +90,4 @@ public class ContactsGetInfoViewModel extends AndroidViewModel {
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
     }
-
-
-
-
-
 }

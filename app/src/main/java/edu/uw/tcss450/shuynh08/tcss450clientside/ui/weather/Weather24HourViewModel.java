@@ -28,20 +28,36 @@ import edu.uw.tcss450.shuynh08.tcss450clientside.io.RequestQueueSingleton;
  */
 public class Weather24HourViewModel extends AndroidViewModel {
 
+    /**
+     * Publishes responses from our API web calls.
+     */
     private MutableLiveData<JSONObject> mWeather;
 
+    /**
+     * Constructor for the 24-Hour Weather ViewModel. Initializes our mWeather with a
+     * blank JSONObject.
+     * @param application for maintaining global Application state
+     */
     public Weather24HourViewModel(@NonNull Application application) {
         super(application);
         mWeather = new MutableLiveData<>();
         mWeather.setValue(new JSONObject());
     }
 
+    /**
+     * Used to observe our API responses.
+     * @param owner The fragment's lifecycle owner
+     * @param observer The observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mWeather.observe(owner, observer);
     }
 
-
+    /**
+     * Used to handle errors with API calls.
+     * @param error VolleyError
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -65,6 +81,7 @@ public class Weather24HourViewModel extends AndroidViewModel {
             }
         }
     }
+
     /**
      * Method that creates a HTTP request to an API for 24 hour weather using an IP.
      * @param ip The IP of the device making the request.
@@ -99,6 +116,7 @@ public class Weather24HourViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
+
     /**
      * Method that creates a HTTP request to an API for 24 hour weather using a zipcode.
      * @param zipcode The zipcode given by the user.
@@ -133,6 +151,7 @@ public class Weather24HourViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
+
     /**
      * Method that creates a HTTP request to an API for 24 hour weather using latitude and longitude.
      * @param lat The latitude given by the user.
@@ -169,8 +188,4 @@ public class Weather24HourViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
-
-
-
 }

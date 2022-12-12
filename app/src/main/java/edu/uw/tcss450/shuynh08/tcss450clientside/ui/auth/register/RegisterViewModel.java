@@ -34,7 +34,7 @@ public class RegisterViewModel extends AndroidViewModel {
 
     /**
      * Constructor for the Register ViewModel. Initializes our mResponse with a blank JSONObject.
-     * @param application The Application
+     * @param application for maintaining global Application state
      */
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -81,7 +81,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     /**
-     * User inputs their name, email, and password. Info is sent over to API
+     * User inputs their name, email, and password. Info is sent over to server
      * in order to register them.
      * @param first String first name of the user
      * @param last String last name of the user

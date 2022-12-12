@@ -37,7 +37,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
     /**
      * Constructor for the Forgot Password ViewModel. Initializes our mResponse with a blank
      * JSONObject.
-     * @param application The Application
+     * @param application for maintaining global Application state
      */
     public ForgotPasswordViewModel(@NonNull Application application) {
         super(application);
@@ -84,7 +84,7 @@ public class ForgotPasswordViewModel extends AndroidViewModel {
     }
 
     /**
-     * User inputs their account's email address. Info is sent over to API
+     * User inputs their account's email address. Info is sent over to server
      * in order to reset their password.
      * @param email String email of the user
      */
